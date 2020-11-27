@@ -7,22 +7,21 @@ public class Fenetre{
    frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
    frame.setSize(1500,800);
 
-   JMenuBar mb = new JMenuBar();
-   JMenu m1 = new JMenu("FILE");
-   JMenu m2 = new JMenu("Help");
-   mb.add(m1);
-   mb.add(m2);
-   JMenuItem m11 = new JMenuItem("Open");
-   JMenuItem m22 = new JMenuItem("Save as");
-   m1.add(m11);
-   m1.add(m22);
-   JButton button = new JButton("Press");
-   frame.getContentPane().add(BorderLayout.NORTH,mb);
-
+   //CSV
    CSV_Reader csv= new CSV_Reader("minutes_info.csv");
    String[] colones=csv.getColones();
    String[][] lignes=csv.getLignes();
+
+   //MENU
+   Menu mb= new Menu(frame);
+   mb.MenuCours(colones);
+   mb.TextField();
+   mb.MenuCours(colones);
+
+   //TABLEAU
    Tableau t= new Tableau(frame,lignes,colones);
+
+
    frame.setVisible(true);
  }
 }
