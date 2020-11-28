@@ -4,12 +4,67 @@ import java.awt.event.*;
 import java.awt.event.KeyListener;
 
 public class Menu{
+  private final int DEBUT_COURS=3;
+  private Fenetre Fenetre;
   private JMenuBar MenuBar;
-  public String text;
 
-  public Menu(JFrame frame){
-    //Barre principale
+  public Menu(Fenetre F){
+    Fenetre=F;
     MenuBar = new JMenuBar();
+    Fenetre.getFrame().getContentPane().add(BorderLayout.NORTH,MenuBar);
+  }
+
+  public JMenuBar MenuCours(String[] colonne){
+    JMenu Cours=new JMenu("COURS");
+    MenuBar.add(Cours);
+
+    JMenuItem cour=new JMenuItem("ON");
+    cour.addActionListener(new CourBouton(this,"ON"));
+    Cours.add(cour);
+    cour=new JMenuItem("OFF");
+    cour.addActionListener(new CourBouton(this,"OFF"));
+    Cours.add(cour);
+
+    for(int i=DEBUT_COURS;i<colonne.length-1;i++){
+      cour=new JMenuItem(colonne[i]);
+      cour.addActionListener(new CourBouton(this,"COUR"));
+      Cours.add(cour);
+    }
+    return MenuBar;
+  }
+
+  public JTextField TextField(){
+    JMenu Recherche=new JMenu("Recherche Nom");
+    JTextField textField = new JTextField();
+    textField.setColumns(20);
+    textField.addKeyListener(new TexteBoutons(this));
+    MenuBar.add(Recherche);
+    Recherche.add(textField);
+    return textField;
+  }
+
+  public void setFiltre(String tag,String s){
+    Fenetre.setFiltre(tag,s);
+  }
+
+  public JMenuBar getMenuBar(){
+    return MenuBar;
+  }
+}
+
+/*  private void ajoutSousMenu(JMenu parent,JMenu fils,String... item){
+    if(item.length>0){
+      for(String i:item){
+        fils.add(new JMenuItem(i));
+      }
+      parent.add(fils);
+    }
+    else{
+      parent.add(new JMenuItem(fils.getText()));
+    }
+  }
+*/
+
 
     /*JMenu m1 = new JMenu("OPTION 1");
     MenuBar.add(m1);
@@ -37,41 +92,3 @@ public class Menu{
 
     //System.out.println(((JMenuItem)(m3.getMenuComponents()[0])).getText());
     //System.out.println((((JMenu)(m3.getMenuComponents()[0])).getMenuComponents())[0]);
-
-    frame.getContentPane().add(BorderLayout.NORTH,MenuBar);
-  }
-
-/*  private void ajoutSousMenu(JMenu parent,JMenu fils,String... item){
-    if(item.length>0){
-      for(String i:item){
-        fils.add(new JMenuItem(i));
-      }
-      parent.add(fils);
-    }
-    else{
-      parent.add(new JMenuItem(fils.getText()));
-    }
-  }
-*/
-
-  public void MenuCours(String[] colonne){
-    JMenu Cours=new JMenu("COURS");
-    MenuBar.add(Cours);
-    JMenuItem cour;
-    for(String s:colonne){
-      cour=new JMenuItem(s);
-      cour.addActionListener(new CoursBoutons());
-      Cours.add(cour);
-    }
-  }
-
-  public void TextField(){
-    JMenu Recherche=new JMenu("Recherche");
-    JTextField textField = new JTextField();
-    textField.setColumns(20);
-    textField.addKeyListener(new TexteBoutons());
-    MenuBar.add(Recherche);
-    Recherche.add(textField);
-  }
-
-}
