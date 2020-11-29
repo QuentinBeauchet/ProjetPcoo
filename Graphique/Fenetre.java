@@ -32,6 +32,7 @@ public class Fenetre{
    JFrame frame = new JFrame("Projet PCOO");
    frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
    frame.setSize(1500,800);
+   frame.setLayout(new GridBagLayout());
    this.frame=frame;
  }
 

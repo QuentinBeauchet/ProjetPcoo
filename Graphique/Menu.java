@@ -11,7 +11,14 @@ public class Menu{
   public Menu(Fenetre F){
     Fenetre=F;
     MenuBar = new JMenuBar();
-    Fenetre.getFrame().getContentPane().add(BorderLayout.NORTH,MenuBar);
+
+    GridBagConstraints c=new GridBagConstraints();
+    c.gridx=0;
+    c.gridy=0;
+    c.weighty=0;
+    c.weightx=1;
+    c.fill = GridBagConstraints.HORIZONTAL;
+    Fenetre.getFrame().getContentPane().add(MenuBar,c);
   }
 
   public JMenuBar MenuCours(String[] colonne){

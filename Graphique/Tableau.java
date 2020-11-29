@@ -18,17 +18,50 @@ public class Tableau{
   private JTable tableau;
 
   Tableau(JFrame frame,String[][] lignes,String[] colones){
-    //Erreur de sort avec des string pour les nombres il faut des doubles
     tableau = new JTable(lignes, colones);
-    tableau.setAutoResizeMode(0);
 
     tableau.setAutoCreateRowSorter(true);
     sorter = (DefaultRowSorter)tableau.getRowSorter();
+    for(int i=NBR_COLONES_PRINCIPALES;i<tableau.getColumnModel().getColumnCount();i++){
+      sorter.setComparator(i,new CoursComparator());
+    }
 
+    //Table des scores
+    String[][] lignes_calcul=new String[NBR_LIGNES_CALCUL][];
+    for(int i=lignes.length-NBR_LIGNES_CALCUL;i<lignes.length;i++){
+      lignes_calcul[lignes.length-i-1]=lignes[i];
+    }
+    JTable score=new JTable(lignes_calcul,colones);
+    score.getTableHeader().setUI(null);
+    score.setBackground(new Color(220,220,220));
+    score.setShowVerticalLines(false);
+    score.setDefaultEditor(Object.class, null);
+    score.setPreferredScrollableViewportSize(new Dimension((int)score.getPreferredScrollableViewportSize().getWidth(),score.getRowCount()*score.getRowHeight()));
+
+    //ScrollBar
+    JScrollPane ConteneurScore = new JScrollPane(score);
     JScrollPane ConteneurTableau = new JScrollPane(tableau);
-    frame.add(ConteneurTableau,BorderLayout.CENTER);
-    tableau.getTableHeader().setForeground(new Color(153, 31, 0));
 
+    //Même scrollbar horizontale
+    tableau.setAutoResizeMode(0);
+    score.setAutoResizeMode(0);
+    ConteneurTableau.getHorizontalScrollBar().setModel(ConteneurScore.getHorizontalScrollBar().getModel());
+    ConteneurTableau.setHorizontalScrollBarPolicy(JScrollPane.HORIZONTAL_SCROLLBAR_NEVER);
+
+
+    JPanel TAB=new JPanel();
+    TAB.setLayout(new BorderLayout());
+    TAB.add(ConteneurTableau);
+    TAB.add(ConteneurScore,BorderLayout.SOUTH);
+
+    GridBagConstraints c=new GridBagConstraints();
+    c.gridx=0;
+    c.gridy=1;
+    c.weighty=1;
+    c.weightx=1;
+    c.fill=GridBagConstraints.BOTH;
+    frame.add(TAB,c);
+    tableau.getTableHeader().setForeground(new Color(153, 31, 0));
   }
 
   public void setFiltre(String tag,String s){
@@ -102,16 +135,3 @@ public class Tableau{
     }
   }
 }
-
-/*    tableau.setBounds(30, 40, 200, 300);
-
-    tableau.getTableHeader().setForeground(new Color(153, 31, 0));
-    tableau.getTableHeader().setFont(j.getFont().deriveFont(Font.BOLD,12f));
-*/
-
-    /*TableRowSorter<TableModel> sorter = new TableRowSorter<TableModel>(tableau.getModel());
-    tableau.setRowSorter(sorter);
-    ArrayList<RowSorter.SortKey> sortKeys = new ArrayList<>(25);
-    sortKeys.add(new RowSorter.SortKey(4, SortOrder.ASCENDING));
-    sortKeys.add(new RowSorter.SortKey(0, SortOrder.ASCENDING));
-    sorter.setSortKeys(sortKeys);*/
