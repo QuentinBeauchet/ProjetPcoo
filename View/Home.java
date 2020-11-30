@@ -8,14 +8,9 @@ import java.awt.*;
 public class Home {
     private  JFrame frame;
     private Container frameContentPane;
-
-    public Container getFrameContentPane() {
-        return frameContentPane;
-    }
+    private JButton hello;
 
     public Home() {
-
-
 
         this.frame = new JFrame();
         this.frame.setTitle("myHome");
@@ -23,12 +18,13 @@ public class Home {
         this.frame.setLocationRelativeTo(null);
         this.frame.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
 
+        this.hello = new JButton("Hello");
 
         this.frameContentPane = frame.getContentPane();
 
 
-
         this.frameContentPane.setLayout(new FlowLayout());
+        this.frameContentPane.add(this.hello);
 
         this.frame.setVisible(true);
 
@@ -37,5 +33,13 @@ public class Home {
     public JFrame getFrame() {
         return frame;
     }
+    public Container getFrameContentPane() {
+        return frameContentPane;
+    }
+
+    public JButton getHello() {
+        return hello;
+    }
+
 
 }

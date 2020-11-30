@@ -21,4 +21,12 @@ public class HomeController {
         this.h.getFrameContentPane().add(new JLabel(this.e.getNom()));
     }
 
+    public void initController(){
+        this.h.getHello().addActionListener(e -> sayHello() );
+    }
+
+    private void sayHello() {
+        JOptionPane.showMessageDialog(null,"Hello "+ e.getPrenom(),"Message de Bienvenue",JOptionPane.INFORMATION_MESSAGE);
+    }
+
 }
