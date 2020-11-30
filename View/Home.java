@@ -8,6 +8,11 @@ import java.awt.*;
 public class Home {
     private  JFrame frame;
     private Container frameContentPane;
+
+    public Container getFrameContentPane() {
+        return frameContentPane;
+    }
+
     public Home() {
 
 
@@ -25,18 +30,12 @@ public class Home {
 
         this.frameContentPane.setLayout(new FlowLayout());
 
-
-
-    }
-    public void initView(Etudiant e){
-        this.frameContentPane.add(new JLabel(String.valueOf(e.getId())));
-        this.frameContentPane.add(new JLabel(e.getPrenom()));
-        this.frameContentPane.add(new JLabel(e.getNom()));
-        frame.setVisible(true);
+        this.frame.setVisible(true);
 
     }
 
     public JFrame getFrame() {
         return frame;
     }
+
 }
