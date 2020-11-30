@@ -1,6 +1,6 @@
-import javax.swing.*;
-import java.awt.*;
-import java.awt.event.*;
+import javax.swing.JTextField;
+import java.awt.event.KeyListener;
+import java.awt.event.KeyEvent;
 
 public class TexteBoutons implements KeyListener{
   private JTextField TextField;
@@ -10,6 +10,7 @@ public class TexteBoutons implements KeyListener{
     this.menu=m;
   }
 
+  //Renvoit le contenu de TextField a chaque nouvelle touche pressé
   public void keyReleased(KeyEvent e){
     TextField=(JTextField)e.getSource();
     menu.setFiltre("TEXTE",TextField.getText());

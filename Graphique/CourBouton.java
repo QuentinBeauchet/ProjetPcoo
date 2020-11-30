@@ -1,6 +1,7 @@
-import javax.swing.*;
-import java.awt.*;
-import java.awt.event.*;
+import javax.swing.JMenu;
+import javax.swing.JMenuItem;
+import java.awt.Color;
+import java.awt.event.ActionEvent;
 
 public class CourBouton extends MenuBouton{
   private final String tag;
@@ -10,14 +11,16 @@ public class CourBouton extends MenuBouton{
     this.tag=tag;
   }
 
+  //Renvoit le nom du cours qui a été cliqué dans le menu
   public void actionPerformed(ActionEvent e){
     JMenuItem cour=(JMenuItem)e.getSource();
     Couleur(cour);
     super.menu.setFiltre(tag,cour.getText());
   }
 
+  //Grise la case du cours s'il n'est pas affiché et inversement
   private void Couleur(JMenuItem cour){
-    JMenu Cours=(JMenu)(super.menu.getMenuBar().getComponent(0));
+    JMenu Cours=(JMenu)(super.menu.MenuBar.getComponent(0));
     switch(tag){
       case "ON":
         for(int i=2;i<Cours.getItemCount();i++){

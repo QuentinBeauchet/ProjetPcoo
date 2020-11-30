@@ -1,6 +1,5 @@
-import javax.swing.*;
-import java.awt.*;
-import java.awt.event.*;
+import java.awt.event.ActionListener;
+import java.awt.event.ActionEvent;
 
 abstract class MenuBouton implements ActionListener{
   public Menu menu;

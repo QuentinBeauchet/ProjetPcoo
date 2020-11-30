@@ -1,9 +1,15 @@
-import javax.swing.*;
-import java.awt.*;
+import javax.swing.JFrame;
+import javax.swing.JMenuBar;
+import javax.swing.JTextField;
+import java.awt.GridBagLayout;
 
 public class Fenetre{
-  private JFrame frame;
+  public JFrame frame;
   private Tableau tab;
+
+  public static void main(String args[]){
+    Fenetre f= new Fenetre();
+  }
 
   public Fenetre(){
     //JFrame
@@ -16,18 +22,16 @@ public class Fenetre{
 
     //MENU
     Menu mb= new Menu(this);
-    JMenuBar m1=mb.MenuCours(colones);
+    JMenuBar Cours=mb.MenuCours(colones);
     JTextField Recherche=mb.TextField();
 
     //TABLEAU
-    tab= new Tableau(frame,lignes,colones);
+    tab=new Tableau(frame,lignes,colones);
 
     frame.setVisible(true);
   }
-  public static void main(String args[]){
-   Fenetre f= new Fenetre();
- }
 
+ //Parametre de la JFrame
  private void setFrame(){
    JFrame frame = new JFrame("Projet PCOO");
    frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -36,10 +40,7 @@ public class Fenetre{
    this.frame=frame;
  }
 
- public JFrame getFrame(){
-   return frame;
- }
-
+ //Methode qui permet de communiquer d'un MenuBouton a Tableau
  public void setFiltre(String tag,String s){
    tab.setFiltre(tag,s);
  }

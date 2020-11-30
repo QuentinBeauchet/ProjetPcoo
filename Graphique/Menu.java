@@ -1,26 +1,23 @@
-import javax.swing.*;
-import java.awt.*;
-import java.awt.event.*;
+import javax.swing.JMenu;
+import javax.swing.JMenuItem;
+import javax.swing.JMenuBar;
+import javax.swing.JTextField;
+import java.awt.GridBagConstraints;
+import java.awt.event.ActionListener;
 import java.awt.event.KeyListener;
 
 public class Menu{
   private final int DEBUT_COURS=3;
   private Fenetre Fenetre;
-  private JMenuBar MenuBar;
+  public JMenuBar MenuBar;
 
   public Menu(Fenetre F){
     Fenetre=F;
-    MenuBar = new JMenuBar();
-
-    GridBagConstraints c=new GridBagConstraints();
-    c.gridx=0;
-    c.gridy=0;
-    c.weighty=0;
-    c.weightx=1;
-    c.fill = GridBagConstraints.HORIZONTAL;
-    Fenetre.getFrame().getContentPane().add(MenuBar,c);
+    MenuBar=new JMenuBar();
+    Fenetre.frame.getContentPane().add(MenuBar,GBC());
   }
 
+  //Methode creation MenuDeroulant Cours
   public JMenuBar MenuCours(String[] colonne){
     JMenu Cours=new JMenu("COURS");
     MenuBar.add(Cours);
@@ -40,62 +37,30 @@ public class Menu{
     return MenuBar;
   }
 
+  //Methode creation TextField Recherche Nom
   public JTextField TextField(){
     JMenu Recherche=new JMenu("Recherche Nom");
     JTextField textField = new JTextField();
     textField.setColumns(20);
     textField.addKeyListener(new TexteBoutons(this));
-    MenuBar.add(Recherche);
     Recherche.add(textField);
+    MenuBar.add(Recherche);
     return textField;
   }
 
+  //Methode qui permet de communiquer d'un MenuBouton a Tableau
   public void setFiltre(String tag,String s){
     Fenetre.setFiltre(tag,s);
   }
 
-  public JMenuBar getMenuBar(){
-    return MenuBar;
+  //GridBagConstraints du Menu
+  private GridBagConstraints GBC(){
+    GridBagConstraints c=new GridBagConstraints();
+    c.gridx=0;
+    c.gridy=0;
+    c.weighty=0;
+    c.weightx=1;
+    c.fill = GridBagConstraints.HORIZONTAL;
+    return c;
   }
 }
-
-/*  private void ajoutSousMenu(JMenu parent,JMenu fils,String... item){
-    if(item.length>0){
-      for(String i:item){
-        fils.add(new JMenuItem(i));
-      }
-      parent.add(fils);
-    }
-    else{
-      parent.add(new JMenuItem(fils.getText()));
-    }
-  }
-*/
-
-
-    /*JMenu m1 = new JMenu("OPTION 1");
-    MenuBar.add(m1);
-    JMenu m11 = new JMenu("sm 1");
-    m1.add(m11);
-    JMenuItem m111 = new JMenuItem("A");
-    m11.add(m111);
-    JMenuItem m112 = new JMenuItem("B");
-    m11.add(m112);
-    JMenuItem m113 = new JMenuItem("C");
-    m11.add(m113);
-    JMenu m12 = new JMenu("sm 2");
-    m1.add(m12);
-    JMenu m2 = new JMenu("OPTION 2");
-    MenuBar.add(m2);
-    JMenu m3 = new JMenu("OPTION 3");
-    MenuBar.add(m3);
-
-    m111.addActionListener(new ActionListener(){
-      public void actionPerformed(ActionEvent e){
-        System.out.println("PAF !!!");
-      }
-    });*/
-
-
-    //System.out.println(((JMenuItem)(m3.getMenuComponents()[0])).getText());
-    //System.out.println((((JMenu)(m3.getMenuComponents()[0])).getMenuComponents())[0]);
