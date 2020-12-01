@@ -1,0 +1,36 @@
+package Model;
+
+import java.util.ArrayList;
+
+public class BlocOptions extends BlocMultiple {
+    private int coef;
+
+    public BlocOptions(int id, int coef, String nom) {
+        super(id,nom);
+        this.coef = coef;
+    }
+
+    @Override
+    public void add(UE ue){
+        if(ue.getCoef() == this.getCoef()){
+            this.listUe.add(ue);
+        }
+    }
+
+    @Override
+    public int getCoef() {
+        return this.coef;
+    }
+
+    @Override
+    public Note calcNote(Etudiant e) {
+
+         Note nMax = new Note("0");
+        for (int i = 0; i < this.listUe.size() ; i++) {
+            if(e.getNotes().get(this.listUe.get(i)) != null
+                    && nMax.getIntNote() < e.getNotes().get(this.listUe.get(i)).getIntNote())
+                nMax = e.getNotes().get(this.listUe.get(i));
+        }
+        return new Note(nMax.getNote());
+    }
+}
