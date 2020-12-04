@@ -3,18 +3,39 @@ import javax.swing.JMenuItem;
 import javax.swing.JMenuBar;
 import javax.swing.JTextField;
 import java.awt.GridBagConstraints;
+import java.awt.BorderLayout;
 import java.awt.event.ActionListener;
 import java.awt.event.KeyListener;
+import java.io.File;
+import javax.swing.JLabel;
+import javax.swing.Box;
+import javax.swing.JPanel;
+import javax.swing.*;
 
 public class Menu{
   private final int DEBUT_COURS=3;
   private Fenetre Fenetre;
-  public JMenuBar MenuBar;
+  private JMenuBar MenuBar;
 
   public Menu(Fenetre F){
     Fenetre=F;
     MenuBar=new JMenuBar();
     Fenetre.frame.getContentPane().add(MenuBar,GBC());
+  }
+
+  //Methode creation Selection Fichier
+  public JMenuBar Fichier(){
+    JMenu fichier=new JMenu("Fichier");
+    MenuBar.add(fichier);
+
+    JMenuItem ouvrir=new JMenuItem("Ouvrir");
+    ouvrir.addActionListener(new FichierBouton(this,"Ouvrir"));
+    fichier.add(ouvrir);
+
+    JMenuItem enregistrer=new JMenuItem("Enregistrer");
+    enregistrer.addActionListener(new FichierBouton(this,"Enregistrer"));
+    fichier.add(enregistrer);
+    return MenuBar;
   }
 
   //Methode creation MenuDeroulant Cours
@@ -39,11 +60,14 @@ public class Menu{
 
   //Methode creation TextField Recherche Nom
   public JTextField TextField(){
-    JMenu Recherche=new JMenu("Recherche Nom");
+    JPanel Recherche=new JPanel();
     JTextField textField = new JTextField();
     textField.setColumns(20);
     textField.addKeyListener(new TexteBoutons(this));
-    Recherche.add(textField);
+    JLabel j=new JLabel("Recherche:");
+    Recherche.setLayout(new BorderLayout());
+    Recherche.add(j,BorderLayout.NORTH);
+    Recherche.add(textField,BorderLayout.LINE_START);
     MenuBar.add(Recherche);
     return textField;
   }
@@ -51,6 +75,10 @@ public class Menu{
   //Methode qui permet de communiquer d'un MenuBouton a Tableau
   public void setFiltre(String tag,String s){
     Fenetre.setFiltre(tag,s);
+  }
+
+  public void setFile(File f){
+    Fenetre.setFile(f);
   }
 
   //GridBagConstraints du Menu
@@ -62,5 +90,9 @@ public class Menu{
     c.weightx=1;
     c.fill = GridBagConstraints.HORIZONTAL;
     return c;
+  }
+
+  public JMenuBar getMenuBar(){
+    return MenuBar;
   }
 }

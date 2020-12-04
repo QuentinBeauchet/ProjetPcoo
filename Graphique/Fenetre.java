@@ -2,10 +2,12 @@ import javax.swing.JFrame;
 import javax.swing.JMenuBar;
 import javax.swing.JTextField;
 import java.awt.GridBagLayout;
+import java.io.File;
 
 public class Fenetre{
   public JFrame frame;
   private Tableau tab;
+  private File File;
 
   public static void main(String args[]){
     Fenetre f= new Fenetre();
@@ -22,6 +24,7 @@ public class Fenetre{
 
     //MENU
     Menu mb= new Menu(this);
+    JMenuBar Fichier=mb.Fichier();
     JMenuBar Cours=mb.MenuCours(colones);
     JTextField Recherche=mb.TextField();
 
@@ -43,6 +46,10 @@ public class Fenetre{
  //Methode qui permet de communiquer d'un MenuBouton a Tableau
  public void setFiltre(String tag,String s){
    tab.setFiltre(tag,s);
+ }
+
+ public void setFile(File f){
+   File=f;
  }
 
 }
