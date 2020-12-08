@@ -11,6 +11,10 @@ import javax.swing.JLabel;
 import javax.swing.Box;
 import javax.swing.JPanel;
 import javax.swing.*;
+import java.awt.*;
+import java.awt.event.FocusEvent;
+import java.awt.event.FocusListener;
+
 
 public class Menu{
   private final int DEBUT_COURS=3;
@@ -63,12 +67,26 @@ public class Menu{
     JPanel Recherche=new JPanel();
     JTextField textField = new JTextField();
     textField.setColumns(20);
+    textField.setMaximumSize(new Dimension(100,20));
     textField.addKeyListener(new TexteBoutons(this));
-    JLabel j=new JLabel("Recherche:");
-    Recherche.setLayout(new BorderLayout());
-    Recherche.add(j,BorderLayout.NORTH);
-    Recherche.add(textField,BorderLayout.LINE_START);
-    MenuBar.add(Recherche);
+
+    textField.setFont(new Font("Dialog", Font.BOLD, 12));
+    textField.addFocusListener(new FocusListener() {
+    @Override
+    public void focusGained(FocusEvent e) {
+        if (textField.getText().equals("RECHERCHE")) {
+            textField.setText("");
+        }
+    }
+    @Override
+    public void focusLost(FocusEvent e) {
+        if (textField.getText().isEmpty()) {
+            textField.setText("RECHERCHE");
+        }
+    }
+  });
+
+    MenuBar.add(textField);
     return textField;
   }
 
