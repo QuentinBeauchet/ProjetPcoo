@@ -10,7 +10,7 @@ public class Note {
     public String getNote() {
         return note;
     }
-    public int getIntNote(){
+    public float getIntNote(){
         if(this.note.equals("ABI")) return 0;
         return Integer.parseInt(this.note);
     }

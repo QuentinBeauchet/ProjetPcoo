@@ -1,12 +1,12 @@
 package Model;
 
 public class Cours implements UE{
-    private int id;
+    private String id;
     private int coef;
     private String nom;
 
     @Override
-    public int getId() {
+    public String getId() {
         return this.id;
     }
 
@@ -20,7 +20,7 @@ public class Cours implements UE{
         return this.nom;
     }
 
-    public Cours(int id, int coef, String nom) {
+    public Cours(String id, int coef, String nom) {
         this.id = id;
         this.coef = coef;
         this.nom = nom;
@@ -28,7 +28,7 @@ public class Cours implements UE{
 
     @Override
     public String toString() {
-        return this.nom+" "+this.id;
+        return this.nom+" "+this.id+" ("+this.coef+")";
     }
 
     @Override
@@ -36,4 +36,5 @@ public class Cours implements UE{
         if(e.getNotes().get(this)==null)return new Note("ABI");
         return e.getNotes().get(this);
     }
+
 }

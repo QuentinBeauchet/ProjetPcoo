@@ -5,7 +5,7 @@ import java.util.ArrayList;
 public class BlocOptions extends BlocMultiple {
     private int coef;
 
-    public BlocOptions(int id, int coef, String nom) {
+    public BlocOptions(String id, int coef, String nom) {
         super(id,nom);
         this.coef = coef;
     }
@@ -15,6 +15,11 @@ public class BlocOptions extends BlocMultiple {
         if(ue.getCoef() == this.getCoef()){
             this.listUe.add(ue);
         }
+    }
+
+    @Override
+    public String nature() {
+        return "Bloc Option ";
     }
 
     @Override

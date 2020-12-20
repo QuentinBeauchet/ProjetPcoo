@@ -5,7 +5,7 @@ import java.util.ArrayList;
 public abstract class BlocMultiple  extends Bloc {
     protected ArrayList<UE> listUe = new ArrayList<>();
 
-    public BlocMultiple(int id, String nom) {
+    public BlocMultiple(String id, String nom) {
         super(id, nom);
     }
 
@@ -13,9 +13,10 @@ public abstract class BlocMultiple  extends Bloc {
         this.listUe.add(ue);
     }
 
+    public abstract String nature ();
     @Override
     public String toString() {
-        return "BlocMultiple{" +
+        return nature()+" : "+this.getId()+" "+ getNom() +"{" +
                 "listUe=" + listUe +
                 '}';
     }

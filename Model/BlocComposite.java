@@ -3,8 +3,13 @@ package Model;
 import java.util.ArrayList;
 
 public class BlocComposite extends BlocMultiple {
-    public BlocComposite(int id, String nom) {
+    public BlocComposite(String id, String nom) {
         super(id, nom);
+    }
+
+    @Override
+    public String nature() {
+        return "Bloc composite ";
     }
 
     @Override

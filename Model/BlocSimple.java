@@ -2,8 +2,8 @@ package Model;
 
 public class BlocSimple extends Bloc {
     private UE ue;
-    public BlocSimple(int id,String nom,UE ue) {
-        super(id,nom);
+    public BlocSimple(UE ue) {
+        super(ue.getId(),ue.getNom());
         this.ue=ue;
     }
     @Override

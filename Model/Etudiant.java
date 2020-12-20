@@ -3,19 +3,23 @@ package Model;
 import java.util.HashMap;
 
 public class Etudiant {
-    private final int id;
+    private final String id;
     private final String nom;
     private final String prenom;
     private Programme p;
     HashMap<Cours, Note> notes = new HashMap<Cours,Note>();
 
-    public Etudiant(int id, String nom, String prenom) {
+    public Programme getP() {
+        return p;
+    }
+
+    public Etudiant(String id, String nom, String prenom) {
         this.id = id;
         this.nom = nom;
         this.prenom = prenom;
     }
 
-    public int getId() {
+    public String getId() {
         return id;
     }
 
@@ -40,5 +44,12 @@ public class Etudiant {
     }
     public boolean isPresent(Cours cours){
         return this.notes.get(cours) !=null;
+    }
+
+    @Override
+    public String toString() {
+        String program = "pas de programme";
+        if(this.p != null) program = this.getP().getId();
+        return this.getId()+" : "+this.getNom()+" "+this.getPrenom()+" -> "+ program;
     }
 }

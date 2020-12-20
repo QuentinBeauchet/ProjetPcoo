@@ -1,14 +1,14 @@
 package Model;
 
 public abstract class Bloc implements UE {
-    private int id;
+    private String id;
     private String nom;
-    public Bloc(int id, String nom) {
+    public Bloc(String id, String nom) {
         this.id = id;
         this.nom = nom;
     }
     @Override
-    public int getId() {
+    public String getId() {
         return this.id;
     }
 
