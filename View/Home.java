@@ -1,33 +1,43 @@
 package View;
 
-import Model.Etudiant;
 import Model.TabCreation;
 import Model.XMLReader;
 
 import javax.swing.*;
+import javax.swing.filechooser.FileNameExtensionFilter;
 import java.awt.*;
 
 public class Home {
-    private  JFrame frame;
-    private  Tableau tab;
+    private XMLReader xml;
+    private JFrame frame;
+    private Tableau tab;
 
-    public Home() {
+    public Home(XMLReader xml) {
+        this.xml=xml;
         frame = new JFrame("Projet PCOO");
         frame.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
         frame.setSize(1500,800);
-        //frame.setLayout(new GridBagLayout());
         frame.setLocationRelativeTo(null);
+        frame.setLayout(new BorderLayout());
+
+        setTab();
+        setMenu();
+
+        frame.setVisible(true);
     }
 
     public JFrame getFrame() {
         return frame;
     }
 
-    public void setTab(XMLReader xml){
+    private void setTab(){
         TabCreation tabCreation=new TabCreation(xml);
         tab=new Tableau(tabCreation);
         frame.add(tab.getPanel());
-        frame.setVisible(true);
+    }
+
+    private void setMenu(){
+        frame.add(new Menu().getMenuBar(),BorderLayout.NORTH);
     }
 
 }

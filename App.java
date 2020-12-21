@@ -5,12 +5,11 @@ import View.Home;
 
 public class App {
     public static void main(String[] args) {
-        HomeController c = new HomeController(new Home(),new Etudiant("5","Forner","Yann"));
+        XMLReader xmlReader = new XMLReader("data/data.xml");
+
+        HomeController c = new HomeController(new Home(xmlReader),new Etudiant("5","Forner","Yann"));
         Home h=c.getHome();
         Etudiant e=c.getEtudiant();
-
-        XMLReader xmlReader = new XMLReader("data/data.xml");
-        h.setTab(xmlReader);
 
     }
 }
