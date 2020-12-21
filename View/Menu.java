@@ -1,11 +1,13 @@
 package View;
 
 import Model.FichierBouton;
+import Model.ProgrammeBouton;
 
 import javax.swing.*;
 import java.awt.*;
 
 public class Menu {
+    private Home home;
     private JMenuBar MenuBar;
     private JMenu Fichier;
     private JMenu Programme;
@@ -13,7 +15,8 @@ public class Menu {
     private JMenu Cours;
     private JTextField Recherche;
 
-    public Menu(){
+    public Menu(Home h){
+        home=h;
         MenuBar=new JMenuBar();
         setFichier();
         setProgramme();
@@ -42,9 +45,20 @@ public class Menu {
 
     private void setProgramme(){
         Programme=new JMenu("Programme");
+
+        JMenuItem Tout=new JMenuItem("Tout");
+        Tout.addActionListener(new ProgrammeBouton(this,-1,home));
+        Programme.add(Tout);
+
+        int nbrProgrammes=home.getXml().getProgramList().size();
+        JMenuItem[] programmes=new JMenuItem[nbrProgrammes];
+        for (int i = 0; i < nbrProgrammes; i++) {
+            programmes[i]=new JMenuItem(home.getXml().getProgramList().get(i).getNom());
+            programmes[i].addActionListener(new ProgrammeBouton(this,i,home));
+            Programme.add(programmes[i]);
+        }
+
         MenuBar.add(Programme);
-        //TODO afficher selon les programmes.
-        //TODO depuis tabcreation j'envoit la xml mais les array dans le constructeur comme ça je peux les modifier en amont
     }
 
     private void setHierarchie(){

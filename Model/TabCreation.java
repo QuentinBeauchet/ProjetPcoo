@@ -13,10 +13,10 @@ public class TabCreation {
     private ArrayList<Programme> programList;
     private ArrayList<Etudiant> studentList;
 
-    public TabCreation(XMLReader xml){
-        studentList=xml.getStudentList();
-        courseList=xml.getCourseList();
-        programList=xml.getProgramList();
+    public TabCreation(ArrayList<Cours> cours, ArrayList<Programme> programmes, ArrayList<Etudiant> etudiants){
+        courseList=cours;
+        programList=programmes;
+        studentList=etudiants;
         int nbrLignes=studentList.size();
         int nbrColones=courseList.size()+NBR_COMPOSANTS_ETUDIANTS;
         setColones(nbrColones);

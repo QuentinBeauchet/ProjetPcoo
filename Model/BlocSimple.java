@@ -1,5 +1,7 @@
 package Model;
 
+import java.util.ArrayList;
+
 public class BlocSimple extends Bloc {
     private UE ue;
     public BlocSimple(UE ue) {
@@ -21,5 +23,11 @@ public class BlocSimple extends Bloc {
         return "BlocSimple{" +
                 "ue=" + ue +
                 '}';
+    }
+
+    public ArrayList<UE> getUE(){
+        ArrayList<UE> ue= new ArrayList<UE>();
+        ue.add(this.ue);
+        return ue;
     }
 }

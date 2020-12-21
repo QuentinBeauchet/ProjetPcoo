@@ -35,6 +35,13 @@ public class Etudiant {
         this.p =p;
     }
 
+    public boolean estInscris(Programme p){
+        if(p.getId().equals(this.p.getId())){
+            return true;
+        }
+        return false;
+    }
+
     public HashMap<Cours, Note> getNotes() {
         return notes;
     }

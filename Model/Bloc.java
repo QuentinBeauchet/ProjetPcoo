@@ -1,5 +1,7 @@
 package Model;
 
+import java.util.ArrayList;
+
 public abstract class Bloc implements UE {
     private String id;
     private String nom;
@@ -18,6 +20,7 @@ public abstract class Bloc implements UE {
         return this.nom;
     }
 
+    public abstract ArrayList<UE> getUE();
 
 
 }
