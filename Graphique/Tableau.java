@@ -1,3 +1,5 @@
+package Graphique;
+
 import javax.swing.DefaultRowSorter;
 import javax.swing.RowFilter;
 import java.awt.Dimension;

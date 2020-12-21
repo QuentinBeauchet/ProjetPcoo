@@ -1,3 +1,5 @@
+package Graphique;
+
 import javax.swing.JMenu;
 import javax.swing.JMenuItem;
 import javax.swing.JMenuBar;
@@ -15,11 +17,10 @@ import java.awt.*;
 import java.awt.event.FocusEvent;
 import java.awt.event.FocusListener;
 
-
 public class Menu{
   private final int DEBUT_COURS=3;
   private Fenetre Fenetre;
-  private JMenuBar MenuBar;
+  public JMenuBar MenuBar;
 
   public Menu(Fenetre F){
     Fenetre=F;

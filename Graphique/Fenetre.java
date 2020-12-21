@@ -1,3 +1,5 @@
+package Graphique;
+
 import javax.swing.JFrame;
 import javax.swing.JMenuBar;
 import javax.swing.JTextField;
@@ -18,7 +20,7 @@ public class Fenetre{
     setFrame();
 
     //CSV
-    CSV_Reader csv= new CSV_Reader("minutes_info.csv");
+    CSV_Reader csv= new CSV_Reader("Graphique/minutes_info.csv");
     String[] colones=csv.getColones();
     String[][] lignes=csv.getLignes();
 

@@ -1,3 +1,5 @@
+package Graphique;
+
 import java.util.Comparator;
 
 public class CoursComparator implements Comparator<String> {

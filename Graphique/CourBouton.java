@@ -1,3 +1,5 @@
+package Graphique;
+
 import javax.swing.JMenu;
 import javax.swing.JMenuItem;
 import java.awt.Color;

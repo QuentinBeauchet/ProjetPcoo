@@ -1,3 +1,5 @@
+package Graphique;
+
 import javax.swing.JTextField;
 import java.awt.event.KeyListener;
 import java.awt.event.KeyEvent;

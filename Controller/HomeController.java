@@ -7,26 +7,22 @@ import javax.swing.*;
 import java.awt.*;
 
 public class HomeController {
+
     private Home h;
     private Etudiant e;
 
     public HomeController(Home h, Etudiant e) {
         this.h = h;
         this.e = e;
-        initView();
-    }
-    private void initView(){
-        this.h.getFrameContentPane().add(new JLabel(String.valueOf(this.e.getId())));
-        this.h.getFrameContentPane().add(new JLabel(this.e.getPrenom()));
-        this.h.getFrameContentPane().add(new JLabel(this.e.getNom()));
+        //initView();
     }
 
-    public void initController(){
-        this.h.getHello().addActionListener(e -> sayHello() );
+    public Home getHome() {
+        return h;
     }
 
-    private void sayHello() {
-        JOptionPane.showMessageDialog(null,"Hello "+ e.getPrenom(),"Message de Bienvenue",JOptionPane.INFORMATION_MESSAGE);
+    public Etudiant getEtudiant() {
+        return e;
     }
 
 }

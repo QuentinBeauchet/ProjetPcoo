@@ -12,7 +12,7 @@ public class Note {
     }
     public float getIntNote(){
         if(this.note.equals("ABI")) return 0;
-        return Integer.parseInt(this.note);
+        return Float.parseFloat(this.note);
     }
 
     @Override
