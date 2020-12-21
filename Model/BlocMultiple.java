@@ -20,4 +20,8 @@ public abstract class BlocMultiple  extends Bloc {
                 "listUe=" + listUe +
                 '}';
     }
+
+    public ArrayList<UE> getUE(){
+        return listUe;
+    }
 }

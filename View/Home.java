@@ -1,5 +1,6 @@
 package View;
 
+import Model.ProgramSelection;
 import Model.TabCreation;
 import Model.XMLReader;
 
@@ -20,24 +21,35 @@ public class Home {
         frame.setLocationRelativeTo(null);
         frame.setLayout(new BorderLayout());
 
-        setTab();
+        setTabInit();
         setMenu();
 
         frame.setVisible(true);
+    }
+
+    private void setTabInit(){
+        TabCreation tabCreation=new TabCreation(xml.getCourseList(),xml.getProgramList(), xml.getStudentList());
+        tab=new Tableau(tabCreation);
+        frame.add(tab.getPanel());
+    }
+
+    public void setTab(Tableau t){
+        tab=t;
+    }
+
+    private void setMenu(){
+        frame.add(new Menu(this).getMenuBar(),BorderLayout.NORTH);
+    }
+
+    public XMLReader getXml(){
+        return xml;
     }
 
     public JFrame getFrame() {
         return frame;
     }
 
-    private void setTab(){
-        TabCreation tabCreation=new TabCreation(xml);
-        tab=new Tableau(tabCreation);
-        frame.add(tab.getPanel());
+    public Tableau getTabInit() {
+        return tab;
     }
-
-    private void setMenu(){
-        frame.add(new Menu().getMenuBar(),BorderLayout.NORTH);
-    }
-
 }
