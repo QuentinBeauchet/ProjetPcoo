@@ -1,5 +1,8 @@
 package Model;
 
+import Exceptions.IdCourseDuplicationException;
+import Exceptions.IdEtudiantDuplicationException;
+import Exceptions.IdProgramDuplicationException;
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;
 import org.w3c.dom.Node;
@@ -40,6 +43,7 @@ public class XMLReader {
         this.courseList = fillCourses();
         this.programList = fillPrograms();
         this.studentList = fillStudents();
+        System.out.println(this.studentList);
     }
 
 
@@ -82,11 +86,13 @@ public class XMLReader {
         ArrayList<Cours> cours = new ArrayList<>();
         for (Element e: getChildren(this.file,"course")
              ) {
-            cours.add(new Cours(
+            Cours temp = new Cours(
                     e.getElementsByTagName("identifier").item(0).getTextContent(),
                     Integer.parseInt(e.getElementsByTagName("credits").item(0).getTextContent()),
                     e.getElementsByTagName("name").item(0).getTextContent()
-            ));
+            );
+            if( this.courseList!=null && isIdCourseAlreadyExist(temp.getId()))throw new IdCourseDuplicationException(temp);
+            cours.add(temp);
         }
         return cours;
     }
@@ -99,6 +105,7 @@ public class XMLReader {
                     e.getElementsByTagName("name").item(0).getTextContent(),
                     e.getElementsByTagName("identifier").item(0).getTextContent()
                    );
+            if(this.programList!=null && isIdProgramAlreadyExist(temp.getId()))throw new IdProgramDuplicationException(temp);
             fillOneProgram(e,temp);
             programs.add(temp);
         }
@@ -108,11 +115,15 @@ public class XMLReader {
     private ArrayList<Etudiant> fillStudents(){
         ArrayList<Etudiant> etudiants= new ArrayList<>();
         for (Element e : getChildren(this.file,"student")){
+
             Etudiant etu = new Etudiant(
-                    e.getElementsByTagName("identifier").item(0).getTextContent(),
+                   e.getElementsByTagName("identifier").item(0).getTextContent(),
                     e.getElementsByTagName("name").item(0).getTextContent(),
                     e.getElementsByTagName("surname").item(0).getTextContent()
             );
+            if(this.studentList!=null && isIdEtudiantAlreadyExist(etu.getId()))throw new IdEtudiantDuplicationException(etu);
+
+
 
             etu.inscris(findProgramById(e.getElementsByTagName("program").item(0).getTextContent()));
             fillNotesToStudent(e,etu);
@@ -179,5 +190,26 @@ public class XMLReader {
         }
         return null;
     }
+    public boolean isIdCourseAlreadyExist(String id){
 
+        for (Cours c: this.courseList
+             ) {
+            if(c.getId().equals(id))return true;
+        }
+        return false;
+    }
+    public boolean isIdProgramAlreadyExist(String id){
+        for (Programme p: this.programList
+        ) {
+            if(p.getId().equals(id))return true;
+        }
+        return false;
+    }
+    public boolean isIdEtudiantAlreadyExist(String id){
+        for (Etudiant e: this.studentList
+        ) {
+            if(id.equals(e.getId()))return true;
+        }
+        return false;
+    }
 }

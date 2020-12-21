@@ -33,7 +33,7 @@ public class Cours implements UE{
 
     @Override
     public Note calcNote(Etudiant e) {
-        if(e.getNotes().get(this)==null)return new Note("ABI");
+        if(e.getNotes().get(this)==null)return new Note("");
         return e.getNotes().get(this);
     }
 

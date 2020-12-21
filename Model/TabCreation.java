@@ -41,7 +41,9 @@ public class TabCreation {
             lignes[i][1]=studentList.get(i).getNom();
             lignes[i][2]=studentList.get(i).getPrenom();
             for (int j = 0; j < courseList.size(); j++) {
-                lignes[i][j+NBR_COMPOSANTS_ETUDIANTS]=courseList.get(j).calcNote(studentList.get(i)).getNote();
+                if(!courseList.get(j).calcNote(studentList.get(i)).getNote().equals("")) {
+                    lignes[i][j + NBR_COMPOSANTS_ETUDIANTS] = courseList.get(j).calcNote(studentList.get(i)).getNote();
+                }
             }
         }
     }
@@ -69,13 +71,15 @@ public class TabCreation {
             float min=0;
             float somme=0;
             for(Etudiant e:studentList) {
-                float noteEtudiant=courseList.get(i).calcNote(e).getIntNote();
-                somme = somme+noteEtudiant;
-                if(max<noteEtudiant){
-                    max=noteEtudiant;
-                }
-                else if(noteEtudiant!=0 && min<noteEtudiant){
-                    min=noteEtudiant;
+                if(!courseList.get(i).calcNote(e).getNote().equals("")){
+                    float noteEtudiant=courseList.get(i).calcNote(e).getIntNote();
+                    somme = somme+noteEtudiant;
+                    if(max<noteEtudiant){
+                        max=noteEtudiant;
+                    }
+                    else if(noteEtudiant!=0 && min<noteEtudiant){
+                        min=noteEtudiant;
+                    }
                 }
             }
             scores[0][i+NBR_COMPOSANTS_ETUDIANTS]=String.valueOf(max);
@@ -87,8 +91,10 @@ public class TabCreation {
         for (int i = 0; i < courseList.size(); i++) {
             float somme = 0;
             for (Etudiant e : studentList) {
-                float noteEtudiant = courseList.get(i).calcNote(e).getIntNote();
-                somme = somme + (float) Math.pow(noteEtudiant / Float.parseFloat(scores[2][i+NBR_COMPOSANTS_ETUDIANTS]), 2);
+                if(!courseList.get(i).calcNote(e).getNote().equals("")) {
+                    float noteEtudiant = courseList.get(i).calcNote(e).getIntNote();
+                    somme = somme + (float) Math.pow(noteEtudiant / Float.parseFloat(scores[2][i + NBR_COMPOSANTS_ETUDIANTS]), 2);
+                }
             }
             scores[3][i+NBR_COMPOSANTS_ETUDIANTS] = String.valueOf(Math.sqrt(somme / (courseList.size() - 1))).substring(0,6);
         }
