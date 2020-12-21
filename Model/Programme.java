@@ -1,6 +1,7 @@
 package Model;
 
 import java.util.ArrayList;
+import java.util.Objects;
 
 public class Programme {
     private ArrayList<Bloc> blocs = new ArrayList<>();
@@ -38,6 +39,19 @@ public class Programme {
             total += b.getCoef();
         }
         return (somme/total) >= 10;
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        Programme programme = (Programme) o;
+        return Objects.equals(id, programme.id);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(id);
     }
 
     @Override

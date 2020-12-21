@@ -43,7 +43,6 @@ public class XMLReader {
         this.courseList = fillCourses();
         this.programList = fillPrograms();
         this.studentList = fillStudents();
-        System.out.println(this.studentList);
     }
 
 
