@@ -1,6 +1,7 @@
 package Model;
 
 import javax.swing.*;
+import java.lang.reflect.Array;
 import java.util.ArrayList;
 
 public class TabCreation {
@@ -67,41 +68,13 @@ public class TabCreation {
 
         //Note Max, Note Min et Moyenne
         for (int i = 0; i < courseList.size(); i++) {
-            float max=0;
-            float min=20;
-            float somme=0;
-            int nbrEtudiant=0;
-            for(Etudiant e:studentList) {
-                if(!courseList.get(i).calcNote(e).getNote().equals("")){
-                    nbrEtudiant=nbrEtudiant+1;
-                    float noteEtudiant=courseList.get(i).calcNote(e).getIntNote();
-                    somme = somme+noteEtudiant;
-                    if(max<noteEtudiant){
-                        max=noteEtudiant;
-                    }
-                    else if(noteEtudiant!=0 && noteEtudiant<min){
-                        min=noteEtudiant;
-                    }
-                }
-            }
-            scores[0][i+NBR_COMPOSANTS_ETUDIANTS]=String.valueOf(max);
-            scores[1][i+NBR_COMPOSANTS_ETUDIANTS]=String.valueOf(min);
-            scores[2][i+NBR_COMPOSANTS_ETUDIANTS]=String.valueOf(somme/nbrEtudiant).substring(0,6);
+            ArrayList<String> toolKit = MyTools.getStats(courseList.get(i),studentList);
+            scores[0][i+NBR_COMPOSANTS_ETUDIANTS]=toolKit.get(0); //max
+            scores[1][i+NBR_COMPOSANTS_ETUDIANTS]=toolKit.get(1); //min
+            scores[2][i+NBR_COMPOSANTS_ETUDIANTS]=toolKit.get(2); //moy
+            scores[3][i+NBR_COMPOSANTS_ETUDIANTS] = toolKit.get(3); //ecart type
         }
 
-        //Ecart Type
-        for (int i = 0; i < courseList.size(); i++) {
-            float somme = 0;
-            int nbrEtudiant=0;
-            for (Etudiant e : studentList) {
-                if(!courseList.get(i).calcNote(e).getNote().equals("")) {
-                    nbrEtudiant=nbrEtudiant+1;
-                    float noteEtudiant = courseList.get(i).calcNote(e).getIntNote();
-                    somme = somme + (float) Math.pow(noteEtudiant / Float.parseFloat(scores[2][i + NBR_COMPOSANTS_ETUDIANTS]), 2);
-                }
-            }
-            scores[3][i+NBR_COMPOSANTS_ETUDIANTS] = String.valueOf(Math.sqrt(somme / (nbrEtudiant - 1))).substring(0,6);
-        }
         //TODO substring c'est pas ouf car sa compte 4 chiffres apres la virgules sir c'est <10 et 3 chiffres si >=10
     }
 
