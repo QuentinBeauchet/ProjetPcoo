@@ -1,26 +1,27 @@
 package Model;
 
 import View.Home;
-import View.Menu;
 import View.Tableau;
 
-import javax.swing.*;
-import java.awt.event.ActionEvent;
+import java.util.ArrayList;
 
-public class ProgrammeBouton extends MenuBoutons{
-    private final int index;
-    private final Home home;
+public class ProgramSwitch {
+    private Home home;
+    private Tableau tab;
 
-    public ProgrammeBouton(Menu menu, int index,Home home) {
-        super(menu);
-        this.index=index;
+    public ProgramSwitch(Home home){
         this.home=home;
     }
 
-    @Override
-    public void actionPerformed(ActionEvent e) {
-        Tableau tab;
-        home.getFrame().remove(home.getTabInit().getPanel());
+    public void Switch(ArrayList<Cours> cours){
+        XMLReader xml=home.getXml();
+        TabCreation tabCreation=new TabCreation(cours,xml.getProgramList(), xml.getStudentList());
+        tab=new Tableau(tabCreation);
+        Switch();
+
+    }
+
+    public void Switch(int index){
         if(index==-1){
             XMLReader xml=home.getXml();
             TabCreation tabCreation=new TabCreation(xml.getCourseList(),xml.getProgramList(), xml.getStudentList());
@@ -32,8 +33,13 @@ public class ProgrammeBouton extends MenuBoutons{
             TabCreation[] tabCreations= programSelection.TabProgrammes();
             tab=new Tableau(tabCreations[index]);
         }
+        Switch();
+    }
+
+    private void Switch(){
+        home.getFrame().remove(home.getTab().getPanel());
         home.getFrame().add(tab.getPanel());
         home.setTab(tab);
-        SwingUtilities.updateComponentTreeUI(home.getFrame());
+        home.getFrame().validate();
     }
 }

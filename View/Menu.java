@@ -1,18 +1,18 @@
 package View;
 
-import Model.FichierBouton;
-import Model.ProgrammeBouton;
+import Controller.FichierBouton;
+import Controller.HierarchieBouton;
+import Controller.ProgrammeBouton;
 
 import javax.swing.*;
-import java.awt.*;
 
 public class Menu {
     private Home home;
     private JMenuBar MenuBar;
     private JMenu Fichier;
     private JMenu Programme;
-    private JMenu Hierarchie;
     private JMenu Cours;
+    private JMenuItem Hierarchie;
     private JTextField Recherche;
 
     public Menu(Home h){
@@ -29,15 +29,15 @@ public class Menu {
         Fichier=new JMenu("Fichier");
 
         JMenuItem Open=new JMenuItem("Ouvrir");
-        Open.addActionListener(new FichierBouton(this,Open));
+        Open.addActionListener(new FichierBouton(Open));
         Fichier.add(Open);
 
         JMenuItem Save=new JMenuItem("Enregistrer");
-        Save.addActionListener(new FichierBouton(this,Save));
+        Save.addActionListener(new FichierBouton(Save));
         Fichier.add(Save);
 
         JMenuItem Close=new JMenuItem("Quitter");
-        Close.addActionListener(new FichierBouton(this,Close));
+        Close.addActionListener(new FichierBouton(Close));
         Fichier.add(Close);
 
         MenuBar.add(Fichier);
@@ -47,14 +47,14 @@ public class Menu {
         Programme=new JMenu("Programme");
 
         JMenuItem Tout=new JMenuItem("Tout");
-        Tout.addActionListener(new ProgrammeBouton(this,-1,home));
+        Tout.addActionListener(new ProgrammeBouton(-1,home));
         Programme.add(Tout);
 
         int nbrProgrammes=home.getXml().getProgramList().size();
         JMenuItem[] programmes=new JMenuItem[nbrProgrammes];
         for (int i = 0; i < nbrProgrammes; i++) {
             programmes[i]=new JMenuItem(home.getXml().getProgramList().get(i).getNom());
-            programmes[i].addActionListener(new ProgrammeBouton(this,i,home));
+            programmes[i].addActionListener(new ProgrammeBouton(i,home));
             Programme.add(programmes[i]);
         }
 
@@ -62,8 +62,9 @@ public class Menu {
     }
 
     private void setHierarchie(){
-        Hierarchie=new JMenu("Hierarchie");
-        MenuBar.add(Hierarchie);
+        Hierarchie=new JMenuItem("Hierarchie");
+        Hierarchie.addActionListener(new HierarchieBouton(home));
+        Programme.add(Hierarchie,0);
     }
 
     private void setCours(){

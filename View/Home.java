@@ -1,17 +1,26 @@
 package View;
 
+import Controller.Arbre;
+import Model.HierarchieSelection;
 import Model.ProgramSelection;
 import Model.TabCreation;
 import Model.XMLReader;
 
 import javax.swing.*;
+import javax.swing.event.TreeExpansionEvent;
+import javax.swing.event.TreeExpansionListener;
 import javax.swing.filechooser.FileNameExtensionFilter;
+import javax.swing.tree.DefaultMutableTreeNode;
+import javax.swing.tree.TreeNode;
 import java.awt.*;
+import java.util.Enumeration;
+import java.util.Vector;
 
 public class Home {
     private XMLReader xml;
     private JFrame frame;
     private Tableau tab;
+    private JDialog dialog;
 
     public Home(XMLReader xml) {
         this.xml=xml;
@@ -49,7 +58,8 @@ public class Home {
         return frame;
     }
 
-    public Tableau getTabInit() {
+    public Tableau getTab() {
         return tab;
     }
+
 }
