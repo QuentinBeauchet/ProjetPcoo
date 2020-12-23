@@ -6,22 +6,24 @@ import View.Home;
 
 import javax.swing.*;
 import javax.swing.tree.DefaultMutableTreeNode;
-import java.util.ArrayList;
-import java.util.HashSet;
-import java.util.Set;
+import java.util.*;
 
 public class HierarchieCreation {
     private Home home;
-    private JTree arbre;
-    private ArrayList<UE> ue;
 
     public HierarchieCreation(Home home){
         this.home=home;
-        arbre=ArbreProgrammes();
         setDialogBox();
     }
 
-    private JTree ArbreProgrammes(){
+    public HierarchieCreation(Home home,ArrayList<String> filtreUE){
+        this.home=home;
+        if(filtreUE.size()>0){
+            setFiltreUE(filtreUE);
+        }
+    }
+
+    private JTree ArbreProgrammesSelectiones(){
         ArrayList<Programme> programList = home.getXml().getProgramList();
         DefaultMutableTreeNode arbre=new DefaultMutableTreeNode("Programmes");
         for(Programme p:programList){
@@ -32,11 +34,13 @@ public class HierarchieCreation {
     }
 
     private void setDialogBox(){
+        JTree arbre=ArbreProgrammesSelectiones();
+
         JDialog dialog = new JDialog(home.getFrame(), "Hierarchie");
         JScrollPane scroll=new JScrollPane(arbre);
 
         arbre.addTreeExpansionListener(new Arbre(dialog,arbre));
-        dialog.addWindowListener(new Dialog(this,arbre));
+        dialog.addWindowListener(new Dialog(home,arbre));
 
         scroll.setVerticalScrollBarPolicy(JScrollPane.VERTICAL_SCROLLBAR_AS_NEEDED);
         dialog.add(scroll);
@@ -46,58 +50,25 @@ public class HierarchieCreation {
         dialog.setVisible(true);
     }
 
-    public void setFiltreUE(ArrayList<String> filtreUE){
-        //TODO je crée un programe depuis une liste d'ue (peu etre amelioré)
-
+    private void setFiltreUE(ArrayList<String> filtreUE){
         ProgramSwitch programSwitch = new ProgramSwitch(home);
-        if(filtreUE.size()>0 && filtreUE.get(0).equals("Programmes")){
+        if(filtreUE.size()>0 && filtreUE.contains("Programmes")){
             programSwitch.Switch(-1);
         }
         else{
-            ArrayList<Programme> programList=home.getXml().getProgramList();
-            ArrayList<Bloc> blocsList=new ArrayList<>();
-
-            //TODO si je passe pas par le hashset string il y a des doublons pour les ue qui sont dans plusieurs programmes
-            HashSet<String> blocs=new HashSet<>();
-            for(Programme p:programList){
+            HashMap<Cours,String> FiltreCoursHashMap = new HashMap<>();
+            ArrayList<Programme> programmeArrayList=home.getXml().getProgramList();
+            for(Programme p:programmeArrayList){
                 for(Bloc b:p.getBlocs()){
-                    blocs.add(b.getNom());
-                }
-            }
-
-            for(Programme p:programList){
-                for(Bloc b:p.getBlocs()){
-                    if(blocs.contains(b.getNom())){
-                        blocsList.add(b);
-                        blocs.remove(b.getNom());
+                    for(UE u:b.getUE()){
+                        if(filtreUE.contains(p.getNom()) || filtreUE.contains(b.getNom()) || filtreUE.contains(u.getNom())){
+                            FiltreCoursHashMap.put((Cours)u,u.getNom());
+                        }
                     }
                 }
             }
-
-            ArrayList<UE> ue=new ArrayList<>();
-            for(Bloc b:blocsList){
-                if(filtreUE.contains(b.getNom())){
-                    ue.addAll(b.getUE());
-                }
-            }
-
-            //TODO C'EST MOCHE (c'est pour afficher les programmes + des blocs)
-            ArrayList<Bloc> blocsProg =new ArrayList<>();
-            for(Programme p:programList){
-                if(filtreUE.contains(p.getNom())){
-                    blocsProg.addAll(p.getBlocs());
-                }
-            }
-            for(Bloc m:blocsProg){
-                ue.addAll(m.getUE());
-            }
-
-
-
             ArrayList<Cours> cours=new ArrayList<>();
-            for(UE u:ue){
-                cours.add((Cours)u);
-            }
+            FiltreCoursHashMap.forEach((cour,nom)->cours.add(cour));
             programSwitch.Switch(cours);
         }
     }

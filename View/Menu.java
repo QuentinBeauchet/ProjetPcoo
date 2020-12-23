@@ -29,15 +29,15 @@ public class Menu {
         Fichier=new JMenu("Fichier");
 
         JMenuItem Open=new JMenuItem("Ouvrir");
-        Open.addActionListener(new FichierBouton(Open));
+        Open.addActionListener(new FichierBouton(Open,home));
         Fichier.add(Open);
 
         JMenuItem Save=new JMenuItem("Enregistrer");
-        Save.addActionListener(new FichierBouton(Save));
+        Save.addActionListener(new FichierBouton(Save,home));
         Fichier.add(Save);
 
         JMenuItem Close=new JMenuItem("Quitter");
-        Close.addActionListener(new FichierBouton(Close));
+        Close.addActionListener(new FichierBouton(Close,home));
         Fichier.add(Close);
 
         MenuBar.add(Fichier);

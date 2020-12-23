@@ -33,7 +33,7 @@ public class BlocOptions extends BlocMultiple {
          Note nMax = new Note("0");
         for (int i = 0; i < this.listUe.size() ; i++) {
             if(e.getNotes().get(this.listUe.get(i)) != null
-                    && nMax.getIntNote() < e.getNotes().get(this.listUe.get(i)).getIntNote())
+                    && nMax.getFloatNote() < e.getNotes().get(this.listUe.get(i)).getFloatNote())
                 nMax = e.getNotes().get(this.listUe.get(i));
         }
         return new Note(nMax.getNote());

@@ -14,7 +14,7 @@ public class MyTools {
              ) {
             if(!ue.calcNote(e).getNote().equals("")){
                 nbrEtudiant=nbrEtudiant+1;
-                float noteEtudiant=ue.calcNote(e).getIntNote();
+                float noteEtudiant=ue.calcNote(e).getFloatNote();
                 somme = somme+noteEtudiant;
                 if(max<noteEtudiant){
                     max=noteEtudiant;
@@ -29,7 +29,7 @@ public class MyTools {
         for (Etudiant e: studentlist
         ) {
             if(!ue.calcNote(e).getNote().equals("")) {
-                float noteEtudiant = ue.calcNote(e).getIntNote();
+                float noteEtudiant = ue.calcNote(e).getFloatNote();
                 sommeE = sommeE + (float) Math.pow(noteEtudiant / moy, 2);
             }
         }

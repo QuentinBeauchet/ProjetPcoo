@@ -1,17 +1,24 @@
 package View;
 
+import Controller.HeaderListener;
+import Model.Sorter;
 import Model.TabCreation;
 
 import javax.swing.*;
+import javax.swing.table.DefaultTableCellRenderer;
 import javax.swing.table.JTableHeader;
+import javax.swing.table.TableColumnModel;
 import java.awt.*;
 
 public class Tableau {
+    //TODO je le redifinie deux fois ici et dans tabcretion mais c'est moche sinon faudra voir pour faire autrement
+    private static final int NBR_COMPOSANTS_ETUDIANTS=3;
     private JTable tableau;
     private JTable calculs;
     private JScrollPane PART1;
     private JScrollPane PART2;
     private JPanel Panel;
+    private Sorter sorter;
 
     public Tableau(TabCreation tab){
         String[] colones = tab.getColones();
@@ -23,6 +30,7 @@ public class Tableau {
         setLayout();
         setStyle();
         setEdition();
+        setSorter();
     }
 
     private void setScrollBar() {
@@ -53,17 +61,56 @@ public class Tableau {
     }
 
     private void setStyle(){
+        setStyleHeader();
+        setStyleCalculs();
+        setStyleColonnes();
+    }
+
+    private void setStyleHeader(){
         JTableHeader header=tableau.getTableHeader();
         header.setForeground(new Color(153, 31, 0));
         header.setFont(header.getFont().deriveFont(Font.BOLD));
-        calculs.setBackground(header.getBackground());
-        //TODO soit id nom prenom une autre couleur soit une couleur differente une colone sur deux
+
+        header.addMouseListener(new HeaderListener(tableau));
+    }
+
+    private void setStyleCalculs(){
+        calculs.setBackground(tableau.getTableHeader().getBackground());
         //TODO rendre plus jolie le tableau calcul
+    }
+
+    private void setStyleColonnes(){
+        TableColumnModel columnModel = tableau.getColumnModel();
+
+        DefaultTableCellRenderer composantsRenderer = new DefaultTableCellRenderer();
+        composantsRenderer.setBackground(tableau.getTableHeader().getBackground());
+        composantsRenderer.setHorizontalAlignment(JLabel.CENTER);
+
+        DefaultTableCellRenderer pairRenderer = new DefaultTableCellRenderer();
+        pairRenderer.setBackground(new Color(226,239,218));
+        pairRenderer.setHorizontalAlignment(JLabel.CENTER);
+
+        //TODO faire une couleure sur deux pour les lignes (mdrrrr bonne chance hein c'est un bordel)
+        for (int i = 0; i < columnModel.getColumnCount(); i++) {
+            columnModel.getColumn(i).setResizable(false);
+            if(i<NBR_COMPOSANTS_ETUDIANTS){
+                columnModel.getColumn(i).setCellRenderer(composantsRenderer);
+            }
+            else{
+                if(!(i%2==0)){
+                    columnModel.getColumn(i).setCellRenderer(pairRenderer);
+                }
+            }
+        }
     }
 
     private void setEdition(){
         calculs.setCellSelectionEnabled(true);
         calculs.setDefaultEditor(Object.class, null);
+    }
+
+    private void setSorter(){
+        sorter=new Sorter(NBR_COMPOSANTS_ETUDIANTS,tableau);
     }
 
     public JTable getTab(){

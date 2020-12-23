@@ -1,16 +1,18 @@
 package Controller;
 
 import Controller.MenuBoutons;
+import View.Home;
 import View.Menu;
 
 import javax.swing.*;
 import javax.swing.filechooser.FileNameExtensionFilter;
 import java.awt.event.ActionEvent;
 
-public class FichierBouton implements MenuBoutons {
+public class FichierBouton extends MenuBoutons {
     private final String action;
 
-    public FichierBouton(JMenuItem item) {
+    public FichierBouton(JMenuItem item, Home home) {
+        super(home);
         this.action=item.getText();
     }
 

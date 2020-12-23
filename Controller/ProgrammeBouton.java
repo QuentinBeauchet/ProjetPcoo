@@ -11,19 +11,17 @@ import View.Tableau;
 import javax.swing.*;
 import java.awt.event.ActionEvent;
 
-public class ProgrammeBouton implements MenuBoutons{
+public class ProgrammeBouton extends MenuBoutons{
     private final int index;
-    private final Home home;
 
     public ProgrammeBouton(int index,Home home) {
-        super();
+        super(home);
         this.index=index;
-        this.home=home;
     }
 
     @Override
     public void actionPerformed(ActionEvent e) {
-        ProgramSwitch programSwitch = new ProgramSwitch(home);
+        ProgramSwitch programSwitch = new ProgramSwitch(super.getHome());
         programSwitch.Switch(index);
     }
 }

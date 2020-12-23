@@ -72,7 +72,7 @@ public class WriteCsv {
         for (Etudiant e: xmlReader.getStudentList()
              ) {
             if(p.equals(e.getP())){
-                float current = ue.calcNote(e).getIntNote();
+                float current = ue.calcNote(e).getFloatNote();
                 if(max < current)max = current;
             }
         }
@@ -84,7 +84,7 @@ public class WriteCsv {
         for (Etudiant e: xmlReader.getStudentList()
         ) {
             if(p.equals(e.getP())){
-                float current = ue.calcNote(e).getIntNote();
+                float current = ue.calcNote(e).getFloatNote();
                 if(min > current)min = current;
             }
         }

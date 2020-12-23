@@ -18,7 +18,7 @@ public class BlocComposite extends BlocMultiple {
         int total=0;
         for (UE ue: this.listUe
         ) {
-            somme += ue.getCoef()*ue.calcNote(e).getIntNote();
+            somme += ue.getCoef()*ue.calcNote(e).getFloatNote();
             total += ue.getCoef();
         }
         return new Note(String.valueOf(somme/total));

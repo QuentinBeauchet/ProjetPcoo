@@ -1,6 +1,7 @@
 package Model;
 
 import java.util.ArrayList;
+import java.util.Collection;
 import java.util.Objects;
 
 public class Programme {
@@ -35,7 +36,7 @@ public class Programme {
         for (Bloc b : this.blocs
              ) {
 
-            somme += b.getCoef() * b.calcNote(e).getIntNote();
+            somme += b.getCoef() * b.calcNote(e).getFloatNote();
             total += b.getCoef();
         }
         return (somme/total) >= 10;
@@ -58,4 +59,5 @@ public class Programme {
     public String toString() {
         return this.id+" : "+this.nom;
     }
+
 }

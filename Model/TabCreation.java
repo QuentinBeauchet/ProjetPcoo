@@ -90,4 +90,8 @@ public class TabCreation {
     public String[][] getScores() {
         return scores;
     }
+
+    public int getNbrComposantsEtudiants() {
+        return NBR_COMPOSANTS_ETUDIANTS;
+    }
 }

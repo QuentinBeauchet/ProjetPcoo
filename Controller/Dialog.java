@@ -11,16 +11,11 @@ import java.util.ArrayList;
 
 public class Dialog implements WindowListener {
     private JTree arbre;
-    private HierarchieCreation hierarchieCreation;
+    private Home home;
 
-    public Dialog(HierarchieCreation hierarchieCreation, JTree arbre){
+    public Dialog(Home home, JTree arbre){
         this.arbre=arbre;
-        this.hierarchieCreation=hierarchieCreation;
-    }
-
-    @Override
-    public void windowOpened(WindowEvent windowEvent) {
-
+        this.home=home;
     }
 
     @Override
@@ -31,7 +26,12 @@ public class Dialog implements WindowListener {
         for(int i: selection){
             ue.add(arbre.getPathForRow(i).getLastPathComponent().toString());
         }
-        hierarchieCreation.setFiltreUE(ue);
+        new HierarchieCreation(home,ue);
+    }
+
+    @Override
+    public void windowOpened(WindowEvent windowEvent) {
+
     }
 
     @Override

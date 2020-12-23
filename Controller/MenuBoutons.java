@@ -1,10 +1,20 @@
 package Controller;
 
+import View.Home;
 import View.Menu;
 
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
-public interface MenuBoutons extends ActionListener {
-    void actionPerformed(ActionEvent e);
+public abstract class MenuBoutons implements ActionListener {
+    private Home home;
+
+    public MenuBoutons(Home home){
+        this.home=home;
+    }
+    public abstract void actionPerformed(ActionEvent e);
+
+    public Home getHome() {
+        return home;
+    }
 }
