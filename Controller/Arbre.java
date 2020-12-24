@@ -10,9 +10,8 @@ import java.awt.*;
 import static java.lang.Math.max;
 
 public class Arbre implements TreeExpansionListener {
-    private final static int ROW_HEIGHT=22;
+    private final static int ROW_HEIGHT=24;
     private final static int MAX_WIDTH=600;
-    private final static int MIN_HEIGHT=50;
     private JDialog dialog;
     private JTree arbre;
 
@@ -22,7 +21,6 @@ public class Arbre implements TreeExpansionListener {
         dialog.setSize(MAX_WIDTH, arbre.getRowCount()*ROW_HEIGHT);
         dialog.setMinimumSize(new Dimension(MAX_WIDTH,max((arbre.getRowCount()+1)*ROW_HEIGHT,ROW_HEIGHT)));
     }
-
 
     @Override
     public void treeExpanded(TreeExpansionEvent treeExpansionEvent) {

@@ -27,10 +27,12 @@ public class HeaderListener implements MouseListener{
 
         dialog=new JDialog();
         TableColumnModel columnModel = tableau.getTableHeader().getColumnModel();
-        TableColumn currentcolumn = columnModel.getColumn(columnModel.getColumnIndexAtX(mouseEvent.getX()));
-
-        setLabel(currentcolumn);
-        setDialog(mouseEvent.getLocationOnScreen());
+        int index=columnModel.getColumnIndexAtX(mouseEvent.getX());
+        if(index!=-1){
+            TableColumn currentcolumn = columnModel.getColumn(index);
+            setLabel(currentcolumn);
+            setDialog(mouseEvent.getLocationOnScreen());
+        }
     }
 
     @Override
@@ -42,13 +44,16 @@ public class HeaderListener implements MouseListener{
         texte=new JLabel((String) currentcolumn.getHeaderValue());
         texte.setFont(new Font("Verdana", Font.BOLD, 12));
         texte.setOpaque(true);
+        texte.setHorizontalAlignment(SwingConstants.CENTER);
+        texte.setVerticalAlignment(SwingConstants.CENTER);
+        dialog=new JDialog();
         texte.setBorder(BorderFactory.createLoweredBevelBorder());
         dialog.add(texte);
     }
 
     private void setDialog(Point pos){
         dialog.setUndecorated(true);
-        dialog.setMinimumSize(texte.getPreferredSize());
+        dialog.setMinimumSize(new Dimension((int)texte.getPreferredSize().getWidth()+10,(int)texte.getPreferredSize().getHeight()));
         dialog.setResizable(false);
         dialog.setLocation((int)pos.getX(),(int)pos.getY()-20);
         dialog.setVisible(true);

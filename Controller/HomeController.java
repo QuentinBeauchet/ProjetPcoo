@@ -14,7 +14,6 @@ public class HomeController {
     public HomeController(Home h, Etudiant e) {
         this.h = h;
         this.e = e;
-        //initView();
     }
 
     public Home getHome() {

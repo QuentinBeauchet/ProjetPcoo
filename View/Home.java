@@ -6,6 +6,10 @@ import Model.XMLReader;
 import javax.swing.*;
 import java.awt.*;
 
+import java.lang.reflect.Method;
+import java.util.Arrays;
+import java.util.stream.Stream;
+
 public class Home {
     private XMLReader xml;
     private JFrame frame;
@@ -21,6 +25,7 @@ public class Home {
 
         setTabInit();
         setMenu();
+
         frame.setVisible(true);
     }
 

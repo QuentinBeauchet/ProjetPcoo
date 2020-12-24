@@ -24,7 +24,7 @@ public class Tableau {
         String[] colones = tab.getColones();
         String[][] lignes = tab.getLignes();
         String[][] scores = tab.getScores();
-        tableau=new JTable(lignes,colones);
+        setTabLF(lignes,colones);
         calculs=new JTable(scores,colones);
         setScrollBar();
         setLayout();
@@ -33,10 +33,35 @@ public class Tableau {
         setSorter();
     }
 
-    private void setScrollBar() {
+    //TODO est-ce qu'on peut faire mieux que réecire a chaque fois ?
+    private void setTabLF(String[][] lignes,String[] colones){
+        LookAndFeel previousLF=UIManager.getLookAndFeel();
+        try {
+            UIManager.setLookAndFeel("javax.swing.plaf.metal.MetalLookAndFeel");
+        }
+        catch (Exception exception){}
+        tableau =new JTable(lignes,colones);
+        try {
+            UIManager.setLookAndFeel(previousLF);
+        } catch (UnsupportedLookAndFeelException e) {}
+    }
+
+    private void setScrollPaneLF(){
+        LookAndFeel previousLF=UIManager.getLookAndFeel();
+        try {
+            UIManager.setLookAndFeel("com.sun.java.swing.plaf.gtk.GTKLookAndFeel");
+        }
+        catch (Exception exception){}
         PART1= new JScrollPane(tableau);
-        tableau.setAutoResizeMode(JTable.AUTO_RESIZE_OFF);
         PART2= new JScrollPane(calculs);
+        try {
+            UIManager.setLookAndFeel(previousLF);
+        } catch (UnsupportedLookAndFeelException e) {}
+    }
+
+    private void setScrollBar() {
+        setScrollPaneLF();
+        tableau.setAutoResizeMode(JTable.AUTO_RESIZE_OFF);
         calculs.setAutoResizeMode(JTable.AUTO_RESIZE_OFF);
         PART1.getHorizontalScrollBar().setModel(PART2.getHorizontalScrollBar().getModel());
         PART1.setHorizontalScrollBarPolicy(JScrollPane.HORIZONTAL_SCROLLBAR_NEVER);

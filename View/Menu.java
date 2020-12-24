@@ -5,14 +5,18 @@ import Controller.HierarchieBouton;
 import Controller.ProgrammeBouton;
 
 import javax.swing.*;
+import javax.swing.border.BevelBorder;
+import javax.swing.event.MenuEvent;
+import javax.swing.event.MenuListener;
+import java.awt.*;
+import java.awt.event.*;
 
 public class Menu {
     private Home home;
     private JMenuBar MenuBar;
     private JMenu Fichier;
     private JMenu Programme;
-    private JMenu Cours;
-    private JMenuItem Hierarchie;
+    private JLabel Hierarchie;
     private JTextField Recherche;
 
     public Menu(Home h){
@@ -21,8 +25,11 @@ public class Menu {
         setFichier();
         setProgramme();
         setHierarchie();
-        setCours();
         setRecherche();
+
+        //TODO deplacer ça
+        MenuBar.setMargin(new Insets(5,10,5,10));
+        MenuBar.setBorder(BorderFactory.createLoweredSoftBevelBorder());
     }
 
     private void setFichier(){
@@ -62,14 +69,9 @@ public class Menu {
     }
 
     private void setHierarchie(){
-        Hierarchie=new JMenuItem("Hierarchie");
-        Hierarchie.addActionListener(new HierarchieBouton(home));
-        Programme.add(Hierarchie,0);
-    }
-
-    private void setCours(){
-        Cours=new JMenu("Cours");
-        MenuBar.add(Cours);
+        Hierarchie=new JLabel("Hierarchie");
+        Hierarchie.addMouseListener(new HierarchieBouton(home));
+        MenuBar.add(Hierarchie);
     }
 
     private void setRecherche(){

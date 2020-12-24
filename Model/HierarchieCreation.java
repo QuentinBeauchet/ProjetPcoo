@@ -6,6 +6,7 @@ import View.Home;
 
 import javax.swing.*;
 import javax.swing.tree.DefaultMutableTreeNode;
+import java.awt.*;
 import java.util.*;
 
 public class HierarchieCreation {
@@ -30,7 +31,20 @@ public class HierarchieCreation {
             HierarchieSelection hierarchie = new HierarchieSelection(p);
             arbre.add(hierarchie.getArbre());
         }
-        return new JTree(arbre);
+        return setTreeLF(arbre);
+    }
+
+    private JTree setTreeLF(DefaultMutableTreeNode arbre){
+        LookAndFeel previousLF=UIManager.getLookAndFeel();
+        try {
+            UIManager.setLookAndFeel("com.sun.java.swing.plaf.gtk.GTKLookAndFeel");
+        }
+        catch (Exception exception){}
+        JTree tree=new JTree(arbre);
+        try {
+            UIManager.setLookAndFeel(previousLF);
+        } catch (UnsupportedLookAndFeelException e) {}
+        return tree;
     }
 
     private void setDialogBox(){
