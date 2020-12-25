@@ -7,6 +7,7 @@ import Model.TabCreation;
 import javax.swing.*;
 import javax.swing.table.DefaultTableCellRenderer;
 import javax.swing.table.JTableHeader;
+import javax.swing.table.TableColumn;
 import javax.swing.table.TableColumnModel;
 import java.awt.*;
 
@@ -136,6 +137,11 @@ public class Tableau {
 
     private void setSorter(){
         sorter=new Sorter(NBR_COMPOSANTS_ETUDIANTS,tableau);
+    }
+
+    public void setSorter(String filter){
+        sorter.setSorter(filter);
+        //TODO quand tableau.getRowCount()==1 n'afficher que les ue de son programme;
     }
 
     public JTable getTab(){

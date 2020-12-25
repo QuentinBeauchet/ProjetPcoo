@@ -19,12 +19,6 @@ public class App {
         ProgramSelection p=new ProgramSelection(xmlReader);
 
 
-
-        UIManager.LookAndFeelInfo[] looks = UIManager.getInstalledLookAndFeels();
-        for (UIManager.LookAndFeelInfo look : looks) {
-            System.out.println(look.getClassName());
-        }
-
         //TODO j'ai eu cette erreur quand j'ai resize "** (java:20711): CRITICAL **: 19:52:14.865: murrine_style_draw_box: assertion 'height >= -1' failed"
     }
 }

@@ -19,7 +19,7 @@ public class Home {
         this.xml = xml;
         frame = new JFrame("Projet PCOO");
         frame.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
-        frame.setSize(1500, 800);
+        frame.setSize(1445, 800);
         frame.setLocationRelativeTo(null);
         frame.setLayout(new BorderLayout());
 
@@ -27,6 +27,7 @@ public class Home {
         setMenu();
 
         frame.setVisible(true);
+
     }
 
     private void setTabInit() {

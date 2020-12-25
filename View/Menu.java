@@ -3,13 +3,17 @@ package View;
 import Controller.FichierBouton;
 import Controller.HierarchieBouton;
 import Controller.ProgrammeBouton;
+import Controller.RechercheField;
 
 import javax.swing.*;
 import javax.swing.border.BevelBorder;
+import javax.swing.border.EmptyBorder;
 import javax.swing.event.MenuEvent;
 import javax.swing.event.MenuListener;
+import javax.swing.plaf.BorderUIResource;
 import java.awt.*;
 import java.awt.event.*;
+import java.net.IDN;
 
 public class Menu {
     private Home home;
@@ -26,8 +30,13 @@ public class Menu {
         setProgramme();
         setHierarchie();
         setRecherche();
+        setStyle();
 
-        //TODO deplacer ça
+        //TODO faire actionmap (touche racourcis) si j'ai pas la flemme
+
+    }
+
+    private void setStyle(){
         MenuBar.setMargin(new Insets(5,10,5,10));
         MenuBar.setBorder(BorderFactory.createLoweredSoftBevelBorder());
     }
@@ -71,11 +80,22 @@ public class Menu {
     private void setHierarchie(){
         Hierarchie=new JLabel("Hierarchie");
         Hierarchie.addMouseListener(new HierarchieBouton(home));
+        Hierarchie.setBorder(new EmptyBorder(0,0,0,10));
+        Hierarchie.setHorizontalTextPosition(JLabel.CENTER);
+
         MenuBar.add(Hierarchie);
     }
 
     private void setRecherche(){
-        Recherche=new JTextField(20);
+        Recherche=new JTextField();
+        Recherche.setMaximumSize(new Dimension(200,20));
+        Recherche.addKeyListener(new RechercheField(Recherche,home));
+
+        JLabel bouton=new JLabel("Rechercher:");
+        bouton.setBorder(new EmptyBorder(0,0,0,0));
+        bouton.setHorizontalTextPosition(JLabel.CENTER);
+
+        MenuBar.add(bouton);
         MenuBar.add(Recherche);
     }
 
