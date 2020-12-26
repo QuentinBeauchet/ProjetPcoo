@@ -32,19 +32,45 @@ public class WriteCsv {
             }
             sb.append("\n");
 
-            sb.append("\"").append("Note max").append("\",\"\",").append("\"\",");
-            sb.append("\"").append(findNoteMax(p.getBlocs().get(0),p)).append("\"");        //Notes Max
-            for (int i = 1; i < p.getBlocs().size() ; i++) {
-                sb.append(",").append("\"").append(findNoteMax(p.getBlocs().get(i),p)).append("\"");
+            StringBuilder lineMax = new StringBuilder().append("\"").append("Note max").append("\",\"\",").append("\"\",");
+            StringBuilder lineMin = new StringBuilder().append("\"").append("Note min").append("\",\"\",").append("\"\",");
+            StringBuilder lineMoy = new StringBuilder().append("\"").append("Moyenne").append("\",\"\",").append("\"\",");
+            StringBuilder lineEcart = new StringBuilder().append("\"").append("Ecart-type").append("\",\"\",").append("\"\",");
+            for (int i = 0; i < p.getBlocs().size();++i
+                 ) {
+                UE ue = p.getBlocs().get(i);
+                ArrayList<String> myVars = MyTools.getStats(ue,xmlReader.getStudentList());
+                lineMax.append("\"").append(myVars.get(0)).append("\"");
+                lineMin.append("\"").append(myVars.get(1)).append("\"");
+                lineMoy.append("\"").append(myVars.get(2)).append("\"");
+                lineEcart.append("\"").append(myVars.get(3)).append("\"");
+                if(i==p.getBlocs().size()-1){
+                    lineMax.append("\n");
+                    lineMin.append("\n");
+                    lineMoy.append("\n");
+                    lineEcart.append("\n");
+                }else{
+                    lineMax.append(",");
+                    lineMin.append(",");
+                    lineMoy.append(",");
+                    lineEcart.append(",");
+                }
             }
-            sb.append("\n");
+            sb.append(lineMax.toString()).append(lineMin.toString()).append(lineMoy.toString()).append(lineEcart.toString());
 
-            sb.append("\"").append("Note min").append("\",\"\",").append("\"\",");
-            sb.append("\"").append(findNoteMin(p.getBlocs().get(0),p)).append("\"");        //Notes min
-            for (int i = 1; i < p.getBlocs().size() ; i++) {
-                sb.append(",").append("\"").append(findNoteMin(p.getBlocs().get(i),p)).append("\"");
-            }
-            sb.append("\n");
+//            sb.append("\"").append("Note max").append("\",\"\",").append("\"\",");
+//            sb.append("\"").append(findNoteMax(p.getBlocs().get(0),p)).append("\"");        //Notes Max
+//            for (int i = 1; i < p.getBlocs().size() ; i++) {
+//                sb.append(",").append("\"").append(findNoteMax(p.getBlocs().get(i),p)).append("\"");
+//            }
+//            sb.append("\n");
+//
+//            sb.append("\"").append("Note min").append("\",\"\",").append("\"\",");
+//            sb.append("\"").append(findNoteMin(p.getBlocs().get(0),p)).append("\"");        //Notes min
+//            for (int i = 1; i < p.getBlocs().size() ; i++) {
+//                sb.append(",").append("\"").append(findNoteMin(p.getBlocs().get(i),p)).append("\"");
+//            }
+//            sb.append("\n");
 
 
             writer.write(sb.toString());

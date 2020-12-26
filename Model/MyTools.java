@@ -36,8 +36,8 @@ public class MyTools {
         ArrayList<String> myArray = new ArrayList<>();
         myArray.add(String.valueOf(max));
         myArray.add(String.valueOf(min));
-        myArray.add(String.valueOf(moy).substring(0,6));
-        myArray.add(String.valueOf(Math.sqrt(sommeE / (nbrEtudiant - 1))).substring(0,6));
+        myArray.add(String.format("%.4f", moy));
+        myArray.add(String.format("%.4f",Math.sqrt(sommeE / (nbrEtudiant - 1))));
         return  myArray;
     }
 }
