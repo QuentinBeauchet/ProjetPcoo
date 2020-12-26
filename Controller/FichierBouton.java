@@ -1,6 +1,7 @@
 package Controller;
 
 import Controller.MenuBoutons;
+import Model.FileChooser;
 import View.Home;
 import View.Menu;
 
@@ -19,13 +20,7 @@ public class FichierBouton extends MenuBoutons {
     @Override
     public void actionPerformed(ActionEvent e) {
         if(action.equals("Ouvrir")){
-            JFileChooser chooser = new JFileChooser();
-            FileNameExtensionFilter filter = new FileNameExtensionFilter("Fichiers .xml", "xml");
-            chooser.setFileFilter(filter);
-            chooser.showOpenDialog(null);
-            if(chooser.getSelectedFile()!=null){
-                //TODO passer le chemin a xmlreader
-            }
+            new FileChooser();
         }
         else if(action.equals("Enregistrer")){
             //TODO save les csv une fois modifiés

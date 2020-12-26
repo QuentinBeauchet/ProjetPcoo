@@ -1,14 +1,8 @@
 package Controller;
 
-import Model.ProgramSelection;
 import Model.ProgramSwitch;
-import Model.TabCreation;
-import Model.XMLReader;
 import View.Home;
-import View.Menu;
-import View.Tableau;
 
-import javax.swing.*;
 import java.awt.event.ActionEvent;
 
 public class ProgrammeBouton extends MenuBoutons{

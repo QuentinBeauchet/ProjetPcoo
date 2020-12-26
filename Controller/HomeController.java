@@ -1,27 +1,20 @@
 package Controller;
 
 import Model.Etudiant;
+import Model.XMLMaker;
+import Model.XMLReader;
 import View.Home;
+import View.StartView;
 
 import javax.swing.*;
 import java.awt.*;
 
 public class HomeController {
 
-    private Home h;
-    private Etudiant e;
-
-    public HomeController(Home h, Etudiant e) {
-        this.h = h;
-        this.e = e;
-    }
-
-    public Home getHome() {
-        return h;
-    }
-
-    public Etudiant getEtudiant() {
-        return e;
+    public HomeController() {
+        //new StartView();
+        XMLReader xml=new XMLReader("data/data.xml");
+        new Home(xml);
     }
 
 }
