@@ -58,21 +58,6 @@ public class WriteCsv {
             }
             sb.append(lineMax.toString()).append(lineMin.toString()).append(lineMoy.toString()).append(lineEcart.toString());
 
-//            sb.append("\"").append("Note max").append("\",\"\",").append("\"\",");
-//            sb.append("\"").append(findNoteMax(p.getBlocs().get(0),p)).append("\"");        //Notes Max
-//            for (int i = 1; i < p.getBlocs().size() ; i++) {
-//                sb.append(",").append("\"").append(findNoteMax(p.getBlocs().get(i),p)).append("\"");
-//            }
-//            sb.append("\n");
-//
-//            sb.append("\"").append("Note min").append("\",\"\",").append("\"\",");
-//            sb.append("\"").append(findNoteMin(p.getBlocs().get(0),p)).append("\"");        //Notes min
-//            for (int i = 1; i < p.getBlocs().size() ; i++) {
-//                sb.append(",").append("\"").append(findNoteMin(p.getBlocs().get(i),p)).append("\"");
-//            }
-//            sb.append("\n");
-
-
             writer.write(sb.toString());
 
             System.out.println("done!");
