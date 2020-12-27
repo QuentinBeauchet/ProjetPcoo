@@ -54,7 +54,7 @@ public class StartView {
         panel.add(confirmation,new GridBagConstraints(0,5,3,1,1,1,GridBagConstraints.CENTER,GridBagConstraints.BOTH,new Insets(5,20,10,20),0,0));
         confirmation.setLayout(new GridBagLayout());
 
-        texte=new JLabel("<html>Vous avez choisit dataaaaaaaaaaaaaaaaaa.xml, voulez vous confirmer ?</html>");
+        texte=new JLabel();
         confirmation.add(texte,new GridBagConstraints(0,0,2,1,1,1,GridBagConstraints.CENTER,GridBagConstraints.BOTH,new Insets(0,0,0,0),0,0));
 
         oui=new JButton("OUI");
