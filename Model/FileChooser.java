@@ -2,21 +2,37 @@ package Model;
 
 import javax.swing.*;
 import javax.swing.filechooser.FileNameExtensionFilter;
+import java.nio.file.Path;
 
 public class FileChooser {
     private JFileChooser chooser;
+    private int option;
 
     public FileChooser(){
-        chooser = new JFileChooser();
+        setLF();
         FileNameExtensionFilter filter = new FileNameExtensionFilter("Fichiers .xml", "xml");
         chooser.setFileFilter(filter);
-        chooser.showOpenDialog(null);
-        if(chooser.getSelectedFile()!=null){
-            System.out.println(chooser.getSelectedFile());
-            //TODO passer le chemin a xmlreader
+        option = chooser.showOpenDialog(null);
+    }
+
+    private void setLF(){
+        LookAndFeel previousLF=UIManager.getLookAndFeel();
+        try {
+            UIManager.setLookAndFeel("javax.swing.plaf.metal.MetalLookAndFeel");
+            chooser = new JFileChooser();
         }
-        else{
-            System.out.println("Fichier invalide");
+        catch (Exception exception){}
+        try {
+            UIManager.setLookAndFeel(previousLF);
         }
+        catch (Exception exception){}
+    }
+
+    public JFileChooser getChooser(){
+        return chooser;
+    }
+
+    public int getOption(){
+        return option;
     }
 }

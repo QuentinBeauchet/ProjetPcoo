@@ -20,7 +20,7 @@ public class FichierBouton extends MenuBouton{
       chooser.setFileFilter(filter);
       int returnVal = chooser.showOpenDialog(menu.getMenuBar());
       if(returnVal == JFileChooser.APPROVE_OPTION) {
-        menu.setFile(chooser.	getSelectedFile());
+        menu.setFile(chooser.getSelectedFile());
       }
     }
     else{

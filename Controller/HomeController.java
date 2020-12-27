@@ -12,9 +12,7 @@ import java.awt.*;
 public class HomeController {
 
     public HomeController() {
-        //new StartView();
-        XMLReader xml=new XMLReader("data/data.xml");
-        new Home(xml);
+        new StartView();
     }
 
 }

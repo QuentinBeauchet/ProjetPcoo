@@ -12,6 +12,9 @@ public abstract class MenuBoutons implements ActionListener {
     public MenuBoutons(Home home){
         this.home=home;
     }
+
+    public MenuBoutons(){}
+
     public abstract void actionPerformed(ActionEvent e);
 
     public Home getHome() {
