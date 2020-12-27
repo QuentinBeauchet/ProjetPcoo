@@ -37,4 +37,13 @@ public class Cours implements UE{
         return e.getNotes().get(this);
     }
 
+    @Override
+    public void toXml(StringBuilder sb) {
+        sb.append("    <course>\n")
+                .append("        <identifier>").append(this.getId()).append("</identifier>\n")
+                .append("        <name>").append(this.getNom()).append("</name>\n")
+                .append("        <credits>").append(this.getCoef()).append("</credits>\n")
+                .append("    </course>\n");
+    }
+
 }

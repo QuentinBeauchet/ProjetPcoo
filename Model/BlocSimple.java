@@ -19,6 +19,11 @@ public class BlocSimple extends Bloc {
     }
 
     @Override
+    public void toXml(StringBuilder sb) {
+        sb.append("        <item>").append(this.getId()).append("</item>\n");
+    }
+
+    @Override
     public String toString() {
         return "BlocSimple{" +
                 "ue=" + ue +

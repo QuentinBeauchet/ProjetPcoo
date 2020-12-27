@@ -1,6 +1,7 @@
 package Model;
 
 import java.util.HashMap;
+import java.util.Map;
 
 public class Etudiant {
     private final String id;
@@ -51,6 +52,23 @@ public class Etudiant {
     }
     public boolean isPresent(Cours cours){
         return this.notes.get(cours) !=null;
+    }
+    public void toXml(StringBuilder sb){
+        sb.append("    <student>\n")
+                .append("        <identifier>").append(this.getId()).append("</identifier>\n")
+                .append("        <name>").append(this.getNom()).append("</name>\n")
+                .append("        <surname>").append(this.getPrenom()).append("</surname>\n")
+                .append("        <program>").append(this.getP().getNom()).append("</program>\n");
+        for(Map.Entry<Cours, Note> entry : this.getNotes().entrySet()) {
+            Cours key = entry.getKey();
+            Note value = entry.getValue();
+            sb.append("        <grade>\n")
+                    .append("            <item>").append(key.getId()).append("</item>\n")
+                    .append("            <value>").append(value.getNote()).append("</value>\n")
+                    .append("        </grade>\n");
+
+        }
+                sb.append("    </student>\n");
     }
 
     @Override

@@ -23,6 +23,17 @@ public class BlocComposite extends BlocMultiple {
         }
         return new Note(String.valueOf(somme/total));
     }
+    @Override
+    public void toXml(StringBuilder sb) {
+        sb.append("        <composite>\n")
+                .append("            <identifier>").append(this.getId()).append("</identifier>\n")
+                .append("            <name>").append(this.getNom()).append("</name>\n");
+        for (UE ue: this.getUE()
+             ) {
+            sb.append("            <item>").append(ue.getId()).append("</item>\n");
+        }
+        sb.append("        </composite>\n");
+    }
 
     @Override
     public int getCoef() {
