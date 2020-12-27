@@ -42,6 +42,16 @@ public class Programme {
         return (somme/total) >= 10;
     }
 
+    public void toXml(StringBuilder sb){
+        sb.append("    <program>\n")
+                .append("        <identifier>").append(this.getId()).append("</identifier>\n")
+                .append("        <name>").append(this.getNom()).append("</name>\n");
+        for (Bloc b: this.getBlocs()
+             ) {
+            b.toXml(sb);
+        }
+        sb.append("    </program>\n");
+    }
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;

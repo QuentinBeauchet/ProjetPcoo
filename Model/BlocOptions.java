@@ -29,7 +29,6 @@ public class BlocOptions extends BlocMultiple {
 
     @Override
     public Note calcNote(Etudiant e) {
-
          Note nMax = new Note("0");
         for (int i = 0; i < this.listUe.size() ; i++) {
             if(e.getNotes().get(this.listUe.get(i)) != null
@@ -37,5 +36,17 @@ public class BlocOptions extends BlocMultiple {
                 nMax = e.getNotes().get(this.listUe.get(i));
         }
         return new Note(nMax.getNote());
+    }
+
+    @Override
+    public void toXml(StringBuilder sb) {
+        sb.append("        <option>\n")
+                .append("            <identifier>").append(this.getId()).append("</identifier>\n")
+                .append("            <name>").append(this.getNom()).append("</name>\n");
+        for (UE ue: this.getUE()
+        ) {
+           sb.append("            <item>").append(ue.getId()).append("</item>\n");
+        }
+        sb.append("        </option>\n");
     }
 }
