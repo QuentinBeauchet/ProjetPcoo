@@ -1,30 +1,54 @@
 package Controller;
 
-import Controller.MenuBoutons;
-import Model.*;
+import Model.FileChooser;
+import Model.WriteCsv;
+import Model.XMLMaker;
+import Model.XMLReader;
 import View.Home;
-import View.Menu;
 import View.StartView;
-import View.Tableau;
 
 import javax.swing.*;
-import javax.swing.filechooser.FileNameExtensionFilter;
 import java.awt.event.ActionEvent;
-import java.nio.file.Path;
 
 public class FichierBouton extends MenuBoutons {
     private final String action;
     private StartView view;
+
+    /**
+     * Classe de l'EventListener des boutons du JMenu Fichier.
+     *
+     * @param s
+     * @param home
+     */
 
     public FichierBouton(String s, Home home) {
         super(home);
         this.action=s;
     }
 
+    /**
+     * Classe de l'EventListener des JButton de la JFrame de StartView
+     *
+     * @param s
+     * @param view
+     */
+
     public FichierBouton(String s, StartView view){
         this.view=view;
         this.action=s;
     }
+
+    /**
+     * Selon le String passé dans le constructeur le bouton va effectué differentes actions:
+     * "Ouvrir"->Appel d'un JFileChooser dans Home
+     * "Start"->Appel de JFileChooser dans StartView
+     * "StartNew"->Passage de la StartView a Home avec un XMLReader()
+     * "Launch"->Passage de la StartView a Home avec un XMLReader(fichier)
+     * "Enregistrer"->Sauvegarde les donnés sous le format xml et csv
+     * ...->Ferme le programme
+     *
+     * @param e
+     */
 
     @Override
     public void actionPerformed(ActionEvent e) {
@@ -61,6 +85,12 @@ public class FichierBouton extends MenuBoutons {
             System.exit(0);
         }
     }
+
+    /**
+     * Affiche le JPanel de confirmation dans la StartView si un fichier xml a été choisit.
+     *
+     * @param chooser
+     */
 
     private void setConfirmation(FileChooser chooser){
         if(chooser.getOption()==JFileChooser.APPROVE_OPTION){

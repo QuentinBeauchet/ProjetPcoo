@@ -6,16 +6,28 @@ import View.Home;
 
 import javax.swing.*;
 import javax.swing.tree.DefaultMutableTreeNode;
-import java.awt.*;
 import java.util.*;
 
 public class HierarchieCreation {
     private Home home;
 
+    /**
+     * Classe qui affiche le JDialog contenant le JTree de la hierarchie des programmes.
+     *
+     * @param home
+     */
+
     public HierarchieCreation(Home home){
         this.home=home;
         setDialogBox();
     }
+
+    /**
+     * Classe qui filtre les cours du tableau.
+     *
+     * @param home
+     * @param filtreUE
+     */
 
     public HierarchieCreation(Home home,ArrayList<String> filtreUE){
         this.home=home;
@@ -23,6 +35,12 @@ public class HierarchieCreation {
             setFiltreUE(filtreUE);
         }
     }
+
+    /**
+     * Création du JTree des programmes de l'ArrayList<Programme> de l'XMLReader.
+     *
+     * @return
+     */
 
     private JTree ArbreProgrammesSelectiones(){
         ArrayList<Programme> programList = home.getXml().getProgramList();
@@ -33,6 +51,13 @@ public class HierarchieCreation {
         }
         return setTreeLF(arbre);
     }
+
+    /**
+     * Look&Feel du Jtree.
+     *
+     * @param arbre
+     * @return
+     */
 
     private JTree setTreeLF(DefaultMutableTreeNode arbre){
         LookAndFeel previousLF=UIManager.getLookAndFeel();
@@ -46,6 +71,10 @@ public class HierarchieCreation {
         } catch (UnsupportedLookAndFeelException e) {}
         return tree;
     }
+
+    /**
+     * Creation de la JDialog contenant le JTree de la hierarchie des programmes.
+     */
 
     private void setDialogBox(){
         JTree arbre=ArbreProgrammesSelectiones();
@@ -63,6 +92,12 @@ public class HierarchieCreation {
         dialog.setResizable(false);
         dialog.setVisible(true);
     }
+
+    /**
+     * Application du filtre des UE dans la classe ProgramSwitch.
+     *
+     * @param filtreUE
+     */
 
     private void setFiltreUE(ArrayList<String> filtreUE){
         ProgramSwitch programSwitch = new ProgramSwitch(home);

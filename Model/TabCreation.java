@@ -1,7 +1,5 @@
 package Model;
 
-import javax.swing.*;
-import java.lang.reflect.Array;
 import java.util.ArrayList;
 
 public class TabCreation {
@@ -9,21 +7,32 @@ public class TabCreation {
     private static final int NBR_LIGNES_CALCULS=4;
     private String[] colones;
     private String[][] lignes;
-    private String[][] scores;
+    private String[][] calculs;
     private ArrayList<Cours> courseList;
-    private ArrayList<Programme> programList;
     private ArrayList<Etudiant> studentList;
 
-    public TabCreation(ArrayList<Cours> cours, ArrayList<Programme> programmes, ArrayList<Etudiant> etudiants){
+    /**
+     * Classe qui initialise les deux JTable celle des etudiants et celle des calculs.
+     *
+     * @param cours
+     * @param etudiants
+     */
+
+    public TabCreation(ArrayList<Cours> cours,ArrayList<Etudiant> etudiants){
         courseList=cours;
-        programList=programmes;
         studentList=etudiants;
         int nbrLignes=studentList.size();
         int nbrColones=courseList.size()+NBR_COMPOSANTS_ETUDIANTS;
         setColones(nbrColones);
         setLignes(nbrColones,nbrLignes);
-        setScores(nbrColones);
+        setCalculs(nbrColones);
     }
+
+    /**
+     * Crée l'Header de la JTable etudiants.
+     *
+     * @param nbrColones
+     */
 
     private void setColones(int nbrColones) {
         colones=new String[nbrColones];
@@ -34,6 +43,13 @@ public class TabCreation {
             colones[i+NBR_COMPOSANTS_ETUDIANTS]=courseList.get(i).getNom();
         }
     }
+
+    /**
+     * Crée les lignes de la JTable etudiants.
+     *
+     * @param nbrColones
+     * @param nbrLignes
+     */
 
     private void setLignes(int nbrColones,int nbrLignes) {
         lignes=new String[nbrLignes][nbrColones];
@@ -49,49 +65,65 @@ public class TabCreation {
         }
     }
 
-    private void setScores(int nbrColones) {
-        scores=new String[NBR_LIGNES_CALCULS][nbrColones];
+    /**
+     * Crée les lignes de la JTable calculs.
+     *
+     * @param nbrColones
+     */
+
+    private void setCalculs(int nbrColones) {
+        calculs=new String[NBR_LIGNES_CALCULS][nbrColones];
 
         //TODO Pas tres beau
-        scores[0][0]="Note max";
-        scores[0][1]="";
-        scores[0][2]="";
-        scores[1][0]="Note min";
-        scores[1][1]="";
-        scores[1][2]="";
-        scores[2][0]="Note moyenne";
-        scores[2][1]="";
-        scores[2][2]="";
-        scores[3][0]="Écart-type";
-        scores[3][1]="";
-        scores[3][2]="";
+        calculs[0][0]="Note max";
+        calculs[0][1]="";
+        calculs[0][2]="";
+        calculs[1][0]="Note min";
+        calculs[1][1]="";
+        calculs[1][2]="";
+        calculs[2][0]="Note moyenne";
+        calculs[2][1]="";
+        calculs[2][2]="";
+        calculs[3][0]="Écart-type";
+        calculs[3][1]="";
+        calculs[3][2]="";
 
-        //Note Max, Note Min et Moyenne
         for (int i = 0; i < courseList.size(); i++) {
             ArrayList<String> toolKit = MyTools.getStats(courseList.get(i),studentList);
-            scores[0][i+NBR_COMPOSANTS_ETUDIANTS]=toolKit.get(0); //max
-            scores[1][i+NBR_COMPOSANTS_ETUDIANTS]=toolKit.get(1); //min
-            scores[2][i+NBR_COMPOSANTS_ETUDIANTS]=toolKit.get(2); //moy
-            scores[3][i+NBR_COMPOSANTS_ETUDIANTS] = toolKit.get(3); //ecart type
+            calculs[0][i+NBR_COMPOSANTS_ETUDIANTS]=toolKit.get(0); //max
+            calculs[1][i+NBR_COMPOSANTS_ETUDIANTS]=toolKit.get(1); //min
+            calculs[2][i+NBR_COMPOSANTS_ETUDIANTS]=toolKit.get(2); //moy
+            calculs[3][i+NBR_COMPOSANTS_ETUDIANTS]=toolKit.get(3); //ecart type
         }
-
-        //TODO substring c'est pas ouf car sa compte 4 chiffres apres la virgules sir c'est <10 et 3 chiffres si >=10
     }
 
+    /**
+     * Renvoit l'Header de la JTable etudiants.
+     *
+     * @return
+     */
 
     public String[] getColones() {
         return colones;
     }
 
+    /**
+     * Renvoit les lignes de la JTable etudiants.
+     *
+     * @return
+     */
+
     public String[][] getLignes() {
         return lignes;
     }
 
-    public String[][] getScores() {
-        return scores;
+    /**
+     * Renvoit les lignes de la JTable calculs.
+     * @return
+     */
+
+    public String[][] getCalculs() {
+        return calculs;
     }
 
-    public int getNbrComposantsEtudiants() {
-        return NBR_COMPOSANTS_ETUDIANTS;
-    }
 }

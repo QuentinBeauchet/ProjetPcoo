@@ -3,18 +3,28 @@ package Controller;
 import Model.HierarchieCreation;
 import View.Home;
 
-import java.awt.event.ActionEvent;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
-import java.util.ArrayList;
 
 public class HierarchieBouton implements MouseListener{
     private Home home;
+
+    /**
+     * Classe qui instancie une nouvelle HierarchieCreation
+     * quand click sur le boutton hierarchie.
+     *
+     * @param home
+     */
 
     public HierarchieBouton(Home home) {
         this.home=home;
     }
 
+    /**
+     * Instanciation de la HierarchieCreation.
+     *
+     * @param mouseEvent
+     */
 
     @Override
     public void mouseClicked(MouseEvent mouseEvent) {

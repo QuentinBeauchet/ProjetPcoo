@@ -4,9 +4,15 @@ import Model.Note;
 
 import java.util.Comparator;
 
-import static java.lang.Math.max;
-
 public class CoursComparator implements Comparator<String> {
+
+    /**
+     * Classe qui permet de comparer deux notes du tableau.
+     *
+     * @param arg0
+     * @param arg1
+     * @return
+     */
 
     @Override
     public int compare(String arg0, String arg1) {
