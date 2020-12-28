@@ -1,5 +1,6 @@
 package Model;
 
+import Exceptions.*;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -18,6 +19,10 @@ public class Etudiant {
         this.id = id;
         this.nom = nom;
         this.prenom = prenom;
+        if(id.equals("") || !id.chars().allMatch( Character::isDigit ) )throw new IdEtudiantInvalidException(this);
+        if(nom.equals(""))throw new NameEtudiantInvalidException(this);
+        if(prenom.equals(""))throw new SurnameEtudiantInvalidException(this);
+
     }
 
     public String getId() {

@@ -93,7 +93,6 @@ public class XMLReader {
                     e.getElementsByTagName("name").item(0).getTextContent()
             );
 
-
             if( cours.size()>0 && isIdCourseAlreadyExist(cours,temp.getId())){
                 throw new IdUeDuplicationException(temp);
             }
@@ -112,8 +111,6 @@ public class XMLReader {
                     e.getElementsByTagName("name").item(0).getTextContent(),
                     e.getElementsByTagName("identifier").item(0).getTextContent()
             );
-
-
             if(programs.size()>0 && isIdProgramAlreadyExist(programs,temp.getId()))throw new IdProgramDuplicationException(temp);
             fillOneProgram(e,temp);
             programs.add(temp);
@@ -131,6 +128,7 @@ public class XMLReader {
                     e.getElementsByTagName("name").item(0).getTextContent(),
                     e.getElementsByTagName("surname").item(0).getTextContent()
             );
+
             if(etudiants.size()>1 && isIdEtudiantAlreadyExist(etudiants,etu.getId()))throw new IdEtudiantDuplicationException(etu);
             etu.inscris(findProgramById(e.getElementsByTagName("program").item(0).getTextContent()));
             fillNotesToStudent(e,etu);
@@ -188,14 +186,14 @@ public class XMLReader {
              ) {
             if(u.getId().equals(id))return u;
         }
-        return null;
+        throw new IdUnknownException(id);
     }
     public Programme findProgramById(String id){
         for (Programme p : this.programList
         ){
             if(p.getId().equals(id))return p;
         }
-        return null;
+        throw new IdUnknownException(id);
     }
     public boolean isIdCourseAlreadyExist(ArrayList<Cours> cours, String id){
 

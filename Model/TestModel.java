@@ -3,7 +3,7 @@ package Model;
 public class TestModel {
     public static void main(String[] args) {
 
-        XMLReader xmlReader = new XMLReader("data/data.xml");
+        new Etudiant("156","fzezfe","ih");
 
     }
 }

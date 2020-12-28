@@ -1,5 +1,7 @@
 package Model;
 
+import Exceptions.*;
+
 import java.util.ArrayList;
 
 public abstract class Bloc implements UE {
@@ -8,6 +10,8 @@ public abstract class Bloc implements UE {
     public Bloc(String id, String nom) {
         this.id = id;
         this.nom = nom;
+        if(id.equals(""))throw new IdUeInvalidException(this);
+        if(nom.equals(""))throw new NameUeInvalidException(this);
     }
     @Override
     public String getId() {

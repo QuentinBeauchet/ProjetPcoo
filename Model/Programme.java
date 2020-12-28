@@ -1,5 +1,7 @@
 package Model;
 
+import Exceptions.*;
+
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Objects;
@@ -12,6 +14,8 @@ public class Programme {
     public Programme(String nom, String id) {
         this.nom = nom;
         this.id = id;
+        if(id.equals(""))throw new IdProgramInvalidException(this);
+        if(nom.equals(""))throw new NameProgramInvalidException(this);
     }
 
     public String getNom() {

@@ -1,5 +1,7 @@
 package Model;
 
+import Exceptions.*;
+
 public class Cours implements UE{
     private String id;
     private int coef;
@@ -24,6 +26,9 @@ public class Cours implements UE{
         this.id = id;
         this.coef = coef;
         this.nom = nom;
+        if(id.equals(""))throw new IdUeInvalidException(this);
+        if(nom.equals(""))throw new NameUeInvalidException(this);
+        if(coef< 0)throw new CoefUeInvalidException(this);
     }
 
     @Override
