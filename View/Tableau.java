@@ -21,10 +21,16 @@ public class Tableau {
     private JPanel Panel;
     private Sorter sorter;
 
+    /**
+     * Classe qui affiche le tableau grace a une JTable a partir d'une TabCreation.
+     *
+     * @param tab
+     */
+
     public Tableau(TabCreation tab){
         String[] colones = tab.getColones();
         String[][] lignes = tab.getLignes();
-        String[][] scores = tab.getScores();
+        String[][] scores = tab.getCalculs();
         setTabLF(lignes,colones);
         calculs=new JTable(scores,colones);
         setScrollBar();
@@ -34,6 +40,13 @@ public class Tableau {
         setSorter();
     }
 
+    /**
+     * Look&Feel de la JTable des etudiants et instanciation de celle ci.
+     *
+     * @param lignes
+     * @param colones
+     */
+
     //TODO est-ce qu'on peut faire mieux que réecire a chaque fois ?
     private void setTabLF(String[][] lignes,String[] colones){
         LookAndFeel previousLF=UIManager.getLookAndFeel();
@@ -41,11 +54,15 @@ public class Tableau {
             UIManager.setLookAndFeel("javax.swing.plaf.metal.MetalLookAndFeel");
         }
         catch (Exception exception){}
-        tableau =new JTable(lignes,colones);
+        tableau=new JTable(lignes,colones);
         try {
             UIManager.setLookAndFeel(previousLF);
         } catch (UnsupportedLookAndFeelException e) {}
     }
+
+    /**
+     * Look&Feel des JScroolPane et instanciation de ceux ci.
+     */
 
     private void setScrollPaneLF(){
         LookAndFeel previousLF=UIManager.getLookAndFeel();
@@ -60,6 +77,10 @@ public class Tableau {
         } catch (UnsupportedLookAndFeelException e) {}
     }
 
+    /**
+     * Parametrage des JScrollPane.
+     */
+
     private void setScrollBar() {
         setScrollPaneLF();
         tableau.setAutoResizeMode(JTable.AUTO_RESIZE_OFF);
@@ -70,27 +91,33 @@ public class Tableau {
         calculs.getTableHeader().setUI(null);
     }
 
+    /**
+     * Configure le layout.
+     */
+
     private void setLayout(){
         Panel=new JPanel();
         Panel.setLayout(new GridBagLayout());
         calculs.setPreferredScrollableViewportSize(new Dimension((int)calculs.getPreferredScrollableViewportSize().getWidth(),calculs.getRowCount()*calculs.getRowHeight()));
         PART2.setMinimumSize(new Dimension((int)calculs.getPreferredScrollableViewportSize().getWidth(),calculs.getRowHeight()*(calculs.getRowCount()+1)));
 
-        GridBagConstraints c=new GridBagConstraints();
-        c.weighty=1;
-        c.weightx=1;
-        c.fill=GridBagConstraints.BOTH;
-        Panel.add(PART1,c);
-        c.gridy=1;
-        c.weighty=0;
-        Panel.add(PART2,c);
+        Panel.add(PART1,new GridBagConstraints(0,0,1,1,1,1,GridBagConstraints.CENTER,GridBagConstraints.BOTH,new Insets(0,0,0,0),0,0));
+        Panel.add(PART2,new GridBagConstraints(0,1,1,1,1,0,GridBagConstraints.CENTER,GridBagConstraints.BOTH,new Insets(0,0,0,0),0,0));
     }
+
+    /**
+     * Appele les methodes pour configurer les style de tous les composants.
+     */
 
     private void setStyle(){
         setStyleHeader();
         setStyleCalculs();
         setStyleColonnes();
     }
+
+    /**
+     * Configure le style des Header.
+     */
 
     private void setStyleHeader(){
         JTableHeader header=tableau.getTableHeader();
@@ -100,10 +127,18 @@ public class Tableau {
         header.addMouseListener(new HeaderListener(tableau));
     }
 
+    /**
+     * Configure le style de la JTable des calculs.
+     */
+
     private void setStyleCalculs(){
         calculs.setBackground(tableau.getTableHeader().getBackground());
         //TODO rendre plus jolie le tableau calcul
     }
+
+    /**
+     * Configure le style des Colones.
+     */
 
     private void setStyleColonnes(){
         TableColumnModel columnModel = tableau.getColumnModel();
@@ -130,35 +165,39 @@ public class Tableau {
         }
     }
 
+    /**
+     * Empeche l'edition de tableau des calculs.
+     */
+
     private void setEdition(){
         calculs.setCellSelectionEnabled(true);
         calculs.setDefaultEditor(Object.class, null);
     }
 
+    /**
+     * Configure le Sorter des colones.
+     */
+
     private void setSorter(){
         sorter=new Sorter(NBR_COMPOSANTS_ETUDIANTS,tableau);
     }
+
+    /**
+     * Configure le sorter des lignes selon le filtre.
+     *
+     * @param filter
+     */
 
     public void setSorter(String filter){
         sorter.setSorter(filter);
         //TODO quand tableau.getRowCount()==1 n'afficher que les ue de son programme;
     }
 
-    public JTable getTab(){
-        return tableau;
-    }
-
-    public JTable getCalculs() {
-        return calculs;
-    }
-
-    public JScrollPane getPART1() {
-        return PART1;
-    }
-
-    public JScrollPane getPART2() {
-        return PART2;
-    }
+    /**
+     * Renvoit le JPanel qui contient les deux tableaux.
+     *
+     * @return
+     */
 
     public JPanel getPanel() {
         return Panel;

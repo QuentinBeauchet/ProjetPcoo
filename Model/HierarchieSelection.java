@@ -1,15 +1,27 @@
 package Model;
 
-import javax.swing.*;
 import javax.swing.tree.DefaultMutableTreeNode;
 import java.util.ArrayList;
 
 public class HierarchieSelection {
     private DefaultMutableTreeNode arbre;
 
+    /**
+     * Classe qui crée une DefaultMutableTreeNode a partir d'un Programme.
+     *
+     * @param programme
+     */
+
     public HierarchieSelection(Programme programme){
         arbre=CreationArbre(programme);
     }
+
+    /**
+     * Creation de la DefaultMutableTreeNode pour un Programme.
+     *
+     * @param CurrentProgramme
+     * @return
+     */
 
     private DefaultMutableTreeNode CreationArbre(Programme CurrentProgramme){
         ArrayList<Bloc> blocs=CurrentProgramme.getBlocs();
@@ -29,6 +41,12 @@ public class HierarchieSelection {
         }
         return Racine;
     }
+
+    /**
+     * Renvoit la DefaultMutableTreeNode.
+     *
+     * @return
+     */
 
     public DefaultMutableTreeNode getArbre() {
         return arbre;

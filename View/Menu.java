@@ -6,25 +6,23 @@ import Controller.ProgrammeBouton;
 import Controller.RechercheField;
 
 import javax.swing.*;
-import javax.swing.border.BevelBorder;
 import javax.swing.border.EmptyBorder;
-import javax.swing.event.MenuEvent;
-import javax.swing.event.MenuListener;
-import javax.swing.plaf.BorderUIResource;
 import java.awt.*;
-import java.awt.event.*;
-import java.net.IDN;
 
 public class Menu {
     private Home home;
     private JMenuBar MenuBar;
-    private JMenu Fichier;
-    private JMenu Programme;
-    private JLabel Hierarchie;
-    private JTextField Recherche;
 
-    public Menu(Home h){
-        home=h;
+    /**
+     * Classe qui contient tous les composants de la JMenuBar,
+     * c'est aussi elle qui initialise les EventListener pour les boutons du menu
+     * et qui defini leurs style.
+     *
+     * @param home
+     */
+
+    public Menu(Home home){
+        this.home=home;
         MenuBar=new JMenuBar();
         setFichier();
         setProgramme();
@@ -36,13 +34,24 @@ public class Menu {
 
     }
 
+    /**
+     * Defini le style de la JMenuBar.
+     */
+
     private void setStyle(){
         MenuBar.setMargin(new Insets(5,10,5,10));
         MenuBar.setBorder(BorderFactory.createLoweredSoftBevelBorder());
     }
 
+    /**
+     * Crée les composants du JMenu Fichier:
+     * Ouvrir->Appele la classe FichierBouton("Ouvrir",Home)->Ouvre JFileChooser pour changer de xml
+     * Enregistrer->Appele la classe FichierBouton("Enregistrer",Home)->Appele les classes XMlMaker et WriteCSV pour sauvegarder les données dans des nouveaux fichier
+     * Quitter->Appele la classe FichierBouton("Quitter",Home)->Fermer le programme
+     */
+
     private void setFichier(){
-        Fichier=new JMenu("Fichier");
+        JMenu Fichier=new JMenu("Fichier");
 
         JMenuItem Open=new JMenuItem("Ouvrir");
         Open.addActionListener(new FichierBouton(Open.getText(),home));
@@ -59,8 +68,14 @@ public class Menu {
         MenuBar.add(Fichier);
     }
 
+    /**
+     * Crée les composants de JMenu Programme:
+     * Tout->La Jtable affiche toutes les ue
+     * ...->La selection d'un programme n'affiche que les eu de celui ci
+     */
+
     private void setProgramme(){
-        Programme=new JMenu("Programme");
+        JMenu Programme=new JMenu("Programme");
 
         JMenuItem Tout=new JMenuItem("Tout");
         Tout.addActionListener(new ProgrammeBouton(-1,home));
@@ -77,8 +92,15 @@ public class Menu {
         MenuBar.add(Programme);
     }
 
+    /**
+     * Crée le JLabel Hierarchie qui appele l'EventListener HierarchieBouton(Home),
+     * celui ci appele la classe Dialog qui ouvre un JDialog contenant un JTree
+     * de la hierarchie des programmes du fichier xml.
+     * La selection de ceux ci permet de realiser un filtrage sur le tableau.
+     */
+
     private void setHierarchie(){
-        Hierarchie=new JLabel("Hierarchie");
+        JLabel Hierarchie=new JLabel("Hierarchie");
         Hierarchie.addMouseListener(new HierarchieBouton(home));
         Hierarchie.setBorder(new EmptyBorder(0,0,0,10));
         Hierarchie.setHorizontalTextPosition(JLabel.CENTER);
@@ -86,8 +108,13 @@ public class Menu {
         MenuBar.add(Hierarchie);
     }
 
+    /**
+     * Crée le JTextField qui appele L'EventListener RechercheField(JTextField,Home),
+     * celui ci permet de realiser un filtrage des Nom/Prenom/Numero Etudiants sur le tableau.
+     */
+
     private void setRecherche(){
-        Recherche=new JTextField();
+        JTextField Recherche=new JTextField();
         Recherche.setMaximumSize(new Dimension(200,20));
         Recherche.addKeyListener(new RechercheField(Recherche,home));
 
@@ -99,7 +126,11 @@ public class Menu {
         MenuBar.add(Recherche);
     }
 
-
+    /**
+     * Renvoit la JMenuBar.
+     *
+     * @return
+     */
     public JMenuBar getMenuBar() {
         return MenuBar;
     }

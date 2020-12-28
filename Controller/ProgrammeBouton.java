@@ -8,10 +8,23 @@ import java.awt.event.ActionEvent;
 public class ProgrammeBouton extends MenuBoutons{
     private final int index;
 
+    /**
+     * Classe de l'EventListener des boutons du JMenu Programme.
+     *
+     * @param index
+     * @param home
+     */
+
     public ProgrammeBouton(int index,Home home) {
         super(home);
         this.index=index;
     }
+
+    /**
+     * Change les cours du tableau selon le programme selectioné.
+     *
+     * @param e
+     */
 
     @Override
     public void actionPerformed(ActionEvent e) {

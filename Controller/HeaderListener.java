@@ -13,9 +13,22 @@ public class HeaderListener implements MouseListener{
     private JDialog dialog;
     private JLabel texte;
 
+    /**
+     * Classe de l'EventListener de l'Header du tableau qui permet d'afficher
+     * les nom des cours quand on laisse la souris dessus au bout de 0.2s.
+     *
+     * @param table
+     */
+
     public HeaderListener(JTable table){
         tableau=table;
     }
+
+    /**
+     * Creation du JDialog avec le nom du cours a la position de la souris.
+     *
+     * @param mouseEvent
+     */
 
     @Override
     public void mouseEntered(MouseEvent mouseEvent) {
@@ -35,10 +48,22 @@ public class HeaderListener implements MouseListener{
         }
     }
 
+    /**
+     * Supression du JDialog quand on sors de l'Header.
+     *
+     * @param mouseEvent
+     */
+
     @Override
     public void mouseExited(MouseEvent mouseEvent) {
         dialog.dispose();
     }
+
+    /**
+     * Application du nom du cours dans le JDialog.
+     *
+     * @param currentcolumn
+     */
 
     private void setLabel(TableColumn currentcolumn){
         texte=new JLabel((String) currentcolumn.getHeaderValue());
@@ -50,6 +75,12 @@ public class HeaderListener implements MouseListener{
         texte.setBorder(BorderFactory.createLoweredBevelBorder());
         dialog.add(texte);
     }
+
+    /**
+     * Style du dialog.
+     *
+     * @param pos
+     */
 
     private void setDialog(Point pos){
         dialog.setUndecorated(true);

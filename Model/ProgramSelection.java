@@ -1,19 +1,30 @@
 package Model;
 
-import java.lang.reflect.Array;
 import java.util.ArrayList;
-import java.util.Collection;
 
 public class ProgramSelection {
-    private ArrayList<Cours> courseList;
     private ArrayList<Programme> programList;
     private ArrayList<Etudiant> studentList;
 
+    /**
+     * Classe qui crée un TabCreation[] de tout les Programmes du XMLreader
+     * pour facilement passer de l'affichage d'un programme a un autre.
+     *
+     * @param xml
+     */
+
     public ProgramSelection(XMLReader xml){
-        courseList=xml.getCourseList();
         programList=xml.getProgramList();
         studentList=xml.getStudentList();
     }
+
+    /**
+     * Renvoit l'ArrayList des tous les etudiants inscrit dans le programme
+     * a l'index i dans l'ArrayList<Programme> de l'XMLReader.
+     *
+     * @param index
+     * @return
+     */
 
     private ArrayList<Etudiant> ListeEtudiantsIndex(int index){
         ArrayList<Etudiant> etudiants=new ArrayList<>();
@@ -24,6 +35,14 @@ public class ProgramSelection {
         }
         return etudiants;
     }
+
+    /**
+     * Renvoit l'ArrayList de tous les cours presents dans le programme
+     * a l'index i dans l'ArrayList<Programme> de l'XMLReader.
+     *
+     * @param index
+     * @return
+     */
 
     private ArrayList<Cours> ListeCoursIndex(int index){
         ArrayList<UE> ue=new ArrayList<>();
@@ -38,12 +57,25 @@ public class ProgramSelection {
         return cours;
     }
 
+    /**
+     * Renvoit le TabCreation pour les etudiants et les cours du programme
+     * a l'index i dans l'ArrayList<Programme> de l'XMLReader.
+     *
+     * @param index
+     * @return
+     */
+
     private TabCreation TabProgrammeIndex(int index){
-        ArrayList<Etudiant> etudiants=ListeEtudiantsIndex(index);
-        ArrayList<Cours> cours=ListeCoursIndex(index);
-        TabCreation tabCreation=new TabCreation(ListeCoursIndex(index),programList,ListeEtudiantsIndex(index));
+        TabCreation tabCreation=new TabCreation(ListeCoursIndex(index),ListeEtudiantsIndex(index));
         return tabCreation;
     }
+
+    /**
+     * Renvoit le tableau TabCreation[] qui contient les TabCreation pour chaque
+     * programme dans l'ArrayList<Programme> de l'XMLReader.
+     *
+     * @return
+     */
 
     public TabCreation[] TabProgrammes(){
         TabCreation[] tab=new TabCreation[programList.size()];

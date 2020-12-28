@@ -1,15 +1,12 @@
 package Controller;
 
-import Model.Etudiant;
-import Model.XMLMaker;
-import Model.XMLReader;
-import View.Home;
 import View.StartView;
 
-import javax.swing.*;
-import java.awt.*;
-
 public class HomeController {
+
+    /**
+     * Classe du controller qui appele la vue de depart du programme.
+     */
 
     public HomeController() {
         new StartView();

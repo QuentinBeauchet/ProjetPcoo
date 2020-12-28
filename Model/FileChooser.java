@@ -2,11 +2,14 @@ package Model;
 
 import javax.swing.*;
 import javax.swing.filechooser.FileNameExtensionFilter;
-import java.nio.file.Path;
 
 public class FileChooser {
     private JFileChooser chooser;
     private int option;
+
+    /**
+     * Classe qui instancie le JFileChooser pour choisir un nouveau fichier xml.
+     */
 
     public FileChooser(){
         setLF();
@@ -14,6 +17,10 @@ public class FileChooser {
         chooser.setFileFilter(filter);
         option = chooser.showOpenDialog(null);
     }
+
+    /**
+     * Look&Feel du JFileChooser.
+     */
 
     private void setLF(){
         LookAndFeel previousLF=UIManager.getLookAndFeel();
@@ -28,9 +35,21 @@ public class FileChooser {
         catch (Exception exception){}
     }
 
+    /**
+     * Renvoit le JFileChooser.
+     *
+     * @return
+     */
+
     public JFileChooser getChooser(){
         return chooser;
     }
+
+    /**
+     * Renvoit le status du JFileChooser.
+     *
+     * @return
+     */
 
     public int getOption(){
         return option;

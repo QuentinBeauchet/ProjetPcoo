@@ -4,17 +4,11 @@ import Controller.FichierBouton;
 
 import javax.swing.*;
 import java.awt.*;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
 import java.io.File;
-import java.nio.file.Path;
-import java.util.concurrent.TimeUnit;
 
 public class StartView {
     private JFrame frame;
     private JPanel panel;
-    private JLabel message;
-    private JLabel choix;
     private JButton fichier;
     private JPanel confirmation;
     private JLabel texte;
@@ -24,6 +18,11 @@ public class StartView {
     private JButton quitter;
     private File file;
 
+    /**
+     * Classe qui affiche la JFrame qui est presente au lancement du programme,
+     * celle ci permet que choisir un fichier xml, ou de commencer sur un nouveau tableau.
+     */
+
     public StartView(){
         try {UIManager.setLookAndFeel("com.sun.java.swing.plaf.gtk.GTKLookAndFeel");}catch (Exception exception){}
         frame = new JFrame("Projet PCOO");
@@ -32,20 +31,23 @@ public class StartView {
         frame.setLocationRelativeTo(null);
 
         setLayout();
-        setStyle();
         setListener();
 
         frame.setVisible(true);
     }
 
+    /**
+     * Crée les differents composants de la JFrame, leurs layout et leurs style.
+     */
+
     private void setLayout(){
         panel=new JPanel();
         panel.setLayout(new GridBagLayout());
 
-        message=new JLabel("<html><p style=width:200px>Bienvenue sur le Projet de PCOO de </br> Quentin BEAUCHET,Yann FORNER et Gillian MASSE</p></html>");
+        JLabel message=new JLabel("<html><p style=width:200px>Bienvenue sur le Projet de PCOO de </br> Quentin BEAUCHET,Yann FORNER et Gillian MASSE</p></html>");
         panel.add(message,new GridBagConstraints(0,0,5,1,1,0,GridBagConstraints.NORTHWEST,GridBagConstraints.NONE,new Insets(10,20,0,0),0,0));
 
-        choix=new JLabel("Veuillez choisir un fichier:");
+        JLabel choix=new JLabel("Veuillez choisir un fichier:");
         panel.add(choix,new GridBagConstraints(0,2,3,1,1,0,GridBagConstraints.WEST,GridBagConstraints.NONE,new Insets(10,20,20,0),0,0));
 
         fichier=new JButton("<html><b>Fichier</b></html>");
@@ -74,13 +76,19 @@ public class StartView {
 
         frame.add(panel);
 
-    }
-
-    private void setStyle(){
         frame.setResizable(false);
         frame.setUndecorated(true);
         panel.setBorder(BorderFactory.createCompoundBorder(BorderFactory.createLoweredBevelBorder(),BorderFactory.createLineBorder(Color.blue,2)));
     }
+
+    /**
+     * Attribution des EventListener a chacun des JBouton de la JFrame:
+     * fichier->FichierBouton("Start",StartView)->Ouvre JFileChooser pour chosir un xml
+     * oui->FichierBouton("Launch",StartView)->Ferme la JFrame et instancie la classe Home avec le xml selectioné
+     * non->FichierBouton("Start",StartView)->Ouvre JFileChooser pour chosir un xml
+     * nouveau->FichierBouton("StartNew",StartView)->Ferme la JFrame et instancie la classe Home avec un xml vide
+     * quitter->FichierBouton("Start",StartView)->Ferme le programme
+     */
 
     private void setListener(){
         fichier.addActionListener(new FichierBouton("Start",this));
@@ -90,23 +98,51 @@ public class StartView {
         quitter.addActionListener(new FichierBouton("Quitter",this));
     }
 
+    /**
+     * Rend visible le JPanel de confirmation.
+     *
+     * @param bool
+     */
+
     public void showConfirmation(boolean bool){
         for(Component c:confirmation.getComponents()){
             c.setVisible(bool);
         }
     }
 
+    /**
+     * Change le fichier du xml.
+     *
+     * @param file
+     */
+
     public void setPath(File file){
         this.file=file;
     }
+
+    /**
+     * Change le message affiché dans le JPanel.
+     *
+     * @param s
+     */
 
     public void setText(String s){
         texte.setText(s);
     }
 
+    /**
+     * Ferme la JFrame.
+     */
+
     public void dispose(){
         frame.dispose();
     }
+
+    /**
+     * Renvoit le fichier du xml.
+     *
+     * @return
+     */
 
     public File getFile(){
         return file;

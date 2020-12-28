@@ -15,8 +15,15 @@ public class Home {
     private JFrame frame;
     private Tableau tab;
 
+    /**
+     * Classe principale qui gere la JFrame qui contient le tableau et le menu,
+     * elle est initialisé une fois que StartView est terminé.
+     *
+     * @param xml
+     */
     public Home(XMLReader xml) {
         this.xml = xml;
+
         try {UIManager.setLookAndFeel("javax.swing.plaf.metal.MetalLookAndFeel");} catch (Exception exception){}
         frame = new JFrame("Projet PCOO");
         frame.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
@@ -24,15 +31,14 @@ public class Home {
         frame.setLocationRelativeTo(null);
         frame.setLayout(new BorderLayout());
 
-        setTabInit();
+        setTab();
         setMenu();
 
         frame.setVisible(true);
-
     }
 
-    private void setTabInit() {
-        TabCreation tabCreation = new TabCreation(xml.getCourseList(), xml.getProgramList(), xml.getStudentList());
+    private void setTab() {
+        TabCreation tabCreation = new TabCreation(xml.getCourseList(),xml.getStudentList());
         tab = new Tableau(tabCreation);
         frame.add(tab.getPanel());
     }
@@ -42,17 +48,33 @@ public class Home {
     }
 
     private void setMenu() {
-        frame.add(new Menu(this).getMenuBar(), BorderLayout.NORTH);
+        Menu menu=new Menu(this);
+        frame.add(menu.getMenuBar(), BorderLayout.NORTH);
     }
 
+    /**
+     * Renvoit l'XMLReader.
+     *
+     * @return
+     */
     public XMLReader getXml() {
         return xml;
     }
 
+    /**
+     * Renvoit la JFrame.
+     *
+     * @return
+     */
     public JFrame getFrame() {
         return frame;
     }
 
+    /**
+     * Renvoit la classe qui contient tout les composants du tableau, Tableau.
+     *
+     * @return
+     */
     public Tableau getTab() {
         return tab;
     }
