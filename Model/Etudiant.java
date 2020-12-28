@@ -73,8 +73,8 @@ public class Etudiant {
 
     @Override
     public String toString() {
-        String program = "pas de programme";
+        String program = "aucun";
         if(this.p != null) program = this.getP().getId();
-        return this.getId()+" : "+this.getNom()+" "+this.getPrenom()+" -> "+ program;
+        return this.getId()+" : "+this.getNom()+" "+this.getPrenom()+" -> Programe :"+ program;
     }
 }

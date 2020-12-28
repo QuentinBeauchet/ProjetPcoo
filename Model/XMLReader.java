@@ -1,8 +1,7 @@
 package Model;
 
-import Exceptions.IdCourseDuplicationException;
-import Exceptions.IdEtudiantDuplicationException;
-import Exceptions.IdProgramDuplicationException;
+
+import Exceptions.*;
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;
 import org.w3c.dom.Node;
@@ -93,8 +92,14 @@ public class XMLReader {
                     Integer.parseInt(e.getElementsByTagName("credits").item(0).getTextContent()),
                     e.getElementsByTagName("name").item(0).getTextContent()
             );
-            if( this.courseList!=null && isIdCourseAlreadyExist(temp.getId()))throw new IdCourseDuplicationException(temp);
+
+
+            if( cours.size()>0 && isIdCourseAlreadyExist(cours,temp.getId())){
+                throw new IdUeDuplicationException(temp);
+            }
             cours.add(temp);
+
+
         }
         return cours;
     }
@@ -106,10 +111,13 @@ public class XMLReader {
             Programme temp = new Programme(
                     e.getElementsByTagName("name").item(0).getTextContent(),
                     e.getElementsByTagName("identifier").item(0).getTextContent()
-                   );
-            if(this.programList!=null && isIdProgramAlreadyExist(temp.getId()))throw new IdProgramDuplicationException(temp);
+            );
+
+
+            if(programs.size()>0 && isIdProgramAlreadyExist(programs,temp.getId()))throw new IdProgramDuplicationException(temp);
             fillOneProgram(e,temp);
             programs.add(temp);
+
         }
         return programs;
     }
@@ -123,10 +131,7 @@ public class XMLReader {
                     e.getElementsByTagName("name").item(0).getTextContent(),
                     e.getElementsByTagName("surname").item(0).getTextContent()
             );
-            if(this.studentList!=null && isIdEtudiantAlreadyExist(etu.getId()))throw new IdEtudiantDuplicationException(etu);
-
-
-
+            if(etudiants.size()>1 && isIdEtudiantAlreadyExist(etudiants,etu.getId()))throw new IdEtudiantDuplicationException(etu);
             etu.inscris(findProgramById(e.getElementsByTagName("program").item(0).getTextContent()));
             fillNotesToStudent(e,etu);
             etudiants.add(etu);
@@ -192,23 +197,23 @@ public class XMLReader {
         }
         return null;
     }
-    public boolean isIdCourseAlreadyExist(String id){
+    public boolean isIdCourseAlreadyExist(ArrayList<Cours> cours, String id){
 
-        for (Cours c: this.courseList
+        for (Cours c: cours
              ) {
             if(c.getId().equals(id))return true;
         }
         return false;
     }
-    public boolean isIdProgramAlreadyExist(String id){
-        for (Programme p: this.programList
+    public boolean isIdProgramAlreadyExist(ArrayList<Programme> programs,String id){
+        for (Programme p: programs
         ) {
             if(p.getId().equals(id))return true;
         }
         return false;
     }
-    public boolean isIdEtudiantAlreadyExist(String id){
-        for (Etudiant e: this.studentList
+    public boolean isIdEtudiantAlreadyExist(ArrayList<Etudiant> students ,String id){
+        for (Etudiant e: students
         ) {
             if(id.equals(e.getId()))return true;
         }

@@ -2,11 +2,9 @@ package Exceptions;
 
 import Model.Etudiant;
 
-public class IdEtudiantDuplicationException extends RuntimeException {
-    Etudiant e;
+public class IdEtudiantDuplicationException extends EtudiantException {
 
     public IdEtudiantDuplicationException(Etudiant e) {
-        super("L'id de : "+e+" existe déjà");
-        this.e = e;
+        super(e,"L'id de : "+e+" existe déjà");
     }
 }
