@@ -20,6 +20,7 @@ public class StartView {
     private JLabel texte;
     private JButton oui;
     private JButton non;
+    private JButton nouveau;
     private JButton quitter;
     private File file;
 
@@ -63,8 +64,11 @@ public class StartView {
         non=new JButton("NON");
         confirmation.add(non,new GridBagConstraints(1,1,1,1,1,1,GridBagConstraints.CENTER,GridBagConstraints.BOTH,new Insets(5,20,5,30),0,0));
 
+        nouveau=new JButton("Nouveau");
+        panel.add(nouveau,new GridBagConstraints(0,6,3,1,1,0,GridBagConstraints.CENTER,GridBagConstraints.HORIZONTAL,new Insets(0,5,5,200),0,0));
+
         quitter=new JButton("Quitter");
-        panel.add(quitter,new GridBagConstraints(0,6,3,1,1,0,GridBagConstraints.CENTER,GridBagConstraints.HORIZONTAL,new Insets(0,215,5,5),0,0));
+        panel.add(quitter,new GridBagConstraints(1,6,3,1,1,0,GridBagConstraints.CENTER,GridBagConstraints.HORIZONTAL,new Insets(0,200,5,5),0,0));
 
         showConfirmation(false);
 
@@ -82,6 +86,7 @@ public class StartView {
         fichier.addActionListener(new FichierBouton("Start",this));
         oui.addActionListener(new FichierBouton("Launch",this));
         non.addActionListener(new FichierBouton("Start",this));
+        nouveau.addActionListener(new FichierBouton("StartNew",this));
         quitter.addActionListener(new FichierBouton("Quitter",this));
     }
 

@@ -1,11 +1,11 @@
 package Controller;
 
 import Controller.MenuBoutons;
-import Model.FileChooser;
-import Model.XMLReader;
+import Model.*;
 import View.Home;
 import View.Menu;
 import View.StartView;
+import View.Tableau;
 
 import javax.swing.*;
 import javax.swing.filechooser.FileNameExtensionFilter;
@@ -30,10 +30,21 @@ public class FichierBouton extends MenuBoutons {
     public void actionPerformed(ActionEvent e) {
         if(action.equals("Ouvrir")){
             FileChooser chooser=new FileChooser();
+            if(chooser.getOption()==JFileChooser.APPROVE_OPTION){
+                //TODO c'est pas ouf comme façon de faire
+                XMLReader xml=new XMLReader(chooser.getChooser().getSelectedFile().toString());
+                super.getHome().getFrame().dispose();
+                new Home(xml);
+            }
         }
         else if(action.equals("Start")){
             FileChooser chooser=new FileChooser();
             setConfirmation(chooser);
+        }
+        else if(action.equals("StartNew")){
+            view.dispose();
+            XMLReader xml=new XMLReader();
+            new Home(xml);
         }
         else if(action.equals("Launch")){
             view.dispose();
@@ -41,7 +52,9 @@ public class FichierBouton extends MenuBoutons {
             new Home(xml);
         }
         else if(action.equals("Enregistrer")){
-            //TODO save les csv une fois modifiés
+            XMLReader xml=super.getHome().getXml();
+            new XMLMaker(xml);
+            new WriteCsv(xml);
         }
         else{
             //TODO popup de confirmation pour quitter et sauvegarder ou sans

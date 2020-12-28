@@ -38,15 +38,18 @@ public class XMLReader {
         return studentList;
     }
 
+    public XMLReader(){
+        this.courseList = new ArrayList<>();
+        this.programList = new ArrayList<>();
+        this.studentList = new ArrayList<>();
+    }
+
     public XMLReader(String fileName) {
         this.file = readFile(fileName);
         this.courseList = fillCourses();
         this.programList = fillPrograms();
         this.studentList = fillStudents();
     }
-
-
-
 
     private Element readFile (String fileName){
         Document doc = null;
