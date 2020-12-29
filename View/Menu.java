@@ -10,15 +10,15 @@ import javax.swing.border.EmptyBorder;
 import java.awt.*;
 
 public class Menu {
-    private Home home;
-    private JMenuBar MenuBar;
+    private final Home home;
+    private final JMenuBar MenuBar;
 
     /**
      * Classe qui contient tous les composants de la JMenuBar,
      * c'est aussi elle qui initialise les EventListener pour les boutons du menu
      * et qui defini leurs style.
      *
-     * @param home
+     * @param home Home
      */
 
     public Menu(Home home){
@@ -129,7 +129,7 @@ public class Menu {
     /**
      * Renvoit la JMenuBar.
      *
-     * @return
+     * @return JMenuBar
      */
     public JMenuBar getMenuBar() {
         return MenuBar;

@@ -7,13 +7,13 @@ import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 
 public class HierarchieBouton implements MouseListener{
-    private Home home;
+    private final Home home;
 
     /**
      * Classe qui instancie une nouvelle HierarchieCreation
      * quand click sur le boutton hierarchie.
      *
-     * @param home
+     * @param home Home
      */
 
     public HierarchieBouton(Home home) {
@@ -23,7 +23,7 @@ public class HierarchieBouton implements MouseListener{
     /**
      * Instanciation de la HierarchieCreation.
      *
-     * @param mouseEvent
+     * @param mouseEvent MouseEvent
      */
 
     @Override

@@ -12,7 +12,7 @@ public abstract class MenuBoutons implements ActionListener {
      * Classe abstraite qui regroupe tous les boutons dont l'EventListener
      * est un ActionListener dans Home.
      *
-     * @param home
+     * @param home Home
      */
 
     public MenuBoutons(Home home){
@@ -29,7 +29,7 @@ public abstract class MenuBoutons implements ActionListener {
     /**
      * Methode abstraite actionPerformed.
      *
-     * @param e
+     * @param e actionPerformed
      */
 
     public abstract void actionPerformed(ActionEvent e);
@@ -37,7 +37,7 @@ public abstract class MenuBoutons implements ActionListener {
     /**
      * Renvoit Home.
      *
-     * @return
+     * @return Home
      */
 
     public Home getHome() {

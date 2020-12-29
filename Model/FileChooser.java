@@ -1,11 +1,13 @@
 package Model;
 
+import Exceptions.LookAndFeelException;
+
 import javax.swing.*;
 import javax.swing.filechooser.FileNameExtensionFilter;
 
 public class FileChooser {
     private JFileChooser chooser;
-    private int option;
+    private final int option;
 
     /**
      * Classe qui instancie le JFileChooser pour choisir un nouveau fichier xml.
@@ -28,17 +30,21 @@ public class FileChooser {
             UIManager.setLookAndFeel("javax.swing.plaf.metal.MetalLookAndFeel");
             chooser = new JFileChooser();
         }
-        catch (Exception exception){}
+        catch (Exception exception){
+            throw new LookAndFeelException();
+        }
         try {
             UIManager.setLookAndFeel(previousLF);
         }
-        catch (Exception exception){}
+        catch (Exception exception){
+            throw new LookAndFeelException();
+        }
     }
 
     /**
      * Renvoit le JFileChooser.
      *
-     * @return
+     * @return JFileChooser
      */
 
     public JFileChooser getChooser(){
@@ -48,7 +54,7 @@ public class FileChooser {
     /**
      * Renvoit le status du JFileChooser.
      *
-     * @return
+     * @return int
      */
 
     public int getOption(){

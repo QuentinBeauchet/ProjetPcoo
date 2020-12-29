@@ -12,7 +12,7 @@ public class MyTools {
         int nbrEtudiant=0;
         for (Etudiant e: studentlist
              ) {
-            if(!ue.calcNote(e).getNote().equals("")){
+            if(!(ue.calcNote(e).getNote().equals("") || ue.calcNote(e).getNote().equals("ABI"))){
                 nbrEtudiant=nbrEtudiant+1;
                 float noteEtudiant=ue.calcNote(e).getFloatNote();
                 somme = somme+noteEtudiant;
@@ -28,7 +28,7 @@ public class MyTools {
         float sommeE=0;
         for (Etudiant e: studentlist
         ) {
-            if(!ue.calcNote(e).getNote().equals("")) {
+            if(!(ue.calcNote(e).getNote().equals("") || ue.calcNote(e).getNote().equals("ABI"))) {
                 float noteEtudiant = ue.calcNote(e).getFloatNote();
                 sommeE = sommeE + (float) Math.pow(noteEtudiant / moy, 2);
             }

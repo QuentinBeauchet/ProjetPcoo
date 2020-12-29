@@ -4,12 +4,12 @@ import javax.swing.tree.DefaultMutableTreeNode;
 import java.util.ArrayList;
 
 public class HierarchieSelection {
-    private DefaultMutableTreeNode arbre;
+    private final DefaultMutableTreeNode arbre;
 
     /**
      * Classe qui crée une DefaultMutableTreeNode a partir d'un Programme.
      *
-     * @param programme
+     * @param programme Programme
      */
 
     public HierarchieSelection(Programme programme){
@@ -19,8 +19,8 @@ public class HierarchieSelection {
     /**
      * Creation de la DefaultMutableTreeNode pour un Programme.
      *
-     * @param CurrentProgramme
-     * @return
+     * @param CurrentProgramme Programme
+     * @return DefaultMutableTreeNode
      */
 
     private DefaultMutableTreeNode CreationArbre(Programme CurrentProgramme){
@@ -43,9 +43,9 @@ public class HierarchieSelection {
     }
 
     /**
-     * Renvoit la DefaultMutableTreeNode.
+     * Renvoit la DefaultMutableTreeNode racine de tous les programmes.
      *
-     * @return
+     * @return DefaultMutableTreeNode
      */
 
     public DefaultMutableTreeNode getArbre() {

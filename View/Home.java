@@ -1,30 +1,27 @@
 package View;
 
+import Exceptions.LookAndFeelException;
 import Model.TabCreation;
 import Model.XMLReader;
 
 import javax.swing.*;
 import java.awt.*;
 
-import java.lang.reflect.Method;
-import java.util.Arrays;
-import java.util.stream.Stream;
-
 public class Home {
-    private XMLReader xml;
-    private JFrame frame;
+    private final XMLReader xml;
+    private final JFrame frame;
     private Tableau tab;
 
     /**
      * Classe principale qui gere la JFrame qui contient le tableau et le menu,
      * elle est initialisé une fois que StartView est terminé.
      *
-     * @param xml
+     * @param xml XMLReader
      */
     public Home(XMLReader xml) {
         this.xml = xml;
 
-        try {UIManager.setLookAndFeel("javax.swing.plaf.metal.MetalLookAndFeel");} catch (Exception exception){}
+        try {UIManager.setLookAndFeel("javax.swing.plaf.metal.MetalLookAndFeel");} catch (Exception exception){throw new LookAndFeelException();}
         frame = new JFrame("Projet PCOO");
         frame.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
         frame.setSize(1445, 800);
@@ -55,7 +52,7 @@ public class Home {
     /**
      * Renvoit l'XMLReader.
      *
-     * @return
+     * @return XMLReader
      */
     public XMLReader getXml() {
         return xml;
@@ -64,7 +61,7 @@ public class Home {
     /**
      * Renvoit la JFrame.
      *
-     * @return
+     * @return JFrame
      */
     public JFrame getFrame() {
         return frame;
@@ -73,7 +70,7 @@ public class Home {
     /**
      * Renvoit la classe qui contient tout les composants du tableau, Tableau.
      *
-     * @return
+     * @return Tableau
      */
     public Tableau getTab() {
         return tab;

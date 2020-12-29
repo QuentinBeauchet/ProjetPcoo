@@ -6,13 +6,13 @@ import View.Tableau;
 import java.util.ArrayList;
 
 public class ProgramSwitch {
-    private Home home;
+    private final Home home;
     private Tableau tab;
 
     /**
      * Classe qui permet que changer quels cours sont affichés dans le tableau.
      *
-     * @param home
+     * @param home Home
      */
 
     public ProgramSwitch(Home home){
@@ -22,7 +22,7 @@ public class ProgramSwitch {
     /**
      * Affiche seulement les cours d'un ArrayList<Cours> precedement filtré.
      *
-     * @param cours
+     * @param cours ArrayList<Cours>
      */
 
     public void Switch(ArrayList<Cours> cours){
@@ -38,7 +38,7 @@ public class ProgramSwitch {
      * de l'XMLReader.
      * Si l'index vaut -1 tous les cours presents dans l'XMLReader sont affichés.
      *
-     * @param index
+     * @param index int
      */
 
     public void Switch(int index){

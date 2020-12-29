@@ -8,14 +8,14 @@ public class TabCreation {
     private String[] colones;
     private String[][] lignes;
     private String[][] calculs;
-    private ArrayList<Cours> courseList;
-    private ArrayList<Etudiant> studentList;
+    private final ArrayList<Cours> courseList;
+    private final ArrayList<Etudiant> studentList;
 
     /**
      * Classe qui initialise les deux JTable celle des etudiants et celle des calculs.
      *
-     * @param cours
-     * @param etudiants
+     * @param cours ArrayList<Cours>
+     * @param etudiants ArrayList<Etudiant>
      */
 
     public TabCreation(ArrayList<Cours> cours,ArrayList<Etudiant> etudiants){
@@ -31,7 +31,7 @@ public class TabCreation {
     /**
      * Crée l'Header de la JTable etudiants.
      *
-     * @param nbrColones
+     * @param nbrColones int
      */
 
     private void setColones(int nbrColones) {
@@ -40,6 +40,7 @@ public class TabCreation {
         colones[1]="Nom";
         colones[2]="Prénom";
         for (int i = 0; i < courseList.size(); i++) {
+            //TODO afficher l'id aussi mais mieux que colones[i+NBR_COMPOSANTS_ETUDIANTS]=courseList.get(i).getId()+" - "+courseList.get(i).getNom(); et aussi dans la hierarchie
             colones[i+NBR_COMPOSANTS_ETUDIANTS]=courseList.get(i).getNom();
         }
     }
@@ -47,8 +48,8 @@ public class TabCreation {
     /**
      * Crée les lignes de la JTable etudiants.
      *
-     * @param nbrColones
-     * @param nbrLignes
+     * @param nbrColones int
+     * @param nbrLignes int
      */
 
     private void setLignes(int nbrColones,int nbrLignes) {
@@ -68,25 +69,16 @@ public class TabCreation {
     /**
      * Crée les lignes de la JTable calculs.
      *
-     * @param nbrColones
+     * @param nbrColones int
      */
 
     private void setCalculs(int nbrColones) {
         calculs=new String[NBR_LIGNES_CALCULS][nbrColones];
 
-        //TODO Pas tres beau
         calculs[0][0]="Note max";
-        calculs[0][1]="";
-        calculs[0][2]="";
         calculs[1][0]="Note min";
-        calculs[1][1]="";
-        calculs[1][2]="";
         calculs[2][0]="Note moyenne";
-        calculs[2][1]="";
-        calculs[2][2]="";
         calculs[3][0]="Écart-type";
-        calculs[3][1]="";
-        calculs[3][2]="";
 
         for (int i = 0; i < courseList.size(); i++) {
             ArrayList<String> toolKit = MyTools.getStats(courseList.get(i),studentList);
@@ -100,7 +92,7 @@ public class TabCreation {
     /**
      * Renvoit l'Header de la JTable etudiants.
      *
-     * @return
+     * @return String[]
      */
 
     public String[] getColones() {
@@ -110,7 +102,7 @@ public class TabCreation {
     /**
      * Renvoit les lignes de la JTable etudiants.
      *
-     * @return
+     * @return String[][]
      */
 
     public String[][] getLignes() {
@@ -119,7 +111,8 @@ public class TabCreation {
 
     /**
      * Renvoit les lignes de la JTable calculs.
-     * @return
+     *
+     * @return String[][]
      */
 
     public String[][] getCalculs() {

@@ -17,8 +17,8 @@ public class FichierBouton extends MenuBoutons {
     /**
      * Classe de l'EventListener des boutons du JMenu Fichier.
      *
-     * @param s
-     * @param home
+     * @param s String
+     * @param home Home
      */
 
     public FichierBouton(String s, Home home) {
@@ -29,8 +29,8 @@ public class FichierBouton extends MenuBoutons {
     /**
      * Classe de l'EventListener des JButton de la JFrame de StartView
      *
-     * @param s
-     * @param view
+     * @param s String
+     * @param view StartView
      */
 
     public FichierBouton(String s, StartView view){
@@ -47,49 +47,52 @@ public class FichierBouton extends MenuBoutons {
      * "Enregistrer"->Sauvegarde les donnés sous le format xml et csv
      * ...->Ferme le programme
      *
-     * @param e
+     * @param e ActionEvent
      */
 
     @Override
     public void actionPerformed(ActionEvent e) {
-        if(action.equals("Ouvrir")){
-            FileChooser chooser=new FileChooser();
-            if(chooser.getOption()==JFileChooser.APPROVE_OPTION){
-                //TODO c'est pas ouf comme façon de faire
-                XMLReader xml=new XMLReader(chooser.getChooser().getSelectedFile().toString());
-                super.getHome().getFrame().dispose();
+        FileChooser chooser;
+        XMLReader xml;
+        switch(action){
+            case "Ouvrir":
+                chooser=new FileChooser();
+                if(chooser.getOption()==JFileChooser.APPROVE_OPTION){
+                    //TODO c'est pas ouf comme façon de faire
+                    xml=new XMLReader(chooser.getChooser().getSelectedFile().toString());
+                    super.getHome().getFrame().dispose();
+                    new Home(xml);
+                }
+                break;
+            case "Start":
+                chooser=new FileChooser();
+                setConfirmation(chooser);
+                break;
+            case "StartNew":
+                view.dispose();
+                xml=new XMLReader();
                 new Home(xml);
-            }
-        }
-        else if(action.equals("Start")){
-            FileChooser chooser=new FileChooser();
-            setConfirmation(chooser);
-        }
-        else if(action.equals("StartNew")){
-            view.dispose();
-            XMLReader xml=new XMLReader();
-            new Home(xml);
-        }
-        else if(action.equals("Launch")){
-            view.dispose();
-            XMLReader xml=new XMLReader(view.getFile().toString());
-            new Home(xml);
-        }
-        else if(action.equals("Enregistrer")){
-            XMLReader xml=super.getHome().getXml();
-            new XMLMaker(xml);
-            new WriteCsv(xml);
-        }
-        else{
-            //TODO popup de confirmation pour quitter et sauvegarder ou sans
-            System.exit(0);
+                break;
+            case "Launch":
+                view.dispose();
+                xml=new XMLReader(view.getFile().toString());
+                new Home(xml);
+                break;
+            case "Enregistrer":
+                xml=super.getHome().getXml();
+                new XMLMaker(xml);
+                new WriteCsv(xml);
+                break;
+            default:
+                //TODO popup de confirmation pour quitter et sauvegarder ou sans
+                System.exit(0);
         }
     }
 
     /**
      * Affiche le JPanel de confirmation dans la StartView si un fichier xml a été choisit.
      *
-     * @param chooser
+     * @param chooser FileChooser
      */
 
     private void setConfirmation(FileChooser chooser){

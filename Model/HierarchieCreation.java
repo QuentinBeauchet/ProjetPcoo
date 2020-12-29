@@ -2,6 +2,7 @@ package Model;
 
 import Controller.Arbre;
 import Controller.Dialog;
+import Exceptions.LookAndFeelException;
 import View.Home;
 
 import javax.swing.*;
@@ -9,12 +10,12 @@ import javax.swing.tree.DefaultMutableTreeNode;
 import java.util.*;
 
 public class HierarchieCreation {
-    private Home home;
+    private final Home home;
 
     /**
      * Classe qui affiche le JDialog contenant le JTree de la hierarchie des programmes.
      *
-     * @param home
+     * @param home Home
      */
 
     public HierarchieCreation(Home home){
@@ -25,8 +26,8 @@ public class HierarchieCreation {
     /**
      * Classe qui filtre les cours du tableau.
      *
-     * @param home
-     * @param filtreUE
+     * @param home Home
+     * @param filtreUE ArrayList<String>
      */
 
     public HierarchieCreation(Home home,ArrayList<String> filtreUE){
@@ -39,7 +40,7 @@ public class HierarchieCreation {
     /**
      * Création du JTree des programmes de l'ArrayList<Programme> de l'XMLReader.
      *
-     * @return
+     * @return JTree
      */
 
     private JTree ArbreProgrammesSelectiones(){
@@ -53,10 +54,10 @@ public class HierarchieCreation {
     }
 
     /**
-     * Look&Feel du Jtree.
+     * Look&Feel du JTree.
      *
-     * @param arbre
-     * @return
+     * @param arbre DefaultMutableTreeNode
+     * @return JTree
      */
 
     private JTree setTreeLF(DefaultMutableTreeNode arbre){
@@ -64,11 +65,15 @@ public class HierarchieCreation {
         try {
             UIManager.setLookAndFeel("com.sun.java.swing.plaf.gtk.GTKLookAndFeel");
         }
-        catch (Exception exception){}
+        catch (Exception exception){
+            throw new LookAndFeelException();
+        }
         JTree tree=new JTree(arbre);
         try {
             UIManager.setLookAndFeel(previousLF);
-        } catch (UnsupportedLookAndFeelException e) {}
+        } catch (UnsupportedLookAndFeelException e) {
+            throw new LookAndFeelException();
+        }
         return tree;
     }
 
@@ -96,7 +101,7 @@ public class HierarchieCreation {
     /**
      * Application du filtre des UE dans la classe ProgramSwitch.
      *
-     * @param filtreUE
+     * @param filtreUE ArrayList<String>
      */
 
     private void setFiltreUE(ArrayList<String> filtreUE){

@@ -3,14 +3,14 @@ package Model;
 import java.util.ArrayList;
 
 public class ProgramSelection {
-    private ArrayList<Programme> programList;
-    private ArrayList<Etudiant> studentList;
+    private final ArrayList<Programme> programList;
+    private final ArrayList<Etudiant> studentList;
 
     /**
      * Classe qui crée un TabCreation[] de tout les Programmes du XMLreader
      * pour facilement passer de l'affichage d'un programme a un autre.
      *
-     * @param xml
+     * @param xml XMLReader
      */
 
     public ProgramSelection(XMLReader xml){
@@ -22,8 +22,8 @@ public class ProgramSelection {
      * Renvoit l'ArrayList des tous les etudiants inscrit dans le programme
      * a l'index i dans l'ArrayList<Programme> de l'XMLReader.
      *
-     * @param index
-     * @return
+     * @param index int
+     * @return ArrayList<Etudiant>
      */
 
     private ArrayList<Etudiant> ListeEtudiantsIndex(int index){
@@ -40,8 +40,8 @@ public class ProgramSelection {
      * Renvoit l'ArrayList de tous les cours presents dans le programme
      * a l'index i dans l'ArrayList<Programme> de l'XMLReader.
      *
-     * @param index
-     * @return
+     * @param index int
+     * @return ArrayList<Cours>
      */
 
     private ArrayList<Cours> ListeCoursIndex(int index){
@@ -61,20 +61,19 @@ public class ProgramSelection {
      * Renvoit le TabCreation pour les etudiants et les cours du programme
      * a l'index i dans l'ArrayList<Programme> de l'XMLReader.
      *
-     * @param index
-     * @return
+     * @param index int
+     * @return TabCreation
      */
 
     private TabCreation TabProgrammeIndex(int index){
-        TabCreation tabCreation=new TabCreation(ListeCoursIndex(index),ListeEtudiantsIndex(index));
-        return tabCreation;
+        return new TabCreation(ListeCoursIndex(index),ListeEtudiantsIndex(index));
     }
 
     /**
      * Renvoit le tableau TabCreation[] qui contient les TabCreation pour chaque
      * programme dans l'ArrayList<Programme> de l'XMLReader.
      *
-     * @return
+     * @return TabCreation[]
      */
 
     public TabCreation[] TabProgrammes(){

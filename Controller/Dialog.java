@@ -10,14 +10,14 @@ import java.awt.event.WindowListener;
 import java.util.ArrayList;
 
 public class Dialog implements WindowListener {
-    private JTree arbre;
-    private Home home;
+    private final JTree arbre;
+    private final Home home;
 
     /**
      * Classe de l'EventListener du JDialog de l'heritage.
      *
-     * @param home
-     * @param arbre
+     * @param home Home
+     * @param arbre JTree
      */
 
     public Dialog(Home home, JTree arbre){
@@ -28,7 +28,7 @@ public class Dialog implements WindowListener {
     /**
      * Applique un filtre au tableau selon les UE selectionés dans le JTree a la fermeture du JDialog.
      *
-     * @param windowEvent
+     * @param windowEvent WindowEvent
      */
 
     @Override

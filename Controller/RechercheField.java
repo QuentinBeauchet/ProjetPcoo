@@ -7,14 +7,14 @@ import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
 
 public class RechercheField implements KeyListener {
-    private JTextField texte;
-    private Home home;
+    private final JTextField texte;
+    private final Home home;
 
     /**
      * Classe de L'EventListener de la barre de recherche.
      *
-     * @param texte
-     * @param home
+     * @param texte JTextField
+     * @param home Home
      */
 
     public RechercheField(JTextField texte,Home home){
@@ -25,7 +25,7 @@ public class RechercheField implements KeyListener {
     /**
      * Actualise le sorter des lignes du tableau lorsque qu'une touche est relaché.
      *
-     * @param keyEvent
+     * @param keyEvent KeyEvent
      */
 
     @Override

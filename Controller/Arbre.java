@@ -10,14 +10,14 @@ import static java.lang.Math.max;
 public class Arbre implements TreeExpansionListener {
     private final static int ROW_HEIGHT=24;
     private final static int MAX_WIDTH=600;
-    private JDialog dialog;
-    private JTree arbre;
+    private final JDialog dialog;
+    private final JTree arbre;
 
     /**
      * Classe de l'EventListener du JTree qui permet de changer dynamiquement sa taille.
      *
-     * @param dialog
-     * @param arbre
+     * @param dialog JDialog
+     * @param arbre JTree
      */
 
     public Arbre(JDialog dialog, JTree arbre){
@@ -30,7 +30,7 @@ public class Arbre implements TreeExpansionListener {
     /**
      * Appele l'update jusqu'a une taille maximum.
      *
-     * @param treeExpansionEvent
+     * @param treeExpansionEvent TreeExpansionEvent
      */
 
     @Override
@@ -43,7 +43,7 @@ public class Arbre implements TreeExpansionListener {
     /**
      * Appele l'update.
      *
-     * @param treeExpansionEvent
+     * @param treeExpansionEvent TreeExpansionEvent
      */
 
     @Override

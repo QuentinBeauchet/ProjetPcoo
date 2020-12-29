@@ -9,9 +9,9 @@ public class CoursComparator implements Comparator<String> {
     /**
      * Classe qui permet de comparer deux notes du tableau.
      *
-     * @param arg0
-     * @param arg1
-     * @return
+     * @param arg0 String
+     * @param arg1 String
+     * @return int
      */
 
     @Override

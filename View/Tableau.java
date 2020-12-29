@@ -1,13 +1,13 @@
 package View;
 
 import Controller.HeaderListener;
+import Exceptions.LookAndFeelException;
 import Model.Sorter;
 import Model.TabCreation;
 
 import javax.swing.*;
 import javax.swing.table.DefaultTableCellRenderer;
 import javax.swing.table.JTableHeader;
-import javax.swing.table.TableColumn;
 import javax.swing.table.TableColumnModel;
 import java.awt.*;
 
@@ -15,7 +15,7 @@ public class Tableau {
     //TODO je le redifinie deux fois ici et dans tabcretion mais c'est moche sinon faudra voir pour faire autrement
     private static final int NBR_COMPOSANTS_ETUDIANTS=3;
     private JTable tableau;
-    private JTable calculs;
+    private final JTable calculs;
     private JScrollPane PART1;
     private JScrollPane PART2;
     private JPanel Panel;
@@ -24,7 +24,7 @@ public class Tableau {
     /**
      * Classe qui affiche le tableau grace a une JTable a partir d'une TabCreation.
      *
-     * @param tab
+     * @param tab TabCreation
      */
 
     public Tableau(TabCreation tab){
@@ -43,8 +43,8 @@ public class Tableau {
     /**
      * Look&Feel de la JTable des etudiants et instanciation de celle ci.
      *
-     * @param lignes
-     * @param colones
+     * @param lignes String[][]
+     * @param colones String[]
      */
 
     //TODO est-ce qu'on peut faire mieux que réecire a chaque fois ?
@@ -53,11 +53,15 @@ public class Tableau {
         try {
             UIManager.setLookAndFeel("javax.swing.plaf.metal.MetalLookAndFeel");
         }
-        catch (Exception exception){}
+        catch (Exception exception){
+            throw new LookAndFeelException();
+        }
         tableau=new JTable(lignes,colones);
         try {
             UIManager.setLookAndFeel(previousLF);
-        } catch (UnsupportedLookAndFeelException e) {}
+        } catch (UnsupportedLookAndFeelException e) {
+            throw new LookAndFeelException();
+        }
     }
 
     /**
@@ -69,12 +73,16 @@ public class Tableau {
         try {
             UIManager.setLookAndFeel("com.sun.java.swing.plaf.gtk.GTKLookAndFeel");
         }
-        catch (Exception exception){}
+        catch (Exception exception){
+            throw new LookAndFeelException();
+        }
         PART1= new JScrollPane(tableau);
         PART2= new JScrollPane(calculs);
         try {
             UIManager.setLookAndFeel(previousLF);
-        } catch (UnsupportedLookAndFeelException e) {}
+        } catch (UnsupportedLookAndFeelException e) {
+            throw new LookAndFeelException();
+        }
     }
 
     /**
@@ -185,18 +193,18 @@ public class Tableau {
     /**
      * Configure le sorter des lignes selon le filtre.
      *
-     * @param filter
+     * @param filter String
      */
 
     public void setSorter(String filter){
         sorter.setSorter(filter);
-        //TODO quand tableau.getRowCount()==1 n'afficher que les ue de son programme;
+        //TODO faire l'affichage façon moche
     }
 
     /**
      * Renvoit le JPanel qui contient les deux tableaux.
      *
-     * @return
+     * @return JPanel
      */
 
     public JPanel getPanel() {

@@ -11,8 +11,8 @@ public class ProgrammeBouton extends MenuBoutons{
     /**
      * Classe de l'EventListener des boutons du JMenu Programme.
      *
-     * @param index
-     * @param home
+     * @param index int
+     * @param home Home
      */
 
     public ProgrammeBouton(int index,Home home) {
@@ -23,7 +23,7 @@ public class ProgrammeBouton extends MenuBoutons{
     /**
      * Change les cours du tableau selon le programme selectioné.
      *
-     * @param e
+     * @param e ActionEvent
      */
 
     @Override

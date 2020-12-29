@@ -9,7 +9,7 @@ import java.awt.event.MouseListener;
 import java.util.concurrent.TimeUnit;
 
 public class HeaderListener implements MouseListener{
-    private JTable tableau;
+    private final JTable tableau;
     private JDialog dialog;
     private JLabel texte;
 
@@ -17,7 +17,7 @@ public class HeaderListener implements MouseListener{
      * Classe de l'EventListener de l'Header du tableau qui permet d'afficher
      * les nom des cours quand on laisse la souris dessus au bout de 0.2s.
      *
-     * @param table
+     * @param table JTable
      */
 
     public HeaderListener(JTable table){
@@ -27,7 +27,7 @@ public class HeaderListener implements MouseListener{
     /**
      * Creation du JDialog avec le nom du cours a la position de la souris.
      *
-     * @param mouseEvent
+     * @param mouseEvent MouseEvent
      */
 
     @Override
@@ -51,7 +51,7 @@ public class HeaderListener implements MouseListener{
     /**
      * Supression du JDialog quand on sors de l'Header.
      *
-     * @param mouseEvent
+     * @param mouseEvent MouseEvent
      */
 
     @Override
@@ -62,7 +62,7 @@ public class HeaderListener implements MouseListener{
     /**
      * Application du nom du cours dans le JDialog.
      *
-     * @param currentcolumn
+     * @param currentcolumn TableColumn
      */
 
     private void setLabel(TableColumn currentcolumn){
@@ -79,7 +79,7 @@ public class HeaderListener implements MouseListener{
     /**
      * Style du dialog.
      *
-     * @param pos
+     * @param pos Point
      */
 
     private void setDialog(Point pos){

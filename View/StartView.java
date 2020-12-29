@@ -1,14 +1,14 @@
 package View;
 
 import Controller.FichierBouton;
+import Exceptions.LookAndFeelException;
 
 import javax.swing.*;
 import java.awt.*;
 import java.io.File;
 
 public class StartView {
-    private JFrame frame;
-    private JPanel panel;
+    private final JFrame frame;
     private JButton fichier;
     private JPanel confirmation;
     private JLabel texte;
@@ -24,7 +24,7 @@ public class StartView {
      */
 
     public StartView(){
-        try {UIManager.setLookAndFeel("com.sun.java.swing.plaf.gtk.GTKLookAndFeel");}catch (Exception exception){}
+        try {UIManager.setLookAndFeel("com.sun.java.swing.plaf.gtk.GTKLookAndFeel");}catch (Exception exception){throw new LookAndFeelException();}
         frame = new JFrame("Projet PCOO");
         frame.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
         frame.setSize(300,300);
@@ -41,7 +41,7 @@ public class StartView {
      */
 
     private void setLayout(){
-        panel=new JPanel();
+        JPanel panel=new JPanel();
         panel.setLayout(new GridBagLayout());
 
         JLabel message=new JLabel("<html><p style=width:200px>Bienvenue sur le Projet de PCOO de </br> Quentin BEAUCHET,Yann FORNER et Gillian MASSE</p></html>");
@@ -101,7 +101,7 @@ public class StartView {
     /**
      * Rend visible le JPanel de confirmation.
      *
-     * @param bool
+     * @param bool boolean
      */
 
     public void showConfirmation(boolean bool){
@@ -113,7 +113,7 @@ public class StartView {
     /**
      * Change le fichier du xml.
      *
-     * @param file
+     * @param file File
      */
 
     public void setPath(File file){
@@ -123,7 +123,7 @@ public class StartView {
     /**
      * Change le message affiché dans le JPanel.
      *
-     * @param s
+     * @param s String
      */
 
     public void setText(String s){
@@ -141,7 +141,7 @@ public class StartView {
     /**
      * Renvoit le fichier du xml.
      *
-     * @return
+     * @return File
      */
 
     public File getFile(){

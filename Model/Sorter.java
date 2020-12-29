@@ -4,15 +4,15 @@ import Controller.CoursComparator;
 import javax.swing.*;
 
 public class Sorter {
-    private int NBR_COMPOSANTS_ETUDIANTS;
-    private JTable tableau;
-    private DefaultRowSorter sorter;
+    private final int NBR_COMPOSANTS_ETUDIANTS;
+    private final JTable tableau;
+    private DefaultRowSorter<?,?> sorter;
 
     /**
      * Classe qui crée les sorters du tableau.
      *
-     * @param nbrComposantesEtudiants
-     * @param tab
+     * @param nbrComposantesEtudiants int
+     * @param tab JTable
      */
 
     public Sorter(int nbrComposantesEtudiants, JTable tab){
@@ -27,7 +27,7 @@ public class Sorter {
 
     private void setSorter(){
         tableau.setAutoCreateRowSorter(true);
-        sorter=(DefaultRowSorter)tableau.getRowSorter();
+        sorter=(DefaultRowSorter<?,?>)tableau.getRowSorter();
         for(int i=NBR_COMPOSANTS_ETUDIANTS;i<tableau.getColumnModel().getColumnCount();i++){
             sorter.setComparator(i,new CoursComparator());
         }
@@ -36,7 +36,7 @@ public class Sorter {
     /**
      * Creation du sorter sur les lignes du tableau selon un filtre.
      *
-     * @param filter
+     * @param filter String
      */
 
     public void setSorter(String filter){
