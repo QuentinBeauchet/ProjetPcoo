@@ -1,7 +1,5 @@
 package Model;
 
-import java.util.ArrayList;
-
 public class BlocOptions extends BlocMultiple {
     private int coef;
 
@@ -31,12 +29,12 @@ public class BlocOptions extends BlocMultiple {
     public Note calcNote(Etudiant e) {
         Note nMax = new Note("0");
         boolean isBlocABI=true;
-        for (int i = 0; i < this.listUe.size() ; i++) {
-            if(e.getNotes().get(this.listUe.get(i)) != null
-                    && nMax.getFloatNote() < e.getNotes().get(this.listUe.get(i)).getFloatNote())
-                nMax = e.getNotes().get(this.listUe.get(i));
-            if(!(e.getNotes().get(this.listUe.get(i)).equals("ABI"))){
-                isBlocABI=false;
+        for (UE ue : this.listUe) {
+            if (e.getNotes().get(ue) != null
+                    && nMax.getFloatNote() < e.getNotes().get(ue).getFloatNote())
+                nMax = e.getNotes().get(ue);
+            if (!(e.getNotes().get(ue).getNote().equals("ABI"))) {
+                isBlocABI = false;
             }
         }
         if(isBlocABI){

@@ -1,6 +1,5 @@
 package Model;
 
-import java.util.ArrayList;
 
 public class BlocComposite extends BlocMultiple {
     public BlocComposite(String id, String nom) {
