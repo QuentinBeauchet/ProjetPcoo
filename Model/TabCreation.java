@@ -3,7 +3,7 @@ package Model;
 import java.util.ArrayList;
 
 public class TabCreation {
-    private static final int NBR_COMPOSANTS_ETUDIANTS=3;
+    public final int NBR_COMPOSANTS_ETUDIANTS=3;
     private static final int NBR_LIGNES_CALCULS=4;
     private String[] colones;
     private String[][] lignes;
