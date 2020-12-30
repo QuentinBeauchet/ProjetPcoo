@@ -5,9 +5,9 @@ import java.io.IOException;
 import java.util.ArrayList;
 
 public class XMLMaker {
-    private ArrayList<Programme> programList;
-    private ArrayList<Etudiant> studentList;
-    private ArrayList<Cours> courseList;
+    private final ArrayList<Programme> programList;
+    private final ArrayList<Etudiant> studentList;
+    private final ArrayList<Cours> courseList;
 
     public XMLMaker(XMLReader xml){
         programList = xml.getProgramList();
