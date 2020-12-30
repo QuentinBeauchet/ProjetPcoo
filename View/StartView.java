@@ -1,6 +1,6 @@
 package View;
 
-import Controller.FichierBouton;
+import Controller.Boutons;
 import Exceptions.LookAndFeelException;
 
 import javax.swing.*;
@@ -83,19 +83,19 @@ public class StartView {
 
     /**
      * Attribution des EventListener a chacun des JBouton de la JFrame:
-     * fichier->FichierBouton("Start",StartView)->Ouvre JFileChooser pour chosir un xml
-     * oui->FichierBouton("Launch",StartView)->Ferme la JFrame et instancie la classe Home avec le xml selectioné
-     * non->FichierBouton("Start",StartView)->Ouvre JFileChooser pour chosir un xml
-     * nouveau->FichierBouton("StartNew",StartView)->Ferme la JFrame et instancie la classe Home avec un xml vide
-     * quitter->FichierBouton("Start",StartView)->Ferme le programme
+     * fichier->Boutons("Start",StartView)->Ouvre JFileChooser pour chosir un xml
+     * oui->Boutons("Launch",StartView)->Ferme la JFrame et instancie la classe Home avec le xml selectioné
+     * non->Boutons("Start",StartView)->Ouvre JFileChooser pour chosir un xml
+     * nouveau->Boutons("StartNew",StartView)->Ferme la JFrame et instancie la classe Home avec un xml vide
+     * quitter->Boutons("Start",StartView)->Ferme le programme
      */
 
     private void setListener(){
-        fichier.addActionListener(new FichierBouton("Start",this));
-        oui.addActionListener(new FichierBouton("Launch",this));
-        non.addActionListener(new FichierBouton("Start",this));
-        nouveau.addActionListener(new FichierBouton("StartNew",this));
-        quitter.addActionListener(new FichierBouton("Quitter",this));
+        fichier.addActionListener(new Boutons("Start",this));
+        oui.addActionListener(new Boutons("Launch",this));
+        non.addActionListener(new Boutons("Start",this));
+        nouveau.addActionListener(new Boutons("StartNew",this));
+        quitter.addActionListener(new Boutons("Quitter",this));
     }
 
     /**

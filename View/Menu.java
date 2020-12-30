@@ -1,6 +1,6 @@
 package View;
 
-import Controller.FichierBouton;
+import Controller.Boutons;
 import Controller.HierarchieBouton;
 import Controller.ProgrammeBouton;
 import Controller.RechercheField;
@@ -48,9 +48,9 @@ public class Menu {
 
     /**
      * Crée les composants du JMenu Fichier:
-     * Ouvrir->Appele la classe FichierBouton("Ouvrir",Home)->Ouvre JFileChooser pour changer de xml
-     * Enregistrer->Appele la classe FichierBouton("Enregistrer",Home)->Appele les classes XMlMaker et WriteCSV pour sauvegarder les données dans des nouveaux fichier
-     * Quitter->Appele la classe FichierBouton("Quitter",Home)->Fermer le programme
+     * Ouvrir->Appele la classe Boutons("Ouvrir",Home)->Ouvre JFileChooser pour changer de xml
+     * Enregistrer->Appele la classe Boutons("Enregistrer",Home)->Appele les classes XMlMaker et WriteCSV pour sauvegarder les données dans des nouveaux fichier
+     * Quitter->Appele la classe Boutons("Quitter",Home)->Fermer le programme
      */
 
     private void setFichier(){
@@ -58,17 +58,17 @@ public class Menu {
         Fichier.setMnemonic(KeyEvent.VK_F);
 
         JMenuItem Open=new JMenuItem("Ouvrir");
-        Open.addActionListener(new FichierBouton(Open.getText(),home));
+        Open.addActionListener(new Boutons(Open.getText(),home));
         Open.setAccelerator(KeyStroke.getKeyStroke('O', CTRL_DOWN_MASK));
         Fichier.add(Open);
 
         JMenuItem Save=new JMenuItem("Enregistrer");
-        Save.addActionListener(new FichierBouton(Save.getText(),home));
+        Save.addActionListener(new Boutons(Save.getText(),home));
         Save.setAccelerator(KeyStroke.getKeyStroke('S', CTRL_DOWN_MASK));
         Fichier.add(Save);
 
         JMenuItem Close=new JMenuItem("Quitter");
-        Close.addActionListener(new FichierBouton(Close.getText(),home));
+        Close.addActionListener(new Boutons(Close.getText(),home));
         Close.setAccelerator(KeyStroke.getKeyStroke('Q', CTRL_DOWN_MASK));
         Fichier.add(Close);
 
@@ -116,7 +116,7 @@ public class Menu {
         Hierarchie.setHorizontalTextPosition(JLabel.CENTER);
 
         JMenuItem hidden=new JMenuItem();
-        hidden.addActionListener(new FichierBouton("Shortcut",home));
+        hidden.addActionListener(new Boutons("Shortcut",home));
         hidden.setAccelerator(KeyStroke.getKeyStroke('H', InputEvent.ALT_DOWN_MASK));
         hidden.setMinimumSize(new Dimension(0,0));
         hidden.setMaximumSize(new Dimension(0,0));
