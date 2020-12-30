@@ -2,8 +2,17 @@ package Model;
 
 import java.util.ArrayList;
 
+/**
+ * Classe utilitaire permettant de regrouper des outils
+ * que nous allons nous servir dans différents cas
+ */
 public class MyTools {
-
+    /**
+     * Calcule les statistiques min,max,moyenne et ecart-type d'une UE et d'une liste d'étudiants
+     * @param ue le cours concerné
+     * @param studentlist la liste d'étudiant
+     * @return Retourne un ArrayList de String des différents statistiques
+     */
     public static ArrayList<String> getStats(UE ue,ArrayList<Etudiant> studentlist){
         float max=0;
         float min=20;

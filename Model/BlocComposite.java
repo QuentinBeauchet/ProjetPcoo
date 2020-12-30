@@ -1,7 +1,11 @@
 package Model;
 
-
+/**
+ * Un bloc composite est composé de plusieurs cours.
+ * Le nombre de crédits du bloc est la somme des crédits des UE qui le composent.
+ */
 public class BlocComposite extends BlocMultiple {
+
     public BlocComposite(String id, String nom) {
         super(id, nom);
     }

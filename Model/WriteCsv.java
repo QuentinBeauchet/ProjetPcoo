@@ -5,6 +5,9 @@ import java.io.FileNotFoundException;
 import java.io.PrintWriter;
 import java.util.ArrayList;
 
+/**
+ * Classe qui permet de convertir des données en CSV
+ */
 public class WriteCsv {
     private XMLReader xmlReader;
 
@@ -12,6 +15,11 @@ public class WriteCsv {
         this.xmlReader = xmlReader;
 
     }
+
+    /**
+     * Ecris un CSV à partir d'un Programme
+     * @param p le programme
+     */
     public void printCSV(Programme p){
         String path = "data/"+p.getNom().replace(" ","_")+".csv";
         try (PrintWriter writer = new PrintWriter(new File(path))) {
@@ -68,6 +76,11 @@ public class WriteCsv {
 
     }
 
+    /**
+     * Ecris la ligne dans le StringBuilder
+     * @param e l'etudiant
+     * @param sb le StringBuilder
+     */
     private void etudiantCol (Etudiant e, StringBuilder sb){
         sb.append("\"").append(e.getId()).append("\",")
                 .append("\"").append(e.getNom()).append("\",")

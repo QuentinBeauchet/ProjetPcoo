@@ -2,6 +2,9 @@ package Model;
 
 import java.util.ArrayList;
 
+/**
+ * Un bloc simple est juste un cours.
+ */
 public class BlocSimple extends Bloc {
     private UE ue;
     public BlocSimple(UE ue) {
@@ -29,7 +32,7 @@ public class BlocSimple extends Bloc {
                 "ue=" + ue +
                 '}';
     }
-
+    @Override
     public ArrayList<UE> getUE(){
         ArrayList<UE> ue= new ArrayList<>();
         ue.add(this.ue);

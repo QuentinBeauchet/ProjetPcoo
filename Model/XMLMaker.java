@@ -4,6 +4,9 @@ import java.io.FileWriter;
 import java.io.IOException;
 import java.util.ArrayList;
 
+/**
+ * Classe permettant de creer un xml
+ */
 public class XMLMaker {
     private ArrayList<Programme> programList;
     private ArrayList<Etudiant> studentList;
@@ -21,6 +24,10 @@ public class XMLMaker {
         timer();
     }
 
+    /**
+     * Ecriture du fichier
+     * @throws IOException echec d'ecriture
+     */
     private void writer() throws IOException {
         FileWriter myWriter = new FileWriter("data/save.xml");
         StringBuilder sb = new StringBuilder();

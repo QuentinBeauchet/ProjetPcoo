@@ -15,20 +15,34 @@ import java.io.*;
 import java.util.ArrayList;
 import java.util.List;
 
+/**
+ * Lecture d'un fichier XML
+ */
 public class XMLReader {
     private Element file ;
     private ArrayList<Cours> courseList;
     private ArrayList<Programme> programList;
     private ArrayList<Etudiant> studentList;
 
+    /**
+     * Getter de la liste de cours
+     * @return ArrayList
+     */
     public ArrayList<Cours> getCourseList() {
         return courseList;
     }
 
+    /**
+     * Getter de la liste de programmes
+     * @return ArrayList
+     */
     public ArrayList<Programme> getProgramList() {
         return programList;
     }
-
+    /**
+     * Getter de la liste d'étudiants
+     * @return ArrayList
+     */
     public ArrayList<Etudiant> getStudentList() {
         return studentList;
     }
@@ -46,6 +60,11 @@ public class XMLReader {
         this.studentList = fillStudents();
     }
 
+    /**
+     * Recuperes la racine du fichier xml
+     * @param fileName nom du fichier
+     * @return la racine de l'xml (Element)
+     */
     private Element readFile (String fileName){
         Document doc = null;
         try {
@@ -63,7 +82,13 @@ public class XMLReader {
         return doc.getDocumentElement();
     }
 
-    // Extrait la liste des fils de l'élément item dont le tag est name
+
+    /**
+     * Extrait la liste des fils de l'élément item dont le tag est name
+     * @param item Parent
+     * @param name le tag à rechercher
+     * @return la liste des fils avec le tag correspondant
+     */
     private static List<Element> getChildren(Element item, String name) {
         NodeList nodeList = item.getChildNodes();
         List<Element> children = new ArrayList<>();
@@ -79,6 +104,10 @@ public class XMLReader {
         return children;
     }
 
+    /**
+     * Rempli la liste de cours
+     * @return ArrayList
+     */
     private ArrayList<Cours> fillCourses (){
         ArrayList<Cours> cours = new ArrayList<>();
         for (Element e: getChildren(this.file,"course")
@@ -99,6 +128,10 @@ public class XMLReader {
         return cours;
     }
 
+    /**
+     * Rempli la liste de programmes
+     * @return ArrayList
+     */
     private ArrayList<Programme> fillPrograms(){
         ArrayList<Programme> programs = new ArrayList<>();
         for (Element e: getChildren(this.file,"program")
@@ -115,6 +148,10 @@ public class XMLReader {
         return programs;
     }
 
+    /**
+     * Rempli la liste d'etudiants
+     * @return ArrayList
+     */
     private ArrayList<Etudiant> fillStudents(){
         ArrayList<Etudiant> etudiants= new ArrayList<>();
         for (Element e : getChildren(this.file,"student")){
@@ -134,6 +171,11 @@ public class XMLReader {
         return etudiants;
     }
 
+    /**
+     * Rempli la liste des notes d'un etudiant
+     * @param e l'etudiant au format xml
+     * @param t l'etudiant
+     */
     private void fillNotesToStudent(Element e , Etudiant t ){
         for (Element s : getChildren(e,"grade")){
             t.addNote(
@@ -143,6 +185,11 @@ public class XMLReader {
         }
     }
 
+    /**
+     * Rempli un programme
+     * @param e le programme au format xml
+     * @param p le programme
+     */
     private void fillOneProgram( Element e,Programme p){
         for (Element s: getChildren(e,"item")//bloc Simple
         ) {
@@ -170,6 +217,11 @@ public class XMLReader {
         }
     }
 
+    /**
+     * Rempli un bloc multiple
+     * @param e le bloc au format xml
+     * @param b le BlocMultiple
+     */
     private void fillABlocMul(Element e, BlocMultiple b){
         for (Element s: getChildren(e,"item")
         ) {
@@ -177,6 +229,11 @@ public class XMLReader {
         }
     }
 
+    /**
+     * renvoi un cours depuis un id donné
+     * @param id l'id du cours recherché
+     * @return le cours
+     */
     public Cours findCourseById(String id){
         for (Cours u: this.courseList
              ) {
@@ -184,6 +241,12 @@ public class XMLReader {
         }
         throw new IdUnknownException(id);
     }
+
+    /**
+     * renvoi un programme depuis un id donné
+     * @param id l'id du programme recherché
+     * @return le programme
+     */
     public Programme findProgramById(String id){
         for (Programme p : this.programList
         ){
@@ -191,6 +254,13 @@ public class XMLReader {
         }
         throw new IdUnknownException(id);
     }
+
+    /**
+     * Teste si un id existe déjà parmi les cours existants
+     * @param cours la liste des cours
+     * @param id l'id à tester
+     * @return boolean vrai si trouvé
+     */
     public boolean isIdCourseAlreadyExist(ArrayList<Cours> cours, String id){
 
         for (Cours c: cours
@@ -199,6 +269,13 @@ public class XMLReader {
         }
         return false;
     }
+
+    /**
+     * Teste si un id existe déjà parmi les programmes existants
+     * @param programs la liste des programmes
+     * @param id l'id à tester
+     * @return boolean vrai si trouvé
+     */
     public boolean isIdProgramAlreadyExist(ArrayList<Programme> programs,String id){
         for (Programme p: programs
         ) {
@@ -206,6 +283,13 @@ public class XMLReader {
         }
         return false;
     }
+
+    /**
+     * Teste si un id existe déjà parmi les etudiants existants
+     * @param students la liste des etudiants
+     * @param id l'id à tester
+     * @return boolean vrai si trouvé
+     */
     public boolean isIdEtudiantAlreadyExist(ArrayList<Etudiant> students ,String id){
         for (Etudiant e: students
         ) {

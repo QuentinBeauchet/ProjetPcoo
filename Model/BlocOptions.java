@@ -1,5 +1,9 @@
 package Model;
 
+/**
+ * Un bloc à options est composé de plusieurs cours portant le même nombre de crédits.
+ * C'est aussi le nombre de crédits du bloc.
+ */
 public class BlocOptions extends BlocMultiple {
     private int coef;
 
