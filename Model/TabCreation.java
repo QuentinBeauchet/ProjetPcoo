@@ -3,10 +3,10 @@ package Model;
 import java.util.ArrayList;
 
 public class TabCreation {
-    public final int NBR_COMPOSANTS_ETUDIANTS=3;
+    public final int NBR_COMPOSANTS_ETUDIANTS=4;
     private static final int NBR_LIGNES_CALCULS=4;
-    private String[] colones;
-    private String[][] lignes;
+    private Object[] colones;
+    private Object[][] lignes;
     private String[][] calculs;
     private final ArrayList<Cours> courseList;
     private final ArrayList<Etudiant> studentList;
@@ -35,10 +35,11 @@ public class TabCreation {
      */
 
     private void setColones(int nbrColones) {
-        colones=new String[nbrColones];
+        colones=new Object[nbrColones];
         colones[0]="N° Étudiant";
         colones[1]="Nom";
         colones[2]="Prénom";
+        colones[3]="Programme";
         for (int i = 0; i < courseList.size(); i++) {
             //TODO afficher l'id aussi mais mieux que colones[i+NBR_COMPOSANTS_ETUDIANTS]=courseList.get(i).getId()+" - "+courseList.get(i).getNom(); et aussi dans la hierarchie
             colones[i+NBR_COMPOSANTS_ETUDIANTS]=courseList.get(i).getNom();
@@ -53,11 +54,12 @@ public class TabCreation {
      */
 
     private void setLignes(int nbrColones,int nbrLignes) {
-        lignes=new String[nbrLignes][nbrColones];
+        lignes=new Object[nbrLignes][nbrColones];
         for (int i = 0; i < studentList.size(); i++) {
             lignes[i][0]=studentList.get(i).getId();
             lignes[i][1]=studentList.get(i).getNom();
             lignes[i][2]=studentList.get(i).getPrenom();
+            lignes[i][3]=studentList.get(i).getP().getNoteProgramme(studentList.get(i));
             for (int j = 0; j < courseList.size(); j++) {
                 if(!courseList.get(j).calcNote(studentList.get(i)).getNote().equals("")) {
                     lignes[i][j + NBR_COMPOSANTS_ETUDIANTS] = courseList.get(j).calcNote(studentList.get(i)).getNote();
@@ -92,20 +94,20 @@ public class TabCreation {
     /**
      * Renvoit l'Header de la JTable etudiants.
      *
-     * @return String[]
+     * @return Object[]
      */
 
-    public String[] getColones() {
+    public Object[] getColones() {
         return colones;
     }
 
     /**
      * Renvoit les lignes de la JTable etudiants.
      *
-     * @return String[][]
+     * @return Object[][]
      */
 
-    public String[][] getLignes() {
+    public Object[][] getLignes() {
         return lignes;
     }
 

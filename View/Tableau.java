@@ -2,6 +2,7 @@ package View;
 
 import Controller.HeaderListener;
 import Exceptions.LookAndFeelException;
+import Model.CustomTableModel;
 import Model.Sorter;
 import Model.TabCreation;
 
@@ -28,8 +29,8 @@ public class Tableau {
 
     public Tableau(TabCreation tab){
         NBR_COMPOSANTS_ETUDIANTS=tab.NBR_COMPOSANTS_ETUDIANTS;
-        String[] colones = tab.getColones();
-        String[][] lignes = tab.getLignes();
+        Object[] colones = tab.getColones();
+        Object[][] lignes = tab.getLignes();
         String[][] scores = tab.getCalculs();
         setTabLF(lignes,colones);
         calculs=new JTable(scores,colones);
@@ -45,11 +46,11 @@ public class Tableau {
     /**
      * Look&Feel de la JTable des etudiants et instanciation de celle ci.
      *
-     * @param lignes String[][]
-     * @param colones String[]
+     * @param lignes Object[][]
+     * @param colones Object[]
      */
 
-    private void setTabLF(String[][] lignes,String[] colones){
+    private void setTabLF(Object[][] lignes,Object[] colones){
         LookAndFeel previousLF=UIManager.getLookAndFeel();
         try {
             UIManager.setLookAndFeel("javax.swing.plaf.metal.MetalLookAndFeel");
@@ -153,11 +154,12 @@ public class Tableau {
      * @return JTable
      */
 
-    private JTable setStyleLignes(String[][] lignes,String[] colones){
-        return new JTable(lignes,colones){
+    private JTable setStyleLignes(Object[][] lignes,Object[] colones){
+        CustomTableModel model=new CustomTableModel(lignes,colones);
+        return new JTable(model){
             public Component prepareRenderer(TableCellRenderer renderer, int row, int column) {
                 Component returnComp = super.prepareRenderer(renderer, row, column);
-                if (!returnComp.getBackground().equals(getSelectionBackground())) {
+                if (!returnComp.getBackground().equals(getSelectionBackground()) && column!=NBR_COMPOSANTS_ETUDIANTS-1) {
                     Color impair;
                     if(column<NBR_COMPOSANTS_ETUDIANTS){
                         impair = tableau.getTableHeader().getBackground();
@@ -183,6 +185,7 @@ public class Tableau {
         for (int i = 0; i < columnModel.getColumnCount(); i++) {
             columnModel.getColumn(i).setResizable(false);
         }
+        tableau.setDefaultRenderer(Float.class,new CustomRenderer());
     }
 
     /**

@@ -9,11 +9,19 @@ import java.awt.*;
 public class PopUpConfirmation {
     private final JDialog dialog;
 
+    /**
+     * Classe du JDialog qui permet de confirmer quand on quitte le programme.
+     */
+
     public PopUpConfirmation(){
         dialog=new JDialog();
         setStyle();
         setPanel();
     }
+
+    /**
+     * Style du JDialog.
+     */
 
     private void setStyle(){
         dialog.setSize(new Dimension(200,200));
@@ -23,6 +31,10 @@ public class PopUpConfirmation {
         dialog.setVisible(true);
         dialog.setBackground(new Color(0,0,0,0));
     }
+
+    /**
+     * Configure le JPanel contenu dans le JDialog.
+     */
 
     private void setPanel(){
         JPanel panel=new JPanel();
@@ -53,12 +65,25 @@ public class PopUpConfirmation {
         dialog.add(panel);
     }
 
+    /**
+     * Configure le style des boutons du JPanel.
+     *
+     * @param bouton JButton
+     */
+
     private void setStyleBouton(JButton bouton){
         bouton.setBackground(new Color(59, 89, 182));
         bouton.setForeground(Color.WHITE);
         bouton.setFocusPainted(false);
         bouton.setFont(new Font("Tahoma", Font.BOLD, 12));
     }
+
+    /**
+     * Configure le Look&Feel des boutons du JPanel.
+     *
+     * @param s String
+     * @return JButton
+     */
 
     private JButton setBoutonLF(String s){
         JButton bouton;

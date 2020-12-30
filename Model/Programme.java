@@ -2,6 +2,8 @@ package Model;
 
 import Exceptions.*;
 
+import java.math.BigDecimal;
+import java.math.MathContext;
 import java.util.ArrayList;
 import java.util.Objects;
 
@@ -58,16 +60,34 @@ public class Programme {
      * @return boolean
      */
     public boolean isValidated(Etudiant e){
-        int somme=0;
-        int total=0;
+        return getNoteProgramme(e) >= 10;
+    }
+
+    /**
+     * Renvoit la note d'un Etudiant pour ce Programme.
+     *
+     * @param e Etudiant
+     * @return float
+     */
+
+    public float getNoteProgramme(Etudiant e){
+        float somme=0;
+        float total=0;
         for (Bloc b : this.blocs
-             ) {
+        ) {
 
             somme += b.getCoef() * b.calcNote(e).getFloatNote();
             total += b.getCoef();
         }
-        return (somme/total) >= 10;
+        BigDecimal bigDecimal=new BigDecimal(somme/total);
+        MathContext mathContext =new MathContext(4);
+        return bigDecimal.round(mathContext).floatValue();
     }
+
+
+
+
+
     /**
      * Retourne une version XML d'un Programme
      * @param sb le StringBuilder auquel ajouter le programme
