@@ -9,7 +9,7 @@ public class Etudiant {
     private final String nom;
     private final String prenom;
     private Programme p;
-    HashMap<Cours, Note> notes = new HashMap<Cours,Note>();
+    private HashMap<Cours, Note> notes = new HashMap<Cours,Note>();
 
     public Programme getP() {
         return p;
@@ -42,10 +42,7 @@ public class Etudiant {
     }
 
     public boolean estInscris(Programme p){
-        if(p.getId().equals(this.p.getId())){
-            return true;
-        }
-        return false;
+        return p.getId().equals(this.p.getId());
     }
 
     public HashMap<Cours, Note> getNotes() {

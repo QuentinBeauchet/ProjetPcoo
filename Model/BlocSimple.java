@@ -31,7 +31,7 @@ public class BlocSimple extends Bloc {
     }
 
     public ArrayList<UE> getUE(){
-        ArrayList<UE> ue= new ArrayList<UE>();
+        ArrayList<UE> ue= new ArrayList<>();
         ue.add(this.ue);
         return ue;
     }

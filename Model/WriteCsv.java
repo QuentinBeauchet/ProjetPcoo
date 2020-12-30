@@ -78,28 +78,5 @@ public class WriteCsv {
         }
         sb.append("\n");
     }
-    private float findNoteMax(UE ue, Programme p){
-        float max = 0;
-        for (Etudiant e: xmlReader.getStudentList()
-             ) {
-            if(p.equals(e.getP())){
-                float current = ue.calcNote(e).getFloatNote();
-                if(max < current)max = current;
-            }
-        }
-        return max;
-    }
-
-    private float findNoteMin(UE ue, Programme p){
-        float min = 20;
-        for (Etudiant e: xmlReader.getStudentList()
-        ) {
-            if(p.equals(e.getP())){
-                float current = ue.calcNote(e).getFloatNote();
-                if(min > current)min = current;
-            }
-        }
-        return min;
-    }
 
 }

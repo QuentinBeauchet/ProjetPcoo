@@ -21,10 +21,6 @@ public class XMLReader {
     private ArrayList<Programme> programList;
     private ArrayList<Etudiant> studentList;
 
-    public Element getFile() {
-        return file;
-    }
-
     public ArrayList<Cours> getCourseList() {
         return courseList;
     }
@@ -55,7 +51,7 @@ public class XMLReader {
         try {
             File file = new File(fileName);
             DocumentBuilderFactory dbFactory = DocumentBuilderFactory.newInstance();
-            DocumentBuilder dBuilder = null;
+            DocumentBuilder dBuilder ;
             dBuilder = dbFactory.newDocumentBuilder();
              doc = dBuilder.parse(file); // ouverture et lecture du fichier XML
             doc.getDocumentElement().normalize(); // normalise le contenu du fichier, opération très conseillée
