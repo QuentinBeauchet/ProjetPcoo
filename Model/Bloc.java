@@ -8,8 +8,8 @@ import java.util.ArrayList;
  * Classe abstraite qui nous permet de définir un bloc avec ces fonctions de base
  */
 public abstract class Bloc implements UE {
-    private String id;
-    private String nom;
+    private final String id;
+    private final String nom;
     public Bloc(String id, String nom) {
         this.id = id;
         this.nom = nom;

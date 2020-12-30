@@ -6,9 +6,9 @@ import Exceptions.*;
  * Un cours est l'unité d'enseignement de base d'une université.
  */
 public class Cours implements UE{
-    private String id;
-    private int coef;
-    private String nom;
+    private final String id;
+    private final int coef;
+    private final String nom;
 
     public Cours(String id, int coef, String nom) {
         this.id = id;

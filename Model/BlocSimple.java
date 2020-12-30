@@ -6,7 +6,8 @@ import java.util.ArrayList;
  * Un bloc simple est juste un cours.
  */
 public class BlocSimple extends Bloc {
-    private UE ue;
+    private final UE ue;
+
     public BlocSimple(UE ue) {
         super(ue.getId(),ue.getNom());
         this.ue=ue;

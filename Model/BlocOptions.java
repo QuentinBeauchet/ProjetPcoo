@@ -5,7 +5,7 @@ package Model;
  * C'est aussi le nombre de crédits du bloc.
  */
 public class BlocOptions extends BlocMultiple {
-    private int coef;
+    private final int coef;
 
     public BlocOptions(String id, int coef, String nom) {
         super(id,nom);
@@ -34,10 +34,11 @@ public class BlocOptions extends BlocMultiple {
         Note nMax = new Note("0");
         boolean isBlocABI=true;
         for (UE ue : this.listUe) {
-            if (e.getNotes().get(ue) != null
-                    && nMax.getFloatNote() < e.getNotes().get(ue).getFloatNote())
-                nMax = e.getNotes().get(ue);
-            if (!(e.getNotes().get(ue).getNote().equals("ABI"))) {
+            Cours cour=(Cours)ue;
+            if (e.getNotes().get(cour) != null
+                    && nMax.getFloatNote() < e.getNotes().get(cour).getFloatNote())
+                nMax = e.getNotes().get(cour);
+            if (!(e.getNotes().get(cour).getNote().equals("ABI"))) {
                 isBlocABI = false;
             }
         }

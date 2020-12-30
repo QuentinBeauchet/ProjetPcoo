@@ -12,7 +12,7 @@ public class Etudiant {
     private final String nom;
     private final String prenom;
     private Programme p;
-    private HashMap<Cours, Note> notes = new HashMap<Cours,Note>();
+    private final HashMap<Cours, Note> notes = new HashMap<>();
 
     public Etudiant(String id, String nom, String prenom) {
         this.id = id;

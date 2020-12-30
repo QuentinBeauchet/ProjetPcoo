@@ -9,9 +9,9 @@ import java.util.Objects;
  * Un programme est une liste de blocs à obtenir pour valider une étape.
  */
 public class Programme {
-    private ArrayList<Bloc> blocs = new ArrayList<>();
-    private String nom;
-    private String id;
+    private final ArrayList<Bloc> blocs = new ArrayList<>();
+    private final String nom;
+    private final String id;
 
     public Programme(String nom, String id) {
         this.nom = nom;

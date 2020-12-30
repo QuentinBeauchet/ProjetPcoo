@@ -33,6 +33,8 @@ public class Menu {
         setHierarchie();
         setRecherche();
         setStyle();
+
+        //TODO help racourcis
     }
 
     /**

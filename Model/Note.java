@@ -4,7 +4,7 @@ package Model;
  * Classe modélisant la Note attribuée à un étudiant
  */
 public class Note {
-    private String note;
+    private final String note;
 
     public Note(String note) {
         this.note = note;
