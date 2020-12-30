@@ -29,5 +29,4 @@ public class CustomRenderer extends JLabel implements TableCellRenderer {
         }
         return this;
     }
-
 }

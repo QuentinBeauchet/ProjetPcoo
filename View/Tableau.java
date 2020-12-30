@@ -55,7 +55,7 @@ public class Tableau {
         try {
             UIManager.setLookAndFeel("javax.swing.plaf.metal.MetalLookAndFeel");
         }
-        catch (Exception exception){}
+        catch (Exception exception){/*Ne rien faire*/}
         tableau=setStyleLignes(lignes,colones);
         try {
             UIManager.setLookAndFeel(previousLF);
@@ -73,7 +73,7 @@ public class Tableau {
         try {
             UIManager.setLookAndFeel("com.sun.java.swing.plaf.gtk.GTKLookAndFeel");
         }
-        catch (Exception exception){ }
+        catch (Exception exception){/*Ne rien faire*/}
         PART1= new JScrollPane(tableau);
         PART2= new JScrollPane(calculs);
         try {
@@ -131,6 +131,9 @@ public class Tableau {
         header.setFont(header.getFont().deriveFont(Font.BOLD));
 
         header.addMouseListener(new HeaderListener(tableau));
+
+        tableau.setShowGrid(false);
+        tableau.setIntercellSpacing(new Dimension(0, 0));
     }
 
     /**
@@ -143,33 +146,16 @@ public class Tableau {
     }
 
     /**
-     * Permet de mettre une couleur sur deux pour les lignes de la JTable.
+     * Appele le CustomStringRenderer qui gere tout le grapique des cellules.
      *
-     * @param lignes String[][]
-     * @param colones String[]
+     * @param lignes Object[][]
+     * @param colones Object[]
      * @return JTable
      */
 
     private JTable setStyleLignes(Object[][] lignes,Object[] colones){
         CustomTableModel model=new CustomTableModel(lignes,colones);
-        return new JTable(model){
-            public Component prepareRenderer(TableCellRenderer renderer, int row, int column) {
-                Component returnComp = super.prepareRenderer(renderer, row, column);
-                if (!returnComp.getBackground().equals(getSelectionBackground()) && column!=NBR_COMPOSANTS_ETUDIANTS-1) {
-                    Color impair;
-                    if(column<NBR_COMPOSANTS_ETUDIANTS){
-                        impair = tableau.getTableHeader().getBackground();
-                    }
-                    else{
-                        impair=new Color(226,239,218);
-                    }
-                    Color background = (row % 2 == 0 ? impair : Color.white);
-                    returnComp.setBackground(background);
-
-                }
-                return returnComp;
-            }
-        };
+        return new JTable(model);
     }
 
     /**
@@ -181,7 +167,7 @@ public class Tableau {
         for (int i = 0; i < columnModel.getColumnCount(); i++) {
             columnModel.getColumn(i).setResizable(false);
         }
-        tableau.setDefaultRenderer(Float.class,new CustomRenderer());
+        tableau.setDefaultRenderer(String.class,new CustomStringRenderer());
     }
 
     /**

@@ -3,7 +3,7 @@ package Model;
 import java.util.ArrayList;
 
 public class TabCreation {
-    public final int NBR_COMPOSANTS_ETUDIANTS=4;
+    public final int NBR_COMPOSANTS_ETUDIANTS=5;
     private static final int NBR_LIGNES_CALCULS=4;
     private Object[] colones;
     private Object[][] lignes;
@@ -40,6 +40,7 @@ public class TabCreation {
         colones[1]="Nom";
         colones[2]="Prénom";
         colones[3]="Programme";
+        colones[4]="Résultats";
         for (int i = 0; i < courseList.size(); i++) {
             //TODO afficher l'id aussi mais mieux que colones[i+NBR_COMPOSANTS_ETUDIANTS]=courseList.get(i).getId()+" - "+courseList.get(i).getNom(); et aussi dans la hierarchie
             colones[i+NBR_COMPOSANTS_ETUDIANTS]=courseList.get(i).getNom();
@@ -59,10 +60,14 @@ public class TabCreation {
             lignes[i][0]=studentList.get(i).getId();
             lignes[i][1]=studentList.get(i).getNom();
             lignes[i][2]=studentList.get(i).getPrenom();
-            lignes[i][3]=studentList.get(i).getP().getNoteProgramme(studentList.get(i));
+            lignes[i][3]=studentList.get(i).getP().getNom();
+            lignes[i][4]=String.valueOf(studentList.get(i).getP().getNoteProgramme(studentList.get(i)));
             for (int j = 0; j < courseList.size(); j++) {
                 if(!courseList.get(j).calcNote(studentList.get(i)).getNote().equals("")) {
                     lignes[i][j + NBR_COMPOSANTS_ETUDIANTS] = courseList.get(j).calcNote(studentList.get(i)).getNote();
+                }
+                else{
+                    lignes[i][j + NBR_COMPOSANTS_ETUDIANTS] ="";
                 }
             }
         }

@@ -4,9 +4,11 @@ import Model.ProgramSwitch;
 import View.Home;
 
 import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 
-public class ProgrammeBouton extends MenuBoutons{
+public class ProgrammeBouton implements ActionListener {
     private final int index;
+    private final Home home;
 
     /**
      * Classe de l'EventListener des boutons du JMenu Programme.
@@ -16,7 +18,7 @@ public class ProgrammeBouton extends MenuBoutons{
      */
 
     public ProgrammeBouton(int index,Home home) {
-        super(home);
+        this.home=home;
         this.index=index;
     }
 
@@ -28,7 +30,7 @@ public class ProgrammeBouton extends MenuBoutons{
 
     @Override
     public void actionPerformed(ActionEvent e) {
-        ProgramSwitch programSwitch = new ProgramSwitch(super.getHome());
+        ProgramSwitch programSwitch = new ProgramSwitch(home);
         programSwitch.Switch(index);
     }
 }

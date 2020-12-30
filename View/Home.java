@@ -1,6 +1,5 @@
 package View;
 
-import Exceptions.LookAndFeelException;
 import Model.TabCreation;
 import Model.XMLReader;
 
@@ -21,7 +20,7 @@ public class Home {
     public Home(XMLReader xml) {
         this.xml = xml;
 
-        try {UIManager.setLookAndFeel("javax.swing.plaf.metal.MetalLookAndFeel");} catch (Exception exception){}
+        try {UIManager.setLookAndFeel("javax.swing.plaf.metal.MetalLookAndFeel");} catch (Exception exception){/*Ne rien faire*/}
         frame = new JFrame("Projet PCOO");
         frame.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
         frame.setSize(1445, 800);

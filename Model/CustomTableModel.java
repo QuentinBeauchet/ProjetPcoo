@@ -36,7 +36,7 @@ public class CustomTableModel extends AbstractTableModel {
 
     @Override
     public boolean isCellEditable(int row, int col) {
-        return col!=3;
+        return !(col == 3 || col == 4);
     }
 
     @Override

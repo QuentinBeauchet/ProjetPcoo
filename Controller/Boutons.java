@@ -103,5 +103,4 @@ public class Boutons implements ActionListener{
             view.setPath(chooser.getChooser().getSelectedFile());
         }
     }
-
 }

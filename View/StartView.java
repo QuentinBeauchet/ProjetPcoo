@@ -1,7 +1,6 @@
 package View;
 
 import Controller.Boutons;
-import Exceptions.LookAndFeelException;
 
 import javax.swing.*;
 import java.awt.*;
@@ -24,7 +23,7 @@ public class StartView {
      */
 
     public StartView(){
-        try {UIManager.setLookAndFeel("com.sun.java.swing.plaf.gtk.GTKLookAndFeel");}catch (Exception exception){}
+        try {UIManager.setLookAndFeel("com.sun.java.swing.plaf.gtk.GTKLookAndFeel");}catch (Exception exception){/*Ne rien faire*/}
         frame = new JFrame("Projet PCOO");
         frame.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
         frame.setSize(300,300);

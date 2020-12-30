@@ -91,7 +91,7 @@ public class PopUpConfirmation {
         try {
             UIManager.setLookAndFeel("javax.swing.plaf.metal.MetalLookAndFeel");
         }
-        catch (Exception exception){}
+        catch (Exception exception){/*Ne rien faire*/}
         bouton=new JButton(s);
         try {
             UIManager.setLookAndFeel(previousLF);
