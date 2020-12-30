@@ -30,9 +30,7 @@ public class FileChooser {
             UIManager.setLookAndFeel("javax.swing.plaf.metal.MetalLookAndFeel");
             chooser = new JFileChooser();
         }
-        catch (Exception exception){
-            throw new LookAndFeelException();
-        }
+        catch (Exception exception){}
         try {
             UIManager.setLookAndFeel(previousLF);
         }

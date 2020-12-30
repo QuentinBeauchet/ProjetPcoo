@@ -24,7 +24,7 @@ public class StartView {
      */
 
     public StartView(){
-        try {UIManager.setLookAndFeel("com.sun.java.swing.plaf.gtk.GTKLookAndFeel");}catch (Exception exception){throw new LookAndFeelException();}
+        try {UIManager.setLookAndFeel("com.sun.java.swing.plaf.gtk.GTKLookAndFeel");}catch (Exception exception){}
         frame = new JFrame("Projet PCOO");
         frame.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
         frame.setSize(300,300);

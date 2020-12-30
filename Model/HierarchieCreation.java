@@ -65,9 +65,7 @@ public class HierarchieCreation {
         try {
             UIManager.setLookAndFeel("com.sun.java.swing.plaf.gtk.GTKLookAndFeel");
         }
-        catch (Exception exception){
-            throw new LookAndFeelException();
-        }
+        catch (Exception exception){}
         JTree tree=new JTree(arbre);
         try {
             UIManager.setLookAndFeel(previousLF);

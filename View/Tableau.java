@@ -55,9 +55,7 @@ public class Tableau {
         try {
             UIManager.setLookAndFeel("javax.swing.plaf.metal.MetalLookAndFeel");
         }
-        catch (Exception exception){
-            throw new LookAndFeelException();
-        }
+        catch (Exception exception){}
         tableau=setStyleLignes(lignes,colones);
         try {
             UIManager.setLookAndFeel(previousLF);
@@ -75,9 +73,7 @@ public class Tableau {
         try {
             UIManager.setLookAndFeel("com.sun.java.swing.plaf.gtk.GTKLookAndFeel");
         }
-        catch (Exception exception){
-            throw new LookAndFeelException();
-        }
+        catch (Exception exception){ }
         PART1= new JScrollPane(tableau);
         PART2= new JScrollPane(calculs);
         try {
