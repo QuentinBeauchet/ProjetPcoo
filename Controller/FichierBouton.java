@@ -1,9 +1,6 @@
 package Controller;
 
-import Model.FileChooser;
-import Model.WriteCsv;
-import Model.XMLMaker;
-import Model.XMLReader;
+import Model.*;
 import View.Home;
 import View.StartView;
 
@@ -82,6 +79,9 @@ public class FichierBouton extends MenuBoutons {
                 xml=super.getHome().getXml();
                 new XMLMaker(xml);
                 new WriteCsv(xml);
+                break;
+            case "Shortcut":
+                new HierarchieCreation(super.getHome());
                 break;
             default:
                 //TODO popup de confirmation pour quitter et sauvegarder ou sans

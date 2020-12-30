@@ -6,14 +6,13 @@ import Model.Sorter;
 import Model.TabCreation;
 
 import javax.swing.*;
-import javax.swing.table.DefaultTableCellRenderer;
 import javax.swing.table.JTableHeader;
+import javax.swing.table.TableCellRenderer;
 import javax.swing.table.TableColumnModel;
 import java.awt.*;
 
 public class Tableau {
-    //TODO je le redifinie deux fois ici et dans tabcretion mais c'est moche sinon faudra voir pour faire autrement
-    private static final int NBR_COMPOSANTS_ETUDIANTS=3;
+    private final int NBR_COMPOSANTS_ETUDIANTS;
     private JTable tableau;
     private final JTable calculs;
     private JScrollPane PART1;
@@ -28,6 +27,7 @@ public class Tableau {
      */
 
     public Tableau(TabCreation tab){
+        NBR_COMPOSANTS_ETUDIANTS=tab.NBR_COMPOSANTS_ETUDIANTS;
         String[] colones = tab.getColones();
         String[][] lignes = tab.getLignes();
         String[][] scores = tab.getCalculs();
@@ -47,7 +47,6 @@ public class Tableau {
      * @param colones String[]
      */
 
-    //TODO est-ce qu'on peut faire mieux que réecire a chaque fois ?
     private void setTabLF(String[][] lignes,String[] colones){
         LookAndFeel previousLF=UIManager.getLookAndFeel();
         try {
@@ -56,7 +55,7 @@ public class Tableau {
         catch (Exception exception){
             throw new LookAndFeelException();
         }
-        tableau=new JTable(lignes,colones);
+        tableau=setStyleLignes(lignes,colones);
         try {
             UIManager.setLookAndFeel(previousLF);
         } catch (UnsupportedLookAndFeelException e) {
@@ -145,31 +144,42 @@ public class Tableau {
     }
 
     /**
+     * Permet de mettre une couleur sur deux pour les lignes de la JTable.
+     *
+     * @param lignes String[][]
+     * @param colones String[]
+     * @return JTable
+     */
+
+    private JTable setStyleLignes(String[][] lignes,String[] colones){
+        return new JTable(lignes,colones){
+            public Component prepareRenderer(TableCellRenderer renderer, int row, int column) {
+                Component returnComp = super.prepareRenderer(renderer, row, column);
+                if (!returnComp.getBackground().equals(getSelectionBackground())) {
+                    Color impair;
+                    if(column<NBR_COMPOSANTS_ETUDIANTS){
+                        impair = tableau.getTableHeader().getBackground();
+                    }
+                    else{
+                        impair=new Color(226,239,218);
+                    }
+                    Color background = (row % 2 == 0 ? impair : Color.white);
+                    returnComp.setBackground(background);
+
+                }
+                return returnComp;
+            }
+        };
+    }
+
+    /**
      * Configure le style des Colones.
      */
 
     private void setStyleColonnes(){
         TableColumnModel columnModel = tableau.getColumnModel();
-
-        DefaultTableCellRenderer composantsRenderer = new DefaultTableCellRenderer();
-        composantsRenderer.setBackground(tableau.getTableHeader().getBackground());
-        composantsRenderer.setHorizontalAlignment(JLabel.CENTER);
-
-        DefaultTableCellRenderer pairRenderer = new DefaultTableCellRenderer();
-        pairRenderer.setBackground(new Color(226,239,218));
-        pairRenderer.setHorizontalAlignment(JLabel.CENTER);
-
-        //TODO faire une couleure sur deux pour les lignes (mdrrrr bonne chance hein c'est un bordel)
         for (int i = 0; i < columnModel.getColumnCount(); i++) {
             columnModel.getColumn(i).setResizable(false);
-            if(i<NBR_COMPOSANTS_ETUDIANTS){
-                columnModel.getColumn(i).setCellRenderer(composantsRenderer);
-            }
-            else{
-                if(!(i%2==0)){
-                    columnModel.getColumn(i).setCellRenderer(pairRenderer);
-                }
-            }
         }
     }
 

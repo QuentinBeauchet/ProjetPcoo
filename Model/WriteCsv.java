@@ -1,6 +1,5 @@
 package Model;
 
-import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.PrintWriter;
 import java.util.ArrayList;
@@ -9,7 +8,7 @@ import java.util.ArrayList;
  * Classe qui permet de convertir des données en CSV
  */
 public class WriteCsv {
-    private XMLReader xmlReader;
+    private final XMLReader xmlReader;
 
     public WriteCsv(XMLReader xmlReader) {
         this.xmlReader = xmlReader;
@@ -22,7 +21,7 @@ public class WriteCsv {
      */
     public void printCSV(Programme p){
         String path = "data/"+p.getNom().replace(" ","_")+".csv";
-        try (PrintWriter writer = new PrintWriter(new File(path))) {
+        try (PrintWriter writer = new PrintWriter(path)) {
 
             StringBuilder sb = new StringBuilder();
             sb.append("\"Numero Etudiant\",\"Nom\",\"Prenom\",");           //entete

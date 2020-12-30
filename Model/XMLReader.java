@@ -20,9 +20,9 @@ import java.util.List;
  */
 public class XMLReader {
     private Element file ;
-    private ArrayList<Cours> courseList;
-    private ArrayList<Programme> programList;
-    private ArrayList<Etudiant> studentList;
+    private final ArrayList<Cours> courseList;
+    private final ArrayList<Programme> programList;
+    private final ArrayList<Etudiant> studentList;
 
     /**
      * Getter de la liste de cours
@@ -79,7 +79,13 @@ public class XMLReader {
         } catch (ParserConfigurationException | SAXException | IOException e) {
             e.printStackTrace();
         }
-        return doc.getDocumentElement();
+        if (doc != null) {
+            return doc.getDocumentElement();
+        }
+        else{
+            //TODO excpetion si XML null
+            throw new NullPointerException();
+        }
     }
 
 

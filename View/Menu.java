@@ -8,6 +8,10 @@ import Controller.RechercheField;
 import javax.swing.*;
 import javax.swing.border.EmptyBorder;
 import java.awt.*;
+import java.awt.event.InputEvent;
+import java.awt.event.KeyEvent;
+
+import static java.awt.event.InputEvent.CTRL_DOWN_MASK;
 
 public class Menu {
     private final Home home;
@@ -29,9 +33,6 @@ public class Menu {
         setHierarchie();
         setRecherche();
         setStyle();
-
-        //TODO faire actionmap (touche racourcis) si j'ai pas la flemme
-
     }
 
     /**
@@ -52,17 +53,21 @@ public class Menu {
 
     private void setFichier(){
         JMenu Fichier=new JMenu("Fichier");
+        Fichier.setMnemonic(KeyEvent.VK_F);
 
         JMenuItem Open=new JMenuItem("Ouvrir");
         Open.addActionListener(new FichierBouton(Open.getText(),home));
+        Open.setAccelerator(KeyStroke.getKeyStroke('O', CTRL_DOWN_MASK));
         Fichier.add(Open);
 
         JMenuItem Save=new JMenuItem("Enregistrer");
         Save.addActionListener(new FichierBouton(Save.getText(),home));
+        Save.setAccelerator(KeyStroke.getKeyStroke('S', CTRL_DOWN_MASK));
         Fichier.add(Save);
 
         JMenuItem Close=new JMenuItem("Quitter");
         Close.addActionListener(new FichierBouton(Close.getText(),home));
+        Close.setAccelerator(KeyStroke.getKeyStroke('Q', CTRL_DOWN_MASK));
         Fichier.add(Close);
 
         MenuBar.add(Fichier);
@@ -76,9 +81,11 @@ public class Menu {
 
     private void setProgramme(){
         JMenu Programme=new JMenu("Programme");
+        Programme.setMnemonic(KeyEvent.VK_P);
 
         JMenuItem Tout=new JMenuItem("Tout");
         Tout.addActionListener(new ProgrammeBouton(-1,home));
+        Tout.setAccelerator(KeyStroke.getKeyStroke('T', CTRL_DOWN_MASK));
         Programme.add(Tout);
 
         int nbrProgrammes=home.getXml().getProgramList().size();
@@ -102,8 +109,17 @@ public class Menu {
     private void setHierarchie(){
         JLabel Hierarchie=new JLabel("Hierarchie");
         Hierarchie.addMouseListener(new HierarchieBouton(home));
+        Hierarchie.setDisplayedMnemonic(KeyEvent.VK_H);
         Hierarchie.setBorder(new EmptyBorder(0,0,0,10));
         Hierarchie.setHorizontalTextPosition(JLabel.CENTER);
+
+        JMenuItem hidden=new JMenuItem();
+        hidden.addActionListener(new FichierBouton("Shortcut",home));
+        hidden.setAccelerator(KeyStroke.getKeyStroke('H', InputEvent.ALT_DOWN_MASK));
+        hidden.setMinimumSize(new Dimension(0,0));
+        hidden.setMaximumSize(new Dimension(0,0));
+        hidden.setSize(new Dimension(0,0));
+        MenuBar.add(hidden);
 
         MenuBar.add(Hierarchie);
     }
