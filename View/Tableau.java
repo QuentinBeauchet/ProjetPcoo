@@ -2,13 +2,10 @@ package View;
 
 import Controller.HeaderListener;
 import Exceptions.LookAndFeelException;
-import Model.CustomTableModel;
-import Model.Sorter;
-import Model.TabCreation;
+import Model.*;
 
 import javax.swing.*;
 import javax.swing.table.JTableHeader;
-import javax.swing.table.TableCellRenderer;
 import javax.swing.table.TableColumnModel;
 import java.awt.*;
 
@@ -157,7 +154,10 @@ public class Tableau {
 
     private JTable setStyleLignes(Object[][] lignes,Object[] colones){
         CustomTableModel model=new CustomTableModel(lignes,colones);
-        return new JTable(model);
+        JTable table=new JTable(model);
+        table.setDefaultEditor(Note.class, new CustomCellEditor(new JTextField()));
+        table.setDefaultEditor(Integer.class, new CustomCellEditor(new JTextField()));
+        return table;
     }
 
     /**
@@ -165,12 +165,14 @@ public class Tableau {
      */
 
     private void setStyleColonnes(){
+        tableau.setDefaultRenderer(String.class,new CustomRenderer());
+        tableau.setDefaultRenderer(Integer.class,new CustomRenderer());
+        tableau.setDefaultRenderer(Note.class,new CustomRenderer());
+        tableau.setDefaultRenderer(Float.class,new CustomRenderer());
         TableColumnModel columnModel = tableau.getColumnModel();
         for (int i = 0; i < columnModel.getColumnCount(); i++) {
             columnModel.getColumn(i).setResizable(false);
         }
-        tableau.setDefaultRenderer(String.class,new CustomStringRenderer());
-        System.out.println("ici");
         int maxwidth=0;
         for (int i = 0; i < tableau.getRowCount(); i++) {
             JLabel programme=new JLabel((String)tableau.getModel().getValueAt(i, 3));

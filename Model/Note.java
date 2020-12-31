@@ -29,8 +29,16 @@ public class Note {
 
     @Override
     public String toString() {
+        /*
         return "Note{" +
                 "note='" + note + '\'' +
                 '}';
+         */
+        return note;
     }
+
+    public Note getThisNote(){
+        return this;
+    }
+
 }

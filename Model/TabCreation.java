@@ -57,18 +57,13 @@ public class TabCreation {
     private void setLignes(int nbrColones,int nbrLignes) {
         lignes=new Object[nbrLignes][nbrColones];
         for (int i = 0; i < studentList.size(); i++) {
-            lignes[i][0]=studentList.get(i).getId();
+            lignes[i][0]=Integer.parseInt(studentList.get(i).getId());
             lignes[i][1]=studentList.get(i).getNom();
             lignes[i][2]=studentList.get(i).getPrenom();
             lignes[i][3]=studentList.get(i).getP().getNom();
-            lignes[i][4]=String.valueOf(studentList.get(i).getP().getNoteProgramme(studentList.get(i)));
+            lignes[i][4]=studentList.get(i).getP().getNoteProgramme(studentList.get(i));
             for (int j = 0; j < courseList.size(); j++) {
-                if(!courseList.get(j).calcNote(studentList.get(i)).getNote().equals("")) {
-                    lignes[i][j + NBR_COMPOSANTS_ETUDIANTS] = courseList.get(j).calcNote(studentList.get(i)).getNote();
-                }
-                else{
-                    lignes[i][j + NBR_COMPOSANTS_ETUDIANTS] ="";
-                }
+                lignes[i][j + NBR_COMPOSANTS_ETUDIANTS] = courseList.get(j).calcNote(studentList.get(i)).getThisNote();
             }
         }
     }
