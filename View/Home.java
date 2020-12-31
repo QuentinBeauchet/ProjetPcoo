@@ -1,5 +1,6 @@
 package View;
 
+import Controller.Window;
 import Model.TabCreation;
 import Model.XMLReader;
 
@@ -22,10 +23,11 @@ public class Home {
 
         try {UIManager.setLookAndFeel("javax.swing.plaf.metal.MetalLookAndFeel");} catch (Exception exception){/*Ne rien faire*/}
         frame = new JFrame("Projet PCOO");
-        frame.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
+        frame.setDefaultCloseOperation(JFrame.DO_NOTHING_ON_CLOSE);
         frame.setSize(1445, 800);
         frame.setLocationRelativeTo(null);
         frame.setLayout(new BorderLayout());
+        frame.addWindowListener(new Window());
 
         setTab();
         setMenu();
