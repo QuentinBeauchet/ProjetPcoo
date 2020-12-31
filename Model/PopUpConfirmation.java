@@ -17,6 +17,7 @@ public class PopUpConfirmation {
         dialog=new JDialog();
         setStyle();
         setPanel();
+        dialog.setVisible(true);
     }
 
     /**
@@ -28,7 +29,6 @@ public class PopUpConfirmation {
         dialog.setLocationRelativeTo(null);
         dialog.setModal(false);
         dialog.setUndecorated(true);
-        dialog.setVisible(true);
         dialog.setBackground(new Color(0,0,0,0));
     }
 
