@@ -12,6 +12,8 @@ import javax.swing.table.TableCellRenderer;
 import javax.swing.table.TableColumnModel;
 import java.awt.*;
 
+import static java.lang.Math.max;
+
 public class Tableau {
     private final int NBR_COMPOSANTS_ETUDIANTS;
     private JTable tableau;
@@ -168,6 +170,15 @@ public class Tableau {
             columnModel.getColumn(i).setResizable(false);
         }
         tableau.setDefaultRenderer(String.class,new CustomStringRenderer());
+        System.out.println("ici");
+        int maxwidth=0;
+        for (int i = 0; i < tableau.getRowCount(); i++) {
+            JLabel programme=new JLabel((String)tableau.getModel().getValueAt(i, 3));
+            maxwidth=max((int)programme.getPreferredSize().getWidth(),maxwidth);
+        }
+        columnModel.getColumn(3).setMinWidth(maxwidth);
+        columnModel.getColumn(3).setMaxWidth(maxwidth);
+        columnModel.getColumn(3).setWidth(maxwidth);
     }
 
     /**
