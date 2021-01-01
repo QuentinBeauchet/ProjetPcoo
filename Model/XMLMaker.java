@@ -21,7 +21,6 @@ public class XMLMaker {
         } catch (IOException e) {
             e.printStackTrace();
         }
-        timer();
     }
 
     /**
@@ -47,21 +46,5 @@ public class XMLMaker {
         sb.append("</data>");
         myWriter.write(sb.toString());
         myWriter.close();
-    }
-
-
-
-    private void timer(){
-        long acc=0;
-        for (int i = 0; i < 100; i++) {
-            long t1 = System.currentTimeMillis();
-            try {
-                writer();
-            } catch (IOException e) {
-                e.printStackTrace();
-            }
-            acc=acc+System.currentTimeMillis()-t1;
-        }
-        System.out.println(acc/100+"."+acc%100+"ms");
     }
 }

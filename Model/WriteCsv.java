@@ -46,7 +46,7 @@ public class WriteCsv {
             for (int i = 0; i < p.getBlocs().size();++i
                  ) {
                 UE ue = p.getBlocs().get(i);
-                ArrayList<String> myVars = MyTools.getStats(ue,xmlReader.getStudentList());
+                ArrayList<Float> myVars = MyTools.getStats(xmlReader.getStudentList(),ue);
                 lineMax.append("\"").append(myVars.get(0)).append("\"");
                 lineMin.append("\"").append(myVars.get(1)).append("\"");
                 lineMoy.append("\"").append(myVars.get(2)).append("\"");

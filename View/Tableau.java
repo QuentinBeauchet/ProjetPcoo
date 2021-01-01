@@ -145,7 +145,7 @@ public class Tableau {
 
     private void setStyleCalculs(){
         calculs.setDefaultRenderer(String.class,new CustomRenderer());
-        calculs.setDefaultRenderer(Double.class,new CustomRenderer());
+        calculs.setDefaultRenderer(Float.class,new CustomRenderer());
         for (int i = 0; i < calculs.getColumnModel().getColumnCount(); i++) {
             int width=tableau.getColumnModel().getColumn(i).getWidth();
             TableColumn column=calculs.getColumnModel().getColumn(i);

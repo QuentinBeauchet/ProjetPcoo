@@ -8,7 +8,7 @@ import java.awt.*;
 
 public class CustomRenderer extends DefaultTableCellRenderer implements TableCellRenderer {
     private final static int NBR_COMPOSANTS_ETUDIANTS=5;
-    private final static int INDEX_RESULTATS=3;
+    private final static int INDEX_RESULTATS=4;
 
     /**
      * Classe qui permet de faire un TableCellRenderer personalisé.
@@ -37,14 +37,26 @@ public class CustomRenderer extends DefaultTableCellRenderer implements TableCel
 
     private void setStyle(JTable table, int row, int col,Object value){
         Class<?> currentClass=value.getClass();
+        super.setBackground((row % 2 == 0 ? new Color(238,238,238) : Color.white));
         if(currentClass==String.class || currentClass==Integer.class){
-            super.setBackground((row % 2 == 0 ? new Color(238,238,238) : Color.white));
             if(currentClass==Integer.class){
                 super.setFont(new Font("Arial", Font.BOLD, 12));
             }
         }
         else if(currentClass==Float.class){
-            super.setBackground(((float)value < 10 ? new Color(177, 96, 96,80) : new Color(96, 206, 96,80)));
+            if(table.getName().equals("tableau")){
+                super.setBackground(((float)value < 10 ? new Color(177, 96, 96,80) : new Color(96, 206, 96,80)));
+            }
+            else{
+                if(col==INDEX_RESULTATS){
+                    super.setFont(new Font("Tahoma", Font.BOLD, 12));
+                    super.setForeground(new Color(26, 109, 165));
+                }
+                else{
+                    super.setForeground(new Color(51,51,51));
+                    super.setBackground((row % 2 == 0 ? new Color(239,226,218) : Color.white));
+                }
+            }
         }
         else if(currentClass==Note.class){
             super.setBackground((row % 2 == 0 ? new Color(226,239,218) : Color.white));
@@ -52,13 +64,10 @@ public class CustomRenderer extends DefaultTableCellRenderer implements TableCel
                 super.setFont(new Font("Tahoma", Font.ITALIC + Font.BOLD, 12));
             }
         }
-        else if(currentClass==Double.class){
-            super.setBackground((row % 2 == 0 ? new Color(239,226,218) : Color.white));
-        }
         super.setHorizontalAlignment(CENTER);
         table.setShowGrid(false);
         table.setIntercellSpacing(new Dimension(0, 0));
-        if(table.getName().equals("tableau") || (table.getName().equals("calculs") && !(col>=1 && col<INDEX_RESULTATS))){
+        if(!((table.getName().equals("calculs") && (col>=1 && col<INDEX_RESULTATS-1)))){
             super.setBorder(BorderFactory.createMatteBorder(0, 0, 0, 1, Color.darkGray));
         }
 
@@ -74,7 +83,7 @@ public class CustomRenderer extends DefaultTableCellRenderer implements TableCel
 
     private void update(JTable table,int row,int col){
         if(row==table.getRowCount()-1){
-            if((table.getName().equals("calculs") && (col>=1 && col<INDEX_RESULTATS))){
+            if((table.getName().equals("calculs") && (col>=1 && col<INDEX_RESULTATS-1))){
                 super.setBorder(BorderFactory.createMatteBorder(0, 0, 1, 0, Color.darkGray));
             }
             else{

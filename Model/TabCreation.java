@@ -83,20 +83,23 @@ public class TabCreation {
         calculs[2][0]="Note moyenne";
         calculs[3][0]="Écart-type";
 
+        ArrayList<Float> toolKitFloat = MyTools.getStats(studentList);
         for (int i = 1; i < NBR_COMPOSANTS_ETUDIANTS; i++) {
-            calculs[0][i]="";
-            calculs[1][i]="";
-            calculs[2][i]="";
-            calculs[3][i]="";
+            for (int j = 0; j < NBR_LIGNES_CALCULS; j++) {
+                if(studentList.size()!=0 && i==NBR_COMPOSANTS_ETUDIANTS-1){
+                    calculs[j][NBR_COMPOSANTS_ETUDIANTS-1]=toolKitFloat.get(j);
+                }
+                else{
+                    calculs[j][i]="";
+                }
+            }
         }
 
         for (int i = 0; i < courseList.size(); i++) {
-            //TODO remplacer double.parseDouble et replaceAll(",",".") en mettant toolkit ArrayList<Double>
-            ArrayList<String> toolKit = MyTools.getStats(courseList.get(i),studentList);
-            calculs[0][i+NBR_COMPOSANTS_ETUDIANTS]=Double.parseDouble(toolKit.get(0).replaceAll(",",".")); //max
-            calculs[1][i+NBR_COMPOSANTS_ETUDIANTS]=Double.parseDouble(toolKit.get(1).replaceAll(",",".")); //min
-            calculs[2][i+NBR_COMPOSANTS_ETUDIANTS]=Double.parseDouble(toolKit.get(2).replaceAll(",",".")); //moy
-            calculs[3][i+NBR_COMPOSANTS_ETUDIANTS]=Double.parseDouble(toolKit.get(3).replaceAll(",",".")); //ecart type
+            ArrayList<Float> toolKit = MyTools.getStats(studentList,courseList.get(i));
+            for (int j = 0; j < NBR_LIGNES_CALCULS; j++) {
+                calculs[j][i+NBR_COMPOSANTS_ETUDIANTS]=toolKit.get(j);
+            }
         }
     }
 

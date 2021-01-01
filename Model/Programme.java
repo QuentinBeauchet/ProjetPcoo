@@ -73,15 +73,11 @@ public class Programme {
     public float getNoteProgramme(Etudiant e){
         float somme=0;
         float total=0;
-        for (Bloc b : this.blocs
-        ) {
-
+        for (Bloc b : this.blocs) {
             somme += b.getCoef() * b.calcNote(e).getFloatNote();
             total += b.getCoef();
         }
-        BigDecimal bigDecimal=new BigDecimal(somme/total);
-        MathContext mathContext =new MathContext(4);
-        return bigDecimal.round(mathContext).floatValue();
+        return MyTools.arondit(somme/total);
     }
 
 
