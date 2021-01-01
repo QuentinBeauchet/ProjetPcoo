@@ -49,4 +49,19 @@ public class MyTools {
         myArray.add(String.format("%.4f",Math.sqrt(sommeE / (nbrEtudiant - 1))));
         return  myArray;
     }
+
+    /**
+     * Meme fonction que getStats sauf que l'array rendu est en Double
+     * @param ue le cours concerné
+     * @param studentlist la liste d'étudiant
+     * @return Retourne un ArrayList de Double des différents statistiques
+     */
+    public static ArrayList<Double> getDoubleStats (UE ue,ArrayList<Etudiant> studentlist){
+        ArrayList<Double> myDoublesArr = new ArrayList<>();
+        for (String s: getStats(ue,studentlist)
+             ) {
+            myDoublesArr.add(Double.parseDouble(s.replaceAll(",",".")));
+        }
+        return myDoublesArr;
+    }
 }
