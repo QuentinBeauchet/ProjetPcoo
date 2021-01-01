@@ -39,7 +39,7 @@ public class BlocOptions extends BlocMultiple {
                 if (nMax.getFloatNote() < e.getNotes().get(cour).getFloatNote()){
                     nMax = e.getNotes().get(cour);
                 }
-                if (!(e.getNotes().get(cour).getNote().equals("ABI"))) {
+                if (!(e.getNotes().get(cour).toString().equals("ABI"))) {
                     isBlocABI = false;
                 }
             }
@@ -48,7 +48,7 @@ public class BlocOptions extends BlocMultiple {
             return new Note("ABI");
         }
         else{
-            return new Note(nMax.getNote());
+            return new Note(nMax.toString());
         }
     }
 

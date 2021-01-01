@@ -84,9 +84,9 @@ public class WriteCsv {
         sb.append("\"").append(e.getId()).append("\",")
                 .append("\"").append(e.getNom()).append("\",")
                 .append("\"").append(e.getPrenom()).append("\",");
-        sb.append("\"").append(e.getP().getBlocs().get(0).calcNote(e).getNote()).append("\"");
+        sb.append("\"").append(e.getP().getBlocs().get(0).calcNote(e).toString()).append("\"");
         for (int i = 1; i < e.getP().getBlocs().size() ; i++ ) {
-            sb.append(",\"").append(e.getP().getBlocs().get(i).calcNote(e).getNote()).append("\"");
+            sb.append(",\"").append(e.getP().getBlocs().get(i).calcNote(e).toString()).append("\"");
         }
         sb.append("\n");
     }

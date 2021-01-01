@@ -7,7 +7,7 @@ public class TabCreation {
     private static final int NBR_LIGNES_CALCULS=4;
     private Object[] colones;
     private Object[][] lignes;
-    private String[][] calculs;
+    private Object[][] calculs;
     private final ArrayList<Cours> courseList;
     private final ArrayList<Etudiant> studentList;
 
@@ -75,19 +75,28 @@ public class TabCreation {
      */
 
     private void setCalculs(int nbrColones) {
-        calculs=new String[NBR_LIGNES_CALCULS][nbrColones];
+        calculs=new Object[NBR_LIGNES_CALCULS][nbrColones];
+        //TODO reduire la taille code ici
 
         calculs[0][0]="Note max";
         calculs[1][0]="Note min";
         calculs[2][0]="Note moyenne";
         calculs[3][0]="Écart-type";
 
+        for (int i = 1; i < NBR_COMPOSANTS_ETUDIANTS; i++) {
+            calculs[0][i]="";
+            calculs[1][i]="";
+            calculs[2][i]="";
+            calculs[3][i]="";
+        }
+
         for (int i = 0; i < courseList.size(); i++) {
+            //TODO remplacer double.parseDouble et replaceAll(",",".") en mettant toolkit ArrayList<Double>
             ArrayList<String> toolKit = MyTools.getStats(courseList.get(i),studentList);
-            calculs[0][i+NBR_COMPOSANTS_ETUDIANTS]=toolKit.get(0); //max
-            calculs[1][i+NBR_COMPOSANTS_ETUDIANTS]=toolKit.get(1); //min
-            calculs[2][i+NBR_COMPOSANTS_ETUDIANTS]=toolKit.get(2); //moy
-            calculs[3][i+NBR_COMPOSANTS_ETUDIANTS]=toolKit.get(3); //ecart type
+            calculs[0][i+NBR_COMPOSANTS_ETUDIANTS]=Double.parseDouble(toolKit.get(0).replaceAll(",",".")); //max
+            calculs[1][i+NBR_COMPOSANTS_ETUDIANTS]=Double.parseDouble(toolKit.get(1).replaceAll(",",".")); //min
+            calculs[2][i+NBR_COMPOSANTS_ETUDIANTS]=Double.parseDouble(toolKit.get(2).replaceAll(",",".")); //moy
+            calculs[3][i+NBR_COMPOSANTS_ETUDIANTS]=Double.parseDouble(toolKit.get(3).replaceAll(",",".")); //ecart type
         }
     }
 
@@ -114,10 +123,10 @@ public class TabCreation {
     /**
      * Renvoit les lignes de la JTable calculs.
      *
-     * @return String[][]
+     * @return Object[][]
      */
 
-    public String[][] getCalculs() {
+    public Object[][] getCalculs() {
         return calculs;
     }
 

@@ -114,7 +114,7 @@ public class Etudiant {
             Note value = entry.getValue();
             sb.append("        <grade>\n")
                     .append("            <item>").append(key.getId()).append("</item>\n")
-                    .append("            <value>").append(value.getNote()).append("</value>\n")
+                    .append("            <value>").append(value.toString()).append("</value>\n")
                     .append("        </grade>\n");
 
         }

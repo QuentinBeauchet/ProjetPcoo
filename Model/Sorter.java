@@ -1,7 +1,9 @@
 package Model;
 
-import Controller.CoursComparator;
+import Controller.NoteComparator;
+
 import javax.swing.*;
+import java.util.Comparator;
 
 public class Sorter {
     private final int NBR_COMPOSANTS_ETUDIANTS;
@@ -28,8 +30,13 @@ public class Sorter {
     private void setSorter(){
         tableau.setAutoCreateRowSorter(true);
         sorter=(DefaultRowSorter<?,?>)tableau.getRowSorter();
-        for(int i=NBR_COMPOSANTS_ETUDIANTS;i<tableau.getColumnModel().getColumnCount();i++){
-            sorter.setComparator(i,new CoursComparator());
+        for(int i=0;i<tableau.getColumnModel().getColumnCount();i++){
+            if(i<NBR_COMPOSANTS_ETUDIANTS){
+                sorter.setComparator(i,Comparator.naturalOrder());
+            }
+            else{
+                sorter.setComparator(i,new NoteComparator());
+            }
         }
     }
 

@@ -8,6 +8,7 @@ import java.awt.*;
 
 public class CustomRenderer extends DefaultTableCellRenderer implements TableCellRenderer {
     private final static int NBR_COMPOSANTS_ETUDIANTS=5;
+    private final static int INDEX_RESULTATS=3;
 
     /**
      * Classe qui permet de faire un TableCellRenderer personalisé.
@@ -20,9 +21,8 @@ public class CustomRenderer extends DefaultTableCellRenderer implements TableCel
     @Override
     public Component getTableCellRendererComponent(JTable table, Object value, boolean isSelected, boolean hasFocus, int row, int column) {
         super.getTableCellRendererComponent(table,value,isSelected,hasFocus,row,column);
-
-        setStyle(table,row,value);
-        update(table,row);
+        setStyle(table,row,column,value);
+        update(table,row,column);
 
         return this;
     }
@@ -35,10 +35,10 @@ public class CustomRenderer extends DefaultTableCellRenderer implements TableCel
      * @param value Object
      */
 
-    private void setStyle(JTable table, int row, Object value){
+    private void setStyle(JTable table, int row, int col,Object value){
         Class<?> currentClass=value.getClass();
         if(currentClass==String.class || currentClass==Integer.class){
-            super.setBackground((row % 2 == 0 ? table.getTableHeader().getBackground() : Color.white));
+            super.setBackground((row % 2 == 0 ? new Color(238,238,238) : Color.white));
             if(currentClass==Integer.class){
                 super.setFont(new Font("Arial", Font.BOLD, 12));
             }
@@ -52,8 +52,16 @@ public class CustomRenderer extends DefaultTableCellRenderer implements TableCel
                 super.setFont(new Font("Tahoma", Font.ITALIC + Font.BOLD, 12));
             }
         }
+        else if(currentClass==Double.class){
+            super.setBackground((row % 2 == 0 ? new Color(239,226,218) : Color.white));
+        }
         super.setHorizontalAlignment(CENTER);
-        super.setBorder(BorderFactory.createMatteBorder(0, 0, 0, 1, Color.darkGray));
+        table.setShowGrid(false);
+        table.setIntercellSpacing(new Dimension(0, 0));
+        if(table.getName().equals("tableau") || (table.getName().equals("calculs") && !(col>=1 && col<INDEX_RESULTATS))){
+            super.setBorder(BorderFactory.createMatteBorder(0, 0, 0, 1, Color.darkGray));
+        }
+
     }
 
     /**
@@ -64,14 +72,19 @@ public class CustomRenderer extends DefaultTableCellRenderer implements TableCel
      */
 
 
-    private void update(JTable table,int row){
+    private void update(JTable table,int row,int col){
         if(row==table.getRowCount()-1){
-            super.setBorder(BorderFactory.createMatteBorder(0, 0, 1, 1, Color.darkGray));
+            if((table.getName().equals("calculs") && (col>=1 && col<INDEX_RESULTATS))){
+                super.setBorder(BorderFactory.createMatteBorder(0, 0, 1, 0, Color.darkGray));
+            }
+            else{
+                super.setBorder(BorderFactory.createMatteBorder(0, 0, 1, 1, Color.darkGray));
+            }
             TableColumnModel columnModel = table.getColumnModel();
             if(table.getRowCount()==1){
                 int lastRow=table.convertRowIndexToModel(row);
                 for (int i = NBR_COMPOSANTS_ETUDIANTS+1; i < table.getModel().getColumnCount(); i++) {
-                    if(table.getModel().getValueAt(lastRow,i).equals("")){
+                    if(table.getModel().getValueAt(lastRow,i).toString().equals("")){
                         columnModel.getColumn(i).setMinWidth(0);
                         columnModel.getColumn(i).setMaxWidth(0);
                         columnModel.getColumn(i).setWidth(0);

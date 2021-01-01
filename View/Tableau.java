@@ -5,8 +5,7 @@ import Exceptions.LookAndFeelException;
 import Model.*;
 
 import javax.swing.*;
-import javax.swing.table.JTableHeader;
-import javax.swing.table.TableColumnModel;
+import javax.swing.table.*;
 import java.awt.*;
 
 import static java.lang.Math.max;
@@ -14,7 +13,7 @@ import static java.lang.Math.max;
 public class Tableau {
     private final int NBR_COMPOSANTS_ETUDIANTS;
     private JTable tableau;
-    private final JTable calculs;
+    private JTable calculs;
     private JScrollPane PART1;
     private JScrollPane PART2;
     private JPanel Panel;
@@ -30,9 +29,9 @@ public class Tableau {
         NBR_COMPOSANTS_ETUDIANTS=tab.NBR_COMPOSANTS_ETUDIANTS;
         Object[] colones = tab.getColones();
         Object[][] lignes = tab.getLignes();
-        String[][] scores = tab.getCalculs();
+        Object[][] rowCalculs = tab.getCalculs();
         setTabLF(lignes,colones);
-        calculs=new JTable(scores,colones);
+        setCalculs(rowCalculs,colones);
         setScrollBar();
         setLayout();
         setStyle();
@@ -93,7 +92,7 @@ public class Tableau {
         PART1.getHorizontalScrollBar().setModel(PART2.getHorizontalScrollBar().getModel());
         PART1.setHorizontalScrollBarPolicy(JScrollPane.HORIZONTAL_SCROLLBAR_NEVER);
         PART2.setVerticalScrollBarPolicy(JScrollPane.VERTICAL_SCROLLBAR_NEVER);
-        calculs.getTableHeader().setUI(null);
+        calculs.setTableHeader(null);
     }
 
     /**
@@ -116,8 +115,8 @@ public class Tableau {
 
     private void setStyle(){
         setStyleHeader();
-        setStyleCalculs();
         setStyleColonnes();
+        setStyleCalculs();
     }
 
     /**
@@ -131,8 +130,13 @@ public class Tableau {
 
         header.addMouseListener(new HeaderListener(tableau));
 
-        tableau.setShowGrid(false);
-        tableau.setIntercellSpacing(new Dimension(0, 0));
+        tableau.setName("tableau");
+    }
+
+    private void setCalculs(Object[][] rowCalculs, Object[] colones){
+        CustomTableModel model=new CustomTableModel(rowCalculs,colones);
+        calculs=new JTable(model);
+        calculs.setName("calculs");
     }
 
     /**
@@ -140,8 +144,15 @@ public class Tableau {
      */
 
     private void setStyleCalculs(){
-        calculs.setBackground(tableau.getTableHeader().getBackground());
-        //TODO rendre plus jolie le tableau calcul
+        calculs.setDefaultRenderer(String.class,new CustomRenderer());
+        calculs.setDefaultRenderer(Double.class,new CustomRenderer());
+        for (int i = 0; i < calculs.getColumnModel().getColumnCount(); i++) {
+            int width=tableau.getColumnModel().getColumn(i).getWidth();
+            TableColumn column=calculs.getColumnModel().getColumn(i);
+            column.setMinWidth(width);
+            column.setMaxWidth(width);
+            column.setWidth(width);
+        }
     }
 
     /**
@@ -173,14 +184,15 @@ public class Tableau {
         for (int i = 0; i < columnModel.getColumnCount(); i++) {
             columnModel.getColumn(i).setResizable(false);
         }
-        int maxwidth=0;
+        int maxwidth=tableau.getColumnModel().getColumn(0).getWidth();
         for (int i = 0; i < tableau.getRowCount(); i++) {
             JLabel programme=new JLabel((String)tableau.getModel().getValueAt(i, 3));
             maxwidth=max((int)programme.getPreferredSize().getWidth(),maxwidth);
         }
-        columnModel.getColumn(3).setMinWidth(maxwidth);
-        columnModel.getColumn(3).setMaxWidth(maxwidth);
-        columnModel.getColumn(3).setWidth(maxwidth);
+        TableColumn column=columnModel.getColumn(3);
+        column.setMinWidth(maxwidth);
+        column.setMaxWidth(maxwidth);
+        column.setWidth(maxwidth);
     }
 
     /**
