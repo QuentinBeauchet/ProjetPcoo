@@ -91,16 +91,6 @@ public class Etudiant {
     }
 
     /**
-     * change la note d'un étudiant
-     * @param cours le cours de la note à changer
-     * @param n la note
-     */
-    public void changerNote(Cours cours, Note n){
-        if(!isPresent(cours))throw new UENotFindException(cours);
-        this.notes.put(cours,n);
-    }
-
-    /**
      * Teste si un étudiant a été noté dans un cours
      * @param cours le cours
      * @return boolean

@@ -42,7 +42,10 @@ public class Home {
     }
 
     public void setTab(Tableau t) {
-        tab = t;
+        frame.remove(tab.getPanel());
+        tab=t;
+        frame.add(tab.getPanel());
+        frame.validate();
     }
 
     private void setMenu() {

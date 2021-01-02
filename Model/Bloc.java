@@ -42,4 +42,5 @@ public abstract class Bloc implements UE {
     public abstract ArrayList<UE> getUE();
 
 
+
 }

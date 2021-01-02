@@ -1,8 +1,10 @@
 package Model;
 
 import View.Home;
+import View.Tableau;
 
 import javax.swing.table.DefaultTableModel;
+import java.util.ArrayList;
 
 public class CustomTableModel extends DefaultTableModel{
     private final String name;
@@ -66,8 +68,10 @@ public class CustomTableModel extends DefaultTableModel{
 
     private void updateXML(Object obj,int row,int col){
         XMLReader xmlReader=home.getXml();
-        for (int i = 0; i < xmlReader.getStudentList().size(); i++) {
-            Etudiant etudiant=xmlReader.getStudentList().get(i);
+        ArrayList<Etudiant> students=xmlReader.getStudentList();
+        ArrayList<Cours> cours=xmlReader.getCourseList();
+        for (int i = 0; i < students.size(); i++) {
+            Etudiant etudiant=students.get(i);
             String rowID= String.valueOf((Integer)getValueAt(row,0));
             if(rowID.equals(etudiant.getId())){
                 switch (col){
@@ -80,8 +84,20 @@ public class CustomTableModel extends DefaultTableModel{
                         break;
                     case 2:
                         etudiant.setPrenom((String)obj);
+                    case 3: case 4:
+                        break;
                     default:
-                        //SET NOTE
+                        for (int j = 0; j < cours.size(); j++) {
+                            Cours currentcours=cours.get(j);
+                            if(currentcours.getNom().equals(getColumnName(col))){
+                                etudiant.addNote(currentcours, new Note((String)obj));
+                                break;
+                            }
+                        }
+                        super.setValueAt(etudiant.getP().getNoteProgramme(etudiant),row,4);
+                        TabCreation tab=new TabCreation(home,cours,students);
+                        Tableau tableau=new Tableau(tab);
+                        home.setTab(tableau);
                 }
                 break;
             }

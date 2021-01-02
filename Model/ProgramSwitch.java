@@ -61,9 +61,6 @@ public class ProgramSwitch {
      */
 
     private void Switch(){
-        home.getFrame().remove(home.getTab().getPanel());
-        home.getFrame().add(tab.getPanel());
         home.setTab(tab);
-        home.getFrame().validate();
     }
 }
