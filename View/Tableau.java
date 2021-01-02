@@ -55,6 +55,7 @@ public class Tableau {
         }
         catch (Exception exception){/*Ne rien faire*/}
         tableau=setStyleLignes(lignes,colones);
+        tableau.setName("tableau");
         try {
             UIManager.setLookAndFeel(previousLF);
         } catch (UnsupportedLookAndFeelException e) {
@@ -125,18 +126,18 @@ public class Tableau {
 
     private void setStyleHeader(){
         JTableHeader header=tableau.getTableHeader();
+        header.setReorderingAllowed(false);
         header.setForeground(new Color(153, 31, 0));
         header.setFont(header.getFont().deriveFont(Font.BOLD));
 
         header.addMouseListener(new HeaderListener(tableau));
-
-        tableau.setName("tableau");
     }
 
     private void setCalculs(Object[][] rowCalculs, Object[] colones){
-        CustomTableModel model=new CustomTableModel(rowCalculs,colones);
+        String name="calculs";
+        CustomTableModel model=new CustomTableModel(rowCalculs,colones,name);
         calculs=new JTable(model);
-        calculs.setName("calculs");
+        calculs.setName(name);
     }
 
     /**
@@ -164,7 +165,8 @@ public class Tableau {
      */
 
     private JTable setStyleLignes(Object[][] lignes,Object[] colones){
-        CustomTableModel model=new CustomTableModel(lignes,colones);
+        String name="tableau";
+        CustomTableModel model=new CustomTableModel(lignes,colones,name);
         JTable table=new JTable(model);
         table.setDefaultEditor(Note.class, new CustomCellEditor(new JTextField()));
         table.setDefaultEditor(Integer.class, new CustomCellEditor(new JTextField()));
@@ -231,5 +233,9 @@ public class Tableau {
 
     public JPanel getPanel() {
         return Panel;
+    }
+
+    public JTable getTableau(){
+        return tableau;
     }
 }

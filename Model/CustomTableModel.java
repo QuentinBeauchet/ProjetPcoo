@@ -1,91 +1,53 @@
 package Model;
 
-import javax.swing.event.TableModelListener;
-import javax.swing.table.AbstractTableModel;
+import javax.swing.table.DefaultTableModel;
 
-public class CustomTableModel extends AbstractTableModel{
-    private final Object[][] rowData;
-    private final Object[] columnNames;
-    private final Class<?>[] columnClass;
+public class CustomTableModel extends DefaultTableModel{
+    private final String name;
 
-    /**
-     * Classe qui permet de faire un AbstractTableModel personalisé.
-     * ->Permet de forcer la classe des cellules.
-     *
-     * @param row Object[][]
-     * @param col Object[]
-     */
-
-    public CustomTableModel(Object[][] row, Object[] col) {
-        rowData = row;
-        columnNames = col;
-        columnClass=new Class[columnNames.length];
-        if(rowData.length>0){
-            for (int i = 0; i < columnNames.length; i++) {
-                columnClass[i]=rowData[0][i].getClass();
-            }
-        }
-    }
-
-    @Override
-    public int getRowCount() {
-        return rowData.length;
-    }
-
-    @Override
-    public String getColumnName(int column) {
-        return (String) columnNames[column];
-    }
-
-    @Override
-    public Class<?> getColumnClass(int columnIndex) {
-        return columnClass[columnIndex];
-    }
-
-    @Override
-    public boolean isCellEditable(int row, int col) {
-        return !(col == 3 || col == 4);
-    }
-
-    @Override
-    public int getColumnCount() {
-        return columnNames.length;
-    }
-
-    @Override
-    public Object getValueAt(int row, int column) {
-        if (rowData.length > row && columnNames.length > column) {
-            return rowData[row][column];
-        } else {
-            return null;
-        }
+    public CustomTableModel(Object[][] lignes, Object[] colones,String name) {
+        super(lignes,colones);
+        this.name=name;
     }
 
     @Override
     public void setValueAt(Object obj, int row, int col) {
-        String txt=(String) obj;
-        if(columnClass[col]==Note.class){
-            rowData[row][col]=new Note(txt);
-        }
-        else if(columnClass[col]==Integer.class){
-            rowData[row][col]=Integer.valueOf(txt);
-        }
-        else if(columnClass[col]==Float.class){
-            rowData[row][col]=Float.valueOf(txt);
+        if(name=="tableau" && getColumnClass(col)==Note.class){
+            super.setValueAt(new Note((String) obj),row,col);
         }
         else{
-            rowData[row][col]=txt;
+            super.setValueAt(obj,row,col);
         }
     }
 
     @Override
-    public void addTableModelListener(TableModelListener tableModelListener) {
-
+    public Class<?> getColumnClass(int columnIndex) {
+        switch (name){
+            case "tableau":
+                switch (columnIndex){
+                    case 0:
+                        return Integer.class;
+                    case 1: case 2: case 3:
+                        return String.class;
+                    case 4:
+                        return Float.class;
+                    default:
+                        return Note.class;
+                }
+            default:
+                switch (columnIndex){
+                    case 0: case 1: case 2: case 3:
+                        return String.class;
+                    default:
+                        return Float.class;
+                }
+        }
     }
 
     @Override
-    public void removeTableModelListener(TableModelListener tableModelListener) {
-
+    public boolean isCellEditable(int row, int column) {
+        return !(column==3 || column==4);
     }
+
 
 }

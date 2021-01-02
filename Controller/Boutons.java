@@ -3,10 +3,14 @@ package Controller;
 import Model.*;
 import View.Home;
 import View.StartView;
+import View.Tableau;
 
 import javax.swing.*;
+import javax.swing.table.DefaultTableModel;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.util.ArrayList;
+import java.util.Arrays;
 
 public class Boutons implements ActionListener{
     private final String action;

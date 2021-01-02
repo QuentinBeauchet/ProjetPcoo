@@ -30,13 +30,8 @@ public class Sorter {
     private void setSorter(){
         tableau.setAutoCreateRowSorter(true);
         sorter=(DefaultRowSorter<?,?>)tableau.getRowSorter();
-        for(int i=0;i<tableau.getColumnModel().getColumnCount();i++){
-            if(i<NBR_COMPOSANTS_ETUDIANTS){
-                sorter.setComparator(i,Comparator.naturalOrder());
-            }
-            else{
-                sorter.setComparator(i,new NoteComparator());
-            }
+        for(int i=NBR_COMPOSANTS_ETUDIANTS;i<tableau.getColumnModel().getColumnCount();i++){
+            sorter.setComparator(i,new NoteComparator());
         }
     }
 
