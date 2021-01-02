@@ -81,8 +81,8 @@ public class Boutons implements ActionListener{
                 home=(Home)obj;
                 new HierarchieCreation(home);
                 break;
-            case "Quitter":
-                new PopUpConfirmation();
+            case "Quitter": case "Ajouter un etudiant": case "Ajouter un cours": case "Ajouter un programme":
+                new PopUp(action);
                 break;
             case "Annuler":
                 JDialog dialog=(JDialog)obj;

@@ -32,6 +32,7 @@ public class Menu {
         setProgramme();
         setHierarchie();
         setRecherche();
+        setModif();
         setStyle();
 
         //TODO help racourcis
@@ -142,6 +143,29 @@ public class Menu {
 
         MenuBar.add(bouton);
         MenuBar.add(Recherche);
+    }
+
+    private void setModif(){
+        JMenu modif=new JMenu("Modification");
+        modif.setMnemonic(KeyEvent.VK_M);
+
+        JMenuItem ajoutEtudiant=new JMenuItem("Ajouter un etudiant");
+        ajoutEtudiant.addActionListener(new Boutons(ajoutEtudiant.getText(),home));
+        ajoutEtudiant.setAccelerator(KeyStroke.getKeyStroke('E', CTRL_DOWN_MASK));
+        modif.add(ajoutEtudiant);
+
+
+        JMenuItem ajoutCours=new JMenuItem("Ajouter un cours");
+        ajoutCours.addActionListener(new Boutons(ajoutCours.getText(),home));
+        ajoutCours.setAccelerator(KeyStroke.getKeyStroke('C', CTRL_DOWN_MASK));
+        modif.add(ajoutCours);
+
+        JMenuItem ajoutProgramme=new JMenuItem("Ajouter un programme");
+        ajoutProgramme.addActionListener(new Boutons(ajoutProgramme.getText(),home));
+        ajoutProgramme.setAccelerator(KeyStroke.getKeyStroke('P', CTRL_DOWN_MASK));
+        modif.add(ajoutProgramme);
+
+        MenuBar.add(modif);
     }
 
     /**
