@@ -1,6 +1,6 @@
 package Controller;
 
-import Model.PopUpConfirmation;
+import Model.PopUp;
 
 import java.awt.event.WindowEvent;
 import java.awt.event.WindowListener;
@@ -20,7 +20,7 @@ public class Window implements WindowListener {
 
     @Override
     public void windowClosing(WindowEvent windowEvent) {
-        new PopUpConfirmation();
+        new PopUp("Confirmation");
     }
 
     @Override

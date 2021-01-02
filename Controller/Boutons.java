@@ -5,6 +5,7 @@ import View.Home;
 import View.StartView;
 
 import javax.swing.*;
+import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
@@ -78,11 +79,19 @@ public class Boutons implements ActionListener{
                 new HierarchieCreation(home);
                 break;
             case "Quitter":
-                new PopUpConfirmation();
+                new PopUp("Confirmation");
                 break;
             case "Annuler":
                 JDialog dialog=(JDialog)obj;
                 dialog.dispose();
+                break;
+            case "ID":
+                TextField txt= (TextField)obj;
+                break;
+                //setNull(txt);
+
+            case "Ajouter Etudiant":
+                new PopUp("Ajouter Etudiant");
                 break;
             default:
                 System.exit(0);
@@ -103,4 +112,11 @@ public class Boutons implements ActionListener{
             view.setPath(chooser.getChooser().getSelectedFile());
         }
     }
+/*
+    private void setNull(TextField text){
+        Find.FindWhat.SetText (sHello)
+        text.SetText("");
+    }
+    */
+
 }

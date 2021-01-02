@@ -59,6 +59,9 @@ public class CustomTableModel extends AbstractTableModel{
         } else {
             return null;
         }
+
+
+        //setValueAt();
     }
 
     @Override

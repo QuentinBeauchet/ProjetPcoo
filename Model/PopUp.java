@@ -6,25 +6,50 @@ import Exceptions.LookAndFeelException;
 import javax.swing.*;
 import java.awt.*;
 
-public class PopUpConfirmation {
+public class PopUp {
+
+    private final String popUp;
     private final JDialog dialog;
+
 
     /**
      * Classe du JDialog qui permet de confirmer quand on quitte le programme.
      */
 
-    public PopUpConfirmation(){
+    public PopUp(String popUp){
+        this.popUp = popUp;
         dialog=new JDialog();
-        setStyle();
-        setPanel();
+        setTypeDialog(popUp);
         dialog.setVisible(true);
+        System.out.println("Je suis un pop up qui s'affiche");
     }
 
-    /**
-     * Style du JDialog.
-     */
 
-    private void setStyle(){
+    private void setTypeDialog (String typeDialog) {
+
+        switch (typeDialog) {
+
+            case "Confirmation":
+
+                setStyleConfirmation();
+                setPanelConfirmation();
+                break;
+
+            case "Ajouter Etudiant":
+                System.out.println("Pop Up ajouter etudiant");
+                setStyleAjoutEtu();
+                setPanelAjoutEtu();
+                break;
+
+            default :
+                System.exit(0);
+        }
+    }
+        /**
+         * Style du JDialog.
+         */
+
+    private void setStyleConfirmation(){
         dialog.setSize(new Dimension(200,200));
         dialog.setLocationRelativeTo(null);
         dialog.setModal(false);
@@ -36,7 +61,7 @@ public class PopUpConfirmation {
      * Configure le JPanel contenu dans le JDialog.
      */
 
-    private void setPanel(){
+    private void setPanelConfirmation(){
         JPanel panel=new JPanel();
         panel.setLayout(new GridBagLayout());
         panel.setBorder(BorderFactory.createCompoundBorder(BorderFactory.createRaisedBevelBorder(),BorderFactory.createLineBorder(Color.lightGray,5)));
@@ -100,4 +125,32 @@ public class PopUpConfirmation {
         }
         return bouton;
     }
+
+
+    private void setStyleAjoutEtu(){
+        dialog.setSize(new Dimension(500,500));
+        dialog.setLocationRelativeTo(null);
+        dialog.setModal(false);
+        dialog.setUndecorated(true);
+        dialog.setBackground(new Color(0,0,0,0));
+    }
+
+    private void setPanelAjoutEtu (){
+
+        JPanel panel=new JPanel();
+        panel.setLayout(new GridBagLayout());
+        panel.setBorder(BorderFactory.createCompoundBorder(BorderFactory.createRaisedBevelBorder(),BorderFactory.createLineBorder(Color.lightGray,5)));
+
+        JPanel text=new JPanel();
+        text.setLayout(new BorderLayout());
+        text.setBackground(new Color(230,230,230));
+        text.setBorder(BorderFactory.createEtchedBorder());
+
+    }
+
+
+
+
+
 }
+

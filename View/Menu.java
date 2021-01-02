@@ -33,6 +33,10 @@ public class Menu {
         setHierarchie();
         setRecherche();
         setStyle();
+        setModif();
+
+
+
 
         //TODO help racourcis
     }
@@ -40,6 +44,7 @@ public class Menu {
     /**
      * Defini le style de la JMenuBar.
      */
+
 
     private void setStyle(){
         MenuBar.setMargin(new Insets(5,10,5,10));
@@ -49,7 +54,7 @@ public class Menu {
     /**
      * Crée les composants du JMenu Fichier:
      * Ouvrir->Appele la classe Boutons("Ouvrir",Home)->Ouvre JFileChooser pour changer de xml
-     * Enregistrer->Appele la classe Boutons("Enregistrer",Home)->Appele les classes XMlMaker et WriteCSV pour sauvegarder les données dans des nouveaux fichier
+     * Enregistrer->Appele la classe Boutons("Enregistrer",Home)->Appelle les classes XMlMaker et WriteCSV pour sauvegarder les données dans des nouveaux fichier
      * Quitter->Appele la classe Boutons("Quitter",Home)->Fermer le programme
      */
 
@@ -144,6 +149,61 @@ public class Menu {
         MenuBar.add(Recherche);
     }
 
+
+    private void setModif(){
+/*        JMenu modif=new JMenu("Modification");
+        JMenuItem ajoutEtu =new JMenuItem("Ajouter Etudiant");
+        JMenuItem ajoutCours=new JMenuItem("Ajouter Cours");
+        JMenuItem ajoutProg=new JMenuItem("Ajouter Programme");
+        //modif.addActionListener(new Boutons("modif",0));
+        JMenu b=new JMenu("bouttons");
+
+        modif.add(ajoutEtu);
+        modif.add(ajoutCours);
+        modif.add(ajoutProg);
+        b.add(modif);
+
+        MenuBar.add(b);
+*/
+
+        JMenu modif=new JMenu("Modification");
+        modif.setMnemonic(KeyEvent.VK_M);
+
+        JMenuItem ajoutEtu=new JMenuItem("Ajouter un etudiant");
+        ajoutEtu.addActionListener(new Boutons("Ajouter Etudiant",home));
+        ajoutEtu.setMnemonic(KeyEvent.VK_N);
+
+        /*
+        TextField textFieldID = new TextField("ID");
+        textFieldID.addActionListener( new Boutons("ID",textFieldID));
+
+        TextField textFieldNom = new TextField("Nom");
+        TextField textFieldPrenom = new TextField("Prénom");
+
+        JButton bAjoutEtu= new JButton ("Ajouter etudiant");
+        bAjoutEtu.addActionListener(new Boutons(bAjoutEtu.getText(),home));
+
+        ajoutEtu.add(textFieldID);
+        ajoutEtu.add(textFieldNom);
+        ajoutEtu.add(textFieldPrenom);
+        ajoutEtu.add(bAjoutEtu);
+  */
+        modif.add(ajoutEtu);
+
+
+        JMenuItem ajoutCours=new JMenuItem("Ajouter un cours");
+        ajoutCours.addActionListener(new Boutons(ajoutCours.getText(),home));
+        ajoutCours.setAccelerator(KeyStroke.getKeyStroke('C', CTRL_DOWN_MASK));
+        modif.add(ajoutCours);
+
+        JMenuItem ajoutProg=new JMenuItem("Ajouter un programme");
+        ajoutProg.addActionListener(new Boutons(ajoutProg.getText(),home));
+        ajoutProg.setAccelerator(KeyStroke.getKeyStroke('P', CTRL_DOWN_MASK));
+        modif.add(ajoutProg);
+
+        MenuBar.add(modif);
+
+    }
     /**
      * Renvoit la JMenuBar.
      *
