@@ -12,6 +12,7 @@ import static java.lang.Math.max;
 
 public class Tableau {
     private final int NBR_COMPOSANTS_ETUDIANTS;
+    private final Home home;
     private JTable tableau;
     private JTable calculs;
     private JScrollPane PART1;
@@ -27,6 +28,7 @@ public class Tableau {
 
     public Tableau(TabCreation tab){
         NBR_COMPOSANTS_ETUDIANTS=tab.NBR_COMPOSANTS_ETUDIANTS;
+        home=tab.getHome();
         Object[] colones = tab.getColones();
         Object[][] lignes = tab.getLignes();
         Object[][] rowCalculs = tab.getCalculs();
@@ -135,7 +137,7 @@ public class Tableau {
 
     private void setCalculs(Object[][] rowCalculs, Object[] colones){
         String name="calculs";
-        CustomTableModel model=new CustomTableModel(rowCalculs,colones,name);
+        CustomTableModel model=new CustomTableModel(home,rowCalculs,colones,name);
         calculs=new JTable(model);
         calculs.setName(name);
     }
@@ -166,7 +168,7 @@ public class Tableau {
 
     private JTable setStyleLignes(Object[][] lignes,Object[] colones){
         String name="tableau";
-        CustomTableModel model=new CustomTableModel(lignes,colones,name);
+        CustomTableModel model=new CustomTableModel(home,lignes,colones,name);
         JTable table=new JTable(model);
         table.setDefaultEditor(Note.class, new CustomCellEditor(new JTextField()));
         table.setDefaultEditor(Integer.class, new CustomCellEditor(new JTextField()));

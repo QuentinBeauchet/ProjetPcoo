@@ -2,18 +2,23 @@ package Model;
 
 import Controller.Boutons;
 import Exceptions.LookAndFeelException;
+import View.Home;
 
 import javax.swing.*;
 import java.awt.*;
 
 public class PopUp {
     private final JDialog dialog;
+    private Home home;
 
     /**
      * Classe du JDialog qui permet de confirmer quand on quitte le programme.
      */
 
-    public PopUp(String action){
+    public PopUp(String action, Home... home){
+        if(home.length!=0){
+            this.home=home[0];
+        }
         dialog=new JDialog(Window.getWindows()[0]);
         setPanel(action);
         dialog.setVisible(true);
@@ -30,7 +35,7 @@ public class PopUp {
                 setPanelQuitter();
                 break;
             default:
-                dialog.setSize(new Dimension(500,200));
+                dialog.setSize(new Dimension(500,230));
                 dialog.setUndecorated(false);
                 dialog.setBackground(new Color(0,0,0,255));
                 dialog.setTitle("Ajouter un Etudiant");
@@ -47,31 +52,37 @@ public class PopUp {
         panel.add(nom,new GridBagConstraints(0,0,1,1,1,0,GridBagConstraints.CENTER,GridBagConstraints.HORIZONTAL,new Insets(20,20,0,0),0,0));
 
         JTextField fieldNom=new JTextField(20);
-        panel.add(fieldNom,new GridBagConstraints(1,0,1,1,1,0,GridBagConstraints.NORTH,GridBagConstraints.HORIZONTAL,new Insets(20,-120,0,20),0,0));
+        panel.add(fieldNom,new GridBagConstraints(1,0,1,1,1,0,GridBagConstraints.NORTH,GridBagConstraints.HORIZONTAL,new Insets(20,-150,0,20),0,0));
 
         JLabel prenom=new JLabel("PRENOM:");
         panel.add(prenom,new GridBagConstraints(0,1,1,1,1,0,GridBagConstraints.CENTER,GridBagConstraints.HORIZONTAL,new Insets(5,20,0,0),0,0));
 
         JTextField fieldPrenom=new JTextField(20);
-        panel.add(fieldPrenom,new GridBagConstraints(1,1,1,1,1,0,GridBagConstraints.CENTER,GridBagConstraints.HORIZONTAL,new Insets(5,-90,0,20),0,0));
+        panel.add(fieldPrenom,new GridBagConstraints(1,1,1,1,1,0,GridBagConstraints.CENTER,GridBagConstraints.HORIZONTAL,new Insets(5,-150,0,20),0,0));
 
         JLabel id=new JLabel("NUMERO ETUDIANT:");
         panel.add(id,new GridBagConstraints(0,2,1,1,1,0,GridBagConstraints.CENTER,GridBagConstraints.HORIZONTAL,new Insets(5,20,0,0),0,0));
 
         JTextField fieldId=new JTextField(20);
-        panel.add(fieldId,new GridBagConstraints(1,2,1,1,1,0,GridBagConstraints.CENTER,GridBagConstraints.HORIZONTAL,new Insets(5,-20,0,20),0,0));
+        panel.add(fieldId,new GridBagConstraints(1,2,1,1,1,0,GridBagConstraints.CENTER,GridBagConstraints.HORIZONTAL,new Insets(5,-150,0,20),0,0));
 
         JLabel programme=new JLabel("CHOIX PROGRAMME:");
-        panel.add(programme,new GridBagConstraints(0,3,1,1,1,0,GridBagConstraints.CENTER,GridBagConstraints.BOTH,new Insets(5,20,0,0),0,0));
+        panel.add(programme,new GridBagConstraints(0,3,1,1,1,0,GridBagConstraints.CENTER,GridBagConstraints.HORIZONTAL,new Insets(5,20,0,0),0,0));
 
-        JList choixProgramme=new JList(new Object[]{"Aucun","L3 info","L3 math","L1 biologie"});
-        System.out.println();
-        choixProgramme.getLastVisibleIndex();
-        panel.add(new JScrollPane(choixProgramme),new GridBagConstraints(1,3,1,1,1,0,GridBagConstraints.CENTER,GridBagConstraints.BOTH,new Insets(5,0,0,20),0,0));
+        int len=home.getXml().getProgramList().size();
+        Object[] programmes=new Object[len+1];
+        programmes[0]=new Programme("Aucun","0");
+        for (int i = 1; i < len+1; i++) {
+            programmes[i]=home.getXml().getProgramList().get(i-1);
+        }
+
+        JList choixProgramme=new JList(programmes);
+        choixProgramme.setVisibleRowCount(1);
+        panel.add(new JScrollPane(choixProgramme),new GridBagConstraints(1,3,1,1,1,1,GridBagConstraints.CENTER,GridBagConstraints.HORIZONTAL,new Insets(5,-150,0,20),0,0));
 
         JButton confirmation=new JButton("Confirmer");
-        //confirmation.addActionListener(new Fic);
-        panel.add(confirmation,new GridBagConstraints(1,4,2,1,1,1,GridBagConstraints.CENTER,GridBagConstraints.BOTH,new Insets(10,100,30,100),0,0));
+        confirmation.addActionListener(new Boutons("Ajout Etudiant",home,dialog,fieldNom,fieldPrenom,fieldId,choixProgramme));
+        panel.add(confirmation,new GridBagConstraints(0,4,2,1,1,1,GridBagConstraints.CENTER,GridBagConstraints.HORIZONTAL,new Insets(30,150,20,150),0,0));
 
         dialog.add(panel);
     }

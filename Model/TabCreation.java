@@ -1,10 +1,13 @@
 package Model;
 
+import View.Home;
+
 import java.util.ArrayList;
 
 public class TabCreation {
     public final int NBR_COMPOSANTS_ETUDIANTS=5;
     private static final int NBR_LIGNES_CALCULS=4;
+    private Home home;
     private Object[] colones;
     private Object[][] lignes;
     private Object[][] calculs;
@@ -18,7 +21,8 @@ public class TabCreation {
      * @param etudiants ArrayList<Etudiant>
      */
 
-    public TabCreation(ArrayList<Cours> cours,ArrayList<Etudiant> etudiants){
+    public TabCreation(Home home, ArrayList<Cours> cours, ArrayList<Etudiant> etudiants){
+        this.home=home;
         courseList=cours;
         studentList=etudiants;
         int nbrLignes=studentList.size();
@@ -131,6 +135,10 @@ public class TabCreation {
 
     public Object[][] getCalculs() {
         return calculs;
+    }
+
+    public Home getHome(){
+        return home;
     }
 
 }

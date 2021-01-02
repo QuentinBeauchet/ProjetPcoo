@@ -29,10 +29,9 @@ public class Menu {
         this.home=home;
         MenuBar=new JMenuBar();
         setFichier();
-        setProgramme();
+        setEdit();
         setHierarchie();
         setRecherche();
-        setModif();
         setStyle();
 
         //TODO help racourcis
@@ -74,32 +73,6 @@ public class Menu {
         Fichier.add(Close);
 
         MenuBar.add(Fichier);
-    }
-
-    /**
-     * Crée les composants de JMenu Programme:
-     * Tout->La Jtable affiche toutes les ue
-     * ...->La selection d'un programme n'affiche que les eu de celui ci
-     */
-
-    private void setProgramme(){
-        JMenu Programme=new JMenu("Programme");
-        Programme.setMnemonic(KeyEvent.VK_P);
-
-        JMenuItem Tout=new JMenuItem("Tout");
-        Tout.addActionListener(new ProgrammeBouton(-1,home));
-        Tout.setAccelerator(KeyStroke.getKeyStroke('T', CTRL_DOWN_MASK));
-        Programme.add(Tout);
-
-        int nbrProgrammes=home.getXml().getProgramList().size();
-        JMenuItem[] programmes=new JMenuItem[nbrProgrammes];
-        for (int i = 0; i < nbrProgrammes; i++) {
-            programmes[i]=new JMenuItem(home.getXml().getProgramList().get(i).getNom());
-            programmes[i].addActionListener(new ProgrammeBouton(i,home));
-            Programme.add(programmes[i]);
-        }
-
-        MenuBar.add(Programme);
     }
 
     /**
@@ -145,27 +118,27 @@ public class Menu {
         MenuBar.add(Recherche);
     }
 
-    private void setModif(){
-        JMenu modif=new JMenu("Modification");
-        modif.setMnemonic(KeyEvent.VK_M);
+    private void setEdit(){
+        JMenu edit=new JMenu("Edit");
+        edit.setMnemonic(KeyEvent.VK_M);
 
         JMenuItem ajoutEtudiant=new JMenuItem("Ajouter un etudiant");
         ajoutEtudiant.addActionListener(new Boutons(ajoutEtudiant.getText(),home));
         ajoutEtudiant.setAccelerator(KeyStroke.getKeyStroke('E', CTRL_DOWN_MASK));
-        modif.add(ajoutEtudiant);
+        edit.add(ajoutEtudiant);
 
 
         JMenuItem ajoutCours=new JMenuItem("Ajouter un cours");
         ajoutCours.addActionListener(new Boutons(ajoutCours.getText(),home));
         ajoutCours.setAccelerator(KeyStroke.getKeyStroke('C', CTRL_DOWN_MASK));
-        modif.add(ajoutCours);
+        edit.add(ajoutCours);
 
         JMenuItem ajoutProgramme=new JMenuItem("Ajouter un programme");
         ajoutProgramme.addActionListener(new Boutons(ajoutProgramme.getText(),home));
         ajoutProgramme.setAccelerator(KeyStroke.getKeyStroke('P', CTRL_DOWN_MASK));
-        modif.add(ajoutProgramme);
+        edit.add(ajoutProgramme);
 
-        MenuBar.add(modif);
+        MenuBar.add(edit);
     }
 
     /**

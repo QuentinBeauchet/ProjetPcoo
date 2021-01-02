@@ -108,8 +108,17 @@ public class HierarchieCreation {
             programSwitch.Switch(-1);
         }
         else{
-            HashMap<Cours,String> FiltreCoursHashMap = new HashMap<>();
             ArrayList<Programme> programmeArrayList=home.getXml().getProgramList();
+            if(filtreUE.size()==1) {
+                for (int i = 0; i < programmeArrayList.size(); i++) {
+                    if (filtreUE.contains(programmeArrayList.get(i).toString())) {
+                        programSwitch.Switch(i);
+                        return;
+                    }
+                }
+            }
+            HashMap<Cours,String> FiltreCoursHashMap = new HashMap<>();
+            programmeArrayList=home.getXml().getProgramList();
             for(Programme p:programmeArrayList){
                 for(Bloc b:p.getBlocs()){
                     for(UE u:b.getUE()){

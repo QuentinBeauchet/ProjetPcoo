@@ -36,7 +36,7 @@ public class Home {
     }
 
     private void setTab() {
-        TabCreation tabCreation = new TabCreation(xml.getCourseList(),xml.getStudentList());
+        TabCreation tabCreation = new TabCreation(this,xml.getCourseList(),xml.getStudentList());
         tab = new Tableau(tabCreation);
         frame.add(tab.getPanel());
     }

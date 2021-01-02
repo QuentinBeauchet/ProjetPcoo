@@ -8,9 +8,9 @@ import java.util.Map;
  * Classe représentant un étudiant
  */
 public class Etudiant {
-    private final String id;
-    private final String nom;
-    private final String prenom;
+    private String id;
+    private String nom;
+    private String prenom;
     private Programme p;
     private final HashMap<Cours, Note> notes = new HashMap<>();
 
@@ -18,7 +18,7 @@ public class Etudiant {
         this.id = id;
         this.nom = nom;
         this.prenom = prenom;
-        if(id.equals("") || !id.chars().allMatch( Character::isDigit ) )throw new IdEtudiantInvalidException(this);
+        if(id.equals("") || id.length()!=8 || !id.chars().allMatch( Character::isDigit ) )throw new IdEtudiantInvalidException(this);
         if(nom.equals(""))throw new NameEtudiantInvalidException(this);
         if(prenom.equals(""))throw new SurnameEtudiantInvalidException(this);
 
@@ -126,5 +126,17 @@ public class Etudiant {
         String program = "aucun";
         if(this.p != null) program = this.getP().getId();
         return this.getId()+" : "+this.getNom()+" "+this.getPrenom()+" -> Programe :"+ program;
+    }
+
+    public void setId(String id){
+        this.id=id;
+    }
+
+    public void setNom(String nom) {
+        this.nom = nom;
+    }
+
+    public void setPrenom(String prenom){
+        this.prenom=prenom;
     }
 }

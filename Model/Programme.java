@@ -71,6 +71,9 @@ public class Programme {
      */
 
     public float getNoteProgramme(Etudiant e){
+        if(nom.equals("Aucun")){
+            return Float.NaN;
+        }
         float somme=0;
         float total=0;
         for (Bloc b : this.blocs) {
@@ -113,7 +116,7 @@ public class Programme {
 
     @Override
     public String toString() {
-        return this.id+" : "+this.nom;
+        return nom;
     }
 
 }

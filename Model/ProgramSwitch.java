@@ -27,7 +27,7 @@ public class ProgramSwitch {
 
     public void Switch(ArrayList<Cours> cours){
         XMLReader xml=home.getXml();
-        TabCreation tabCreation=new TabCreation(cours,xml.getStudentList());
+        TabCreation tabCreation=new TabCreation(home,cours,xml.getStudentList());
         tab=new Tableau(tabCreation);
         Switch();
 
@@ -44,12 +44,12 @@ public class ProgramSwitch {
     public void Switch(int index){
         if(index==-1){
             XMLReader xml=home.getXml();
-            TabCreation tabCreation=new TabCreation(xml.getCourseList(),xml.getStudentList());
+            TabCreation tabCreation=new TabCreation(home,xml.getCourseList(),xml.getStudentList());
             tab=new Tableau(tabCreation);
 
         }
         else{
-            ProgramSelection programSelection=new ProgramSelection(home.getXml());
+            ProgramSelection programSelection=new ProgramSelection(home);
             TabCreation[] tabCreations= programSelection.TabProgrammes();
             tab=new Tableau(tabCreations[index]);
         }

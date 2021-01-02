@@ -1,8 +1,11 @@
 package Model;
 
+import View.Home;
+
 import java.util.ArrayList;
 
 public class ProgramSelection {
+    private final Home home;
     private final ArrayList<Programme> programList;
     private final ArrayList<Etudiant> studentList;
 
@@ -13,7 +16,9 @@ public class ProgramSelection {
      * @param xml XMLReader
      */
 
-    public ProgramSelection(XMLReader xml){
+    public ProgramSelection(Home home){
+        this.home=home;
+        XMLReader xml=home.getXml();
         programList=xml.getProgramList();
         studentList=xml.getStudentList();
     }
@@ -66,7 +71,7 @@ public class ProgramSelection {
      */
 
     private TabCreation TabProgrammeIndex(int index){
-        return new TabCreation(ListeCoursIndex(index),ListeEtudiantsIndex(index));
+        return new TabCreation(home,ListeCoursIndex(index),ListeEtudiantsIndex(index));
     }
 
     /**
