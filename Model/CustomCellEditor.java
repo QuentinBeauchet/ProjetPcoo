@@ -42,11 +42,10 @@ public class CustomCellEditor extends DefaultCellEditor {
         }
         else if(currentclass==Integer.class){
             try{
-                Integer.valueOf(txt);
-                if(!(txt.length()==8) || Integer.valueOf(txt)<10000000){
+                int value=Integer.parseInt(txt);
+                if(!(txt.length()==8) || value<10000000){
                     throw new NumberFormatException();
                 }
-                textField.setFont(new Font("Arial", Font.BOLD, 12));
             }
             catch (NumberFormatException e){
                 textField.setBorder(new LineBorder(Color.red));

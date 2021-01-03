@@ -1,8 +1,8 @@
 package Model;
 
 import View.Home;
-import View.Tableau;
 
+import javax.swing.*;
 import javax.swing.table.DefaultTableModel;
 import java.util.ArrayList;
 
@@ -18,17 +18,17 @@ public class CustomTableModel extends DefaultTableModel{
 
     @Override
     public void setValueAt(Object obj, int row, int col) {
-        updateXML(obj,row,col);
-
-        if(name=="tableau" && getColumnClass(col)==Note.class){
+        if(name.equals("tableau")){
+            updateXML(obj,row,col);
+        }
+        if(name.equals("tableau") && getColumnClass(col)==Note.class){
             super.setValueAt(new Note((String) obj),row,col);
         }
         else{
             if(getColumnClass(col)==Integer.class){
-                super.setValueAt(Integer.parseInt((String)obj),row,col);
-                //TODO probleme affichage integer
+                super.setValueAt(Integer.valueOf((String)obj),row,col);
             }
-            if(getColumnClass(col)==Float.class){
+            else if(getColumnClass(col)==Float.class){
                 super.setValueAt(Float.parseFloat((String) obj),row,col);
             }
             else{
@@ -39,31 +39,23 @@ public class CustomTableModel extends DefaultTableModel{
 
     @Override
     public Class<?> getColumnClass(int columnIndex) {
-        switch (name){
-            case "tableau":
-                switch (columnIndex){
-                    case 0:
-                        return Integer.class;
-                    case 1: case 2: case 3:
-                        return String.class;
-                    case 4:
-                        return Float.class;
-                    default:
-                        return Note.class;
-                }
-            default:
-                switch (columnIndex){
-                    case 0: case 1: case 2: case 3:
-                        return String.class;
-                    default:
-                        return Float.class;
-                }
+        if ("tableau".equals(name)) {
+            return switch (columnIndex) {
+                case 0 -> Integer.class;
+                case 1, 2, 3 -> String.class;
+                case 4 -> Float.class;
+                default -> Note.class;
+            };
         }
+        return switch (columnIndex) {
+            case 0, 1, 2, 3 -> String.class;
+            default -> Float.class;
+        };
     }
 
     @Override
     public boolean isCellEditable(int row, int column) {
-        return !(column==3 || column==4);
+        return !(column==3 || column==4 || name.equals("calculs"));
     }
 
     private void updateXML(Object obj,int row,int col){
@@ -72,7 +64,7 @@ public class CustomTableModel extends DefaultTableModel{
         ArrayList<Cours> cours=xmlReader.getCourseList();
         for (int i = 0; i < students.size(); i++) {
             Etudiant etudiant=students.get(i);
-            String rowID= String.valueOf((Integer)getValueAt(row,0));
+            String rowID= String.valueOf(getValueAt(row,0));
             if(rowID.equals(etudiant.getId())){
                 switch (col){
                     case 0:
@@ -87,20 +79,38 @@ public class CustomTableModel extends DefaultTableModel{
                     case 3: case 4:
                         break;
                     default:
-                        for (int j = 0; j < cours.size(); j++) {
-                            Cours currentcours=cours.get(j);
-                            if(currentcours.getNom().equals(getColumnName(col))){
-                                etudiant.addNote(currentcours, new Note((String)obj));
+                        for (Cours currentcours : cours) {
+                            if (currentcours.getNom().equals(getColumnName(col))) {
+                                etudiant.addNote(currentcours, new Note((String) obj));
+                                updateCalculs(students, col, currentcours);
                                 break;
                             }
                         }
                         super.setValueAt(etudiant.getP().getNoteProgramme(etudiant),row,4);
-                        TabCreation tab=new TabCreation(home,cours,students);
-                        Tableau tableau=new Tableau(tab);
-                        home.setTab(tableau);
+                        updateCalculs(students,col);
                 }
                 break;
             }
+        }
+    }
+
+    private void updateCalculs(ArrayList<Etudiant> students,int col,Cours... currentcours){
+        JScrollPane pane = (JScrollPane) home.getTab().getPanel().getComponent(1);
+        JViewport viewport = pane.getViewport();
+        JTable calculs = (JTable)viewport.getView();
+        CustomTableModel model= (CustomTableModel) calculs.getModel();
+
+        ArrayList<Float> updatedCalculs;
+        if(currentcours.length!=0){
+            updatedCalculs=MyTools.getStats(students,currentcours[0]);
+        }
+        else{
+            updatedCalculs=MyTools.getStats(students);
+            col=4;
+
+        }
+        for (int k = 0; k < updatedCalculs.size(); k++) {
+            model.setValueAt(updatedCalculs.get(k).toString(),k,col);
         }
     }
 

@@ -227,6 +227,14 @@ public class Tableau {
         //TODO faire l'affichage façon moche
     }
 
+    public void setPART2(){
+        System.out.println("ici");
+        PART2.remove(calculs);
+        PART2.removeAll();
+        PART2.add(new JButton("salut"));
+        PART2.revalidate();
+    }
+
     /**
      * Renvoit le JPanel qui contient les deux tableaux.
      *

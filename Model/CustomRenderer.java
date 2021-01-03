@@ -40,6 +40,7 @@ public class CustomRenderer extends DefaultTableCellRenderer implements TableCel
         super.setBackground((row % 2 == 0 ? new Color(238,238,238) : Color.white));
         if(currentClass==String.class || currentClass==Integer.class){
             if(currentClass==Integer.class){
+                super.setBackground(Color.red);
                 super.setFont(new Font("Arial", Font.BOLD, 12));
             }
         }
