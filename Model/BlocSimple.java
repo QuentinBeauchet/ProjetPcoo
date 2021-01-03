@@ -29,9 +29,7 @@ public class BlocSimple extends Bloc {
 
     @Override
     public String toString() {
-        return "BlocSimple{" +
-                "ue=" + ue +
-                '}';
+        return ue.getNom();
     }
     @Override
     public ArrayList<UE> getUE(){

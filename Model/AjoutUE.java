@@ -6,16 +6,16 @@ import Exceptions.SurnameEtudiantInvalidException;
 import View.Home;
 
 import javax.swing.*;
-import javax.swing.border.Border;
 import javax.swing.table.DefaultTableModel;
 import java.awt.*;
 
-public class AjoutEtudiant {
-    private static final int NBR_COMPOSANTS_ETUDIANTS=5;
+public class AjoutUE {
+    private final int NBR_COMPOSANTS_ETUDIANTS=5;
+    private final Home home;
     private Etudiant etudiant;
-    private static final Border border=(new JTextField(20)).getBorder();
 
-    public AjoutEtudiant(Home home,Object[] args){
+    public AjoutUE(Home home,Object[] args){
+        this.home =home;
         JDialog dialog = (JDialog) args[0];
         if(isEtudiantValid((JTextField) args[3],(JTextField) args[1],(JTextField) args[2])){
             Programme programme=(Programme)((JList)args[4]).getModel().getElementAt(((JList)args[4]).getFirstVisibleIndex());
@@ -32,19 +32,19 @@ public class AjoutEtudiant {
         try {
             etudiant = new Etudiant(id.getText(), nom.getText(), prenom.getText());
             isValid=true;
-            nom.setBorder(border);
-            id.setBorder(border);
-            prenom.setBorder(border);
         }
         catch (IdEtudiantInvalidException exception){
+            nom.setBorder(prenom.getBorder());
+            prenom.setBorder(nom.getBorder());
             id.setBorder(BorderFactory.createLineBorder(Color.red));
         }
         catch (NameEtudiantInvalidException exception){
-            id.setBorder(border);
+            id.setBorder(prenom.getBorder());
+            prenom.setBorder(id.getBorder());
             nom.setBorder(BorderFactory.createLineBorder(Color.red));
         }
         catch (SurnameEtudiantInvalidException exception){
-            nom.setBorder(border);
+            nom.setBorder(id.getBorder());
             prenom.setBorder(BorderFactory.createLineBorder(Color.red));
         }
         return isValid;

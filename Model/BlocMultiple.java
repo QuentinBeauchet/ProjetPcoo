@@ -29,9 +29,7 @@ public abstract class BlocMultiple  extends Bloc {
 
     @Override
     public String toString() {
-        return nature()+" : "+this.getId()+" "+ getNom() +"{" +
-                "listUe=" + listUe +
-                '}';
+        return getId()+" - "+getNom();
     }
 
     @Override

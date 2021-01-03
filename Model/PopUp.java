@@ -4,12 +4,24 @@ import Controller.Boutons;
 import Exceptions.LookAndFeelException;
 import View.Home;
 
+import javax.management.ObjectName;
 import javax.swing.*;
 import java.awt.*;
+import java.security.spec.ECField;
+import java.util.ArrayList;
+import java.util.Arrays;
 
 public class PopUp {
     private final JDialog dialog;
     private Home home;
+    private final JPanel[] blocs=new JPanel[3];
+    private ArrayList<Bloc> blocOptionsArrayList;
+    private ArrayList<Bloc> blocCompositeArrayList;
+    private JPanel optionPanel;
+    private JPanel compositePanel;
+    private JPanel multiplePanel;
+    private JList listeBlocs=new JList();
+    private JList choixProgramme;
 
     /**
      * Classe du JDialog qui permet de confirmer quand on quitte le programme.
@@ -34,12 +46,22 @@ public class PopUp {
                 dialog.setBackground(new Color(0,0,0,0));
                 setPanelQuitter();
                 break;
-            default:
+            case "Ajouter un etudiant":
                 dialog.setSize(new Dimension(500,230));
                 dialog.setUndecorated(false);
                 dialog.setBackground(new Color(0,0,0,255));
                 dialog.setTitle("Ajouter un Etudiant");
                 setPanelEtudiant();
+                break;
+            case "Ajouter un cours":
+                dialog.setSize(new Dimension(500,460));
+                dialog.setUndecorated(false);
+                dialog.setBackground(new Color(0,0,0,255));
+                dialog.setTitle("Ajouter un Cours");
+                setPanelCours();
+                break;
+            default:
+                System.out.println("rien");
         }
         dialog.setLocationRelativeTo(null);
     }
@@ -83,6 +105,114 @@ public class PopUp {
         JButton confirmation=new JButton("Confirmer");
         confirmation.addActionListener(new Boutons("Ajout Etudiant",home,dialog,fieldNom,fieldPrenom,fieldId,choixProgramme));
         panel.add(confirmation,new GridBagConstraints(0,4,2,1,1,1,GridBagConstraints.CENTER,GridBagConstraints.HORIZONTAL,new Insets(30,150,20,150),0,0));
+
+        dialog.add(panel);
+    }
+
+    private void setPanelCours(){
+        JPanel panel=new JPanel(new GridBagLayout());
+
+        //COURS
+        JLabel nom=new JLabel("NOM:");
+        panel.add(nom,new GridBagConstraints(0,0,1,1,1,0,GridBagConstraints.CENTER,GridBagConstraints.HORIZONTAL,new Insets(20,20,0,0),0,0));
+
+        JTextField fieldNom=new JTextField(20);
+        panel.add(fieldNom,new GridBagConstraints(1,0,2,1,1,0,GridBagConstraints.NORTH,GridBagConstraints.HORIZONTAL,new Insets(20,-50,0,20),0,0));
+
+        JLabel coeff=new JLabel("COEFFICIENT:");
+        panel.add(coeff,new GridBagConstraints(0,1,1,1,1,0,GridBagConstraints.CENTER,GridBagConstraints.HORIZONTAL,new Insets(5,20,0,0),0,0));
+
+        JTextField fieldCoeff=new JTextField(20);
+        panel.add(fieldCoeff,new GridBagConstraints(1,1,2,1,1,0,GridBagConstraints.CENTER,GridBagConstraints.HORIZONTAL,new Insets(5,-50,0,20),0,0));
+
+        JLabel id=new JLabel("IDENTIFIANT:");
+        panel.add(id,new GridBagConstraints(0,2,1,1,1,0,GridBagConstraints.CENTER,GridBagConstraints.HORIZONTAL,new Insets(5,20,0,0),0,0));
+
+        JTextField fieldId=new JTextField(20);
+        panel.add(fieldId,new GridBagConstraints(1,2,2,1,1,0,GridBagConstraints.CENTER,GridBagConstraints.HORIZONTAL,new Insets(5,-50,0,20),0,0));
+
+        //PROGRAMME
+        JPanel progPanel=new JPanel(new GridBagLayout());
+
+        JLabel programme=new JLabel("PROGRAMME:");
+        progPanel.add(programme,new GridBagConstraints(0,0,1,1,0,1,GridBagConstraints.CENTER,GridBagConstraints.BOTH,new Insets(0,0,0,0),0,0));
+
+
+        progPanel.add(setProgrammeList(),new GridBagConstraints(1,0,1,1,1,1,GridBagConstraints.CENTER,GridBagConstraints.BOTH,new Insets(0,26,0,20),0,0));
+
+        panel.add(progPanel,new GridBagConstraints(0,3,3,1,1,0,GridBagConstraints.CENTER,GridBagConstraints.BOTH,new Insets(5,20,0,0),0,0));
+
+        //BOUTONS BLOC
+        ButtonGroup buttonGroup=new ButtonGroup();
+
+        JRadioButton simple=new JRadioButton("Bloc Simple");
+        buttonGroup.add(simple);
+        simple.setActionCommand("0");
+        simple.addActionListener(new Boutons("Switch RadioBoutons",this,buttonGroup));
+        panel.add(simple,new GridBagConstraints(0,4,1,1,1,0,GridBagConstraints.CENTER,GridBagConstraints.HORIZONTAL,new Insets(15,50,0,0),0,0));
+
+        JRadioButton option=new JRadioButton("Bloc a Options");
+        buttonGroup.add(option);
+        option.setActionCommand("1");
+        option.addActionListener(new Boutons("Switch RadioBoutons",this,buttonGroup));
+        panel.add(option,new GridBagConstraints(1,4,1,1,1,0,GridBagConstraints.CENTER,GridBagConstraints.HORIZONTAL,new Insets(15,0,0,0),0,0));
+
+        JRadioButton composite=new JRadioButton("Bloc Composite");
+        buttonGroup.add(composite);
+        composite.setActionCommand("2");
+        composite.addActionListener(new Boutons("Switch RadioBoutons",this,buttonGroup));
+        panel.add(composite,new GridBagConstraints(2,4,1,1,1,0,GridBagConstraints.CENTER,GridBagConstraints.HORIZONTAL,new Insets(15,0,0,20),0,0));
+
+        //PANEL BLOC SIMPLE
+        JPanel simplePanel=new JPanel();
+        blocs[0]=simplePanel;
+        panel.add(simplePanel,new GridBagConstraints(0,5,3,1,1,0,GridBagConstraints.CENTER,GridBagConstraints.HORIZONTAL,new Insets(5,0,0,0),0,0));
+        simplePanel.add(new JLabel("<html><div style='text-align: center;'>Un <B><i>bloc simple</B></i> est juste un cours.</div></html>"));
+
+        //PANEL BLOC OPTION
+        optionPanel=new JPanel();
+        blocs[1]=optionPanel;
+        panel.add(optionPanel,new GridBagConstraints(0,5,3,1,1,1,GridBagConstraints.CENTER,GridBagConstraints.BOTH,new Insets(5,0,0,0),0,0));
+        optionPanel.add(new JLabel("<html><div style='text-align: center;'><p>Un <B><i>bloc à options</B></i> est composé de plusieurs cours portant <br/>le même nombre de crédits. C'est aussi le nombre de crédits du bloc.</p></div></html>"));
+
+        //PANEL BLOC COMPOSITE
+        compositePanel=new JPanel();
+        blocs[2]=compositePanel;
+        panel.add(compositePanel,new GridBagConstraints(0,5,3,1,1,1,GridBagConstraints.CENTER,GridBagConstraints.BOTH,new Insets(5,0,0,0),0,0));
+        compositePanel.add(new JLabel("<html><div style='text-align: center;'><p>Un <B><i>bloc composite</B></i> est composé de plusieurs cours.<br/>Le nombre de crédits du bloc est la somme des crédits des UE qui le composent.</p></div></html>"));
+
+        //BLOC MULTIPLE
+        multiplePanel=new JPanel(new GridBagLayout());
+        ButtonGroup multipleButtonGroup=new ButtonGroup();
+
+        //BOUTONS BLOC MULTIPLE
+        JRadioButton nouveauBloc = new JRadioButton("Nouveau Bloc");
+        nouveauBloc.setActionCommand("nouveau");
+        multipleButtonGroup.add(nouveauBloc);
+        multiplePanel.add(nouveauBloc,new GridBagConstraints(0,0,2,1,1,0,GridBagConstraints.CENTER,GridBagConstraints.HORIZONTAL,new Insets(5,0,0,0),0,0));
+
+        JRadioButton ancienBloc = new JRadioButton("Bloc deja existant");
+        nouveauBloc.setActionCommand("ancien");
+        multipleButtonGroup.add(ancienBloc);
+        multiplePanel.add(ancienBloc,new GridBagConstraints(0,3,2,1,1,0,GridBagConstraints.CENTER,GridBagConstraints.HORIZONTAL,new Insets(5,0,0,0),0,0));
+
+        JLabel compositeNom=new JLabel("NOM DU BLOC:");
+        multiplePanel.add(compositeNom,new GridBagConstraints(0,1,1,1,1,0,GridBagConstraints.CENTER,GridBagConstraints.HORIZONTAL,new Insets(5,0,0,0),0,0));
+
+        JTextField compositeNomField=new JTextField(20);
+        multiplePanel.add(compositeNomField,new GridBagConstraints(1,1,1,1,1,0,GridBagConstraints.CENTER,GridBagConstraints.HORIZONTAL,new Insets(5,10,0,0),0,0));
+
+        JLabel compositeID=new JLabel("ID DU BLOC:");
+        multiplePanel.add(compositeID,new GridBagConstraints(0,2,1,1,1,0,GridBagConstraints.CENTER,GridBagConstraints.HORIZONTAL,new Insets(5,0,0,0),0,0));
+
+        JTextField compositeIDField=new JTextField(20);
+        multiplePanel.add(compositeIDField,new GridBagConstraints(1,2,1,1,1,0,GridBagConstraints.CENTER,GridBagConstraints.HORIZONTAL,new Insets(5,10,0,0),0,0));
+
+        setBlocVisible(-1);
+
+        JButton confirmation=new JButton("Confirmation");
+        confirmation.addActionListener(new Boutons("Ajout Cours",home,dialog,fieldNom,fieldCoeff,fieldId,buttonGroup,multipleButtonGroup,compositeNomField,compositeIDField,listeBlocs,choixProgramme));
+        panel.add(confirmation,new GridBagConstraints(0,6,3,1,1,1,GridBagConstraints.SOUTH,GridBagConstraints.HORIZONTAL,new Insets(-10,150,15,150),0,0));
 
         dialog.add(panel);
     }
@@ -155,5 +285,85 @@ public class PopUp {
             throw new LookAndFeelException();
         }
         return bouton;
+    }
+
+    private void filterBlocsType(){
+        ArrayList<Programme> programmes=home.getXml().getProgramList();
+        blocOptionsArrayList=new ArrayList<>();
+        blocCompositeArrayList=new ArrayList<>();
+        for (int i = 0; i < programmes.size(); i++) {
+            ArrayList<Bloc> blocsArrayList=programmes.get(i).getBlocs();
+            for(Bloc b:blocsArrayList){
+                if (BlocComposite.class.equals(b.getClass())) {
+                    blocCompositeArrayList.add(b);
+                }
+                else if(BlocOptions.class.equals(b.getClass())){
+                    blocOptionsArrayList.add(b);
+                }
+            }
+        }
+    }
+
+    public boolean setBlocVisible(int index){
+        boolean isVisible=false;
+
+        for (int i = 0; i < blocs.length; i++) {
+            JPanel panel=blocs[i];
+            if(i==index){
+                panel.setVisible(true);
+                isVisible=true;
+                filterBlocsType();
+                if(index==1){
+                    ArrayToJList(blocOptionsArrayList, optionPanel);
+                }
+                else if(index==2){
+                    ArrayToJList(blocCompositeArrayList, compositePanel);
+                }
+                else{
+                    multiplePanel.setVisible(false);
+                }
+            }
+            else{
+                panel.setVisible(false);
+            }
+        }
+        return isVisible;
+    }
+
+    private void ArrayToJList(ArrayList<Bloc> blocOptionsArrayList, JPanel Panel) {
+        for(Component c:multiplePanel.getComponents()){
+            if(c.getClass().equals(JScrollPane.class)){
+                multiplePanel.remove(c);
+            }
+        }
+        multiplePanel.setVisible(true);
+        CustomListModel model=new CustomListModel(blocOptionsArrayList.toArray());
+        listeBlocs.setModel(model);
+        listeBlocs.setVisibleRowCount(1);
+
+        multiplePanel.add(new JScrollPane(listeBlocs),new GridBagConstraints(0,4,2,1,1,0,GridBagConstraints.CENTER,GridBagConstraints.HORIZONTAL,new Insets(5,0,0,0),0,0));
+        Panel.add(multiplePanel);
+    }
+
+    private JScrollPane setProgrammeList(){
+        int len=home.getXml().getProgramList().size();
+        Object[] programmes;
+        if(len>0){
+            programmes=new Object[len];
+            for (int i = 0; i < len; i++) {
+                programmes[i]=home.getXml().getProgramList().get(i);
+            }
+        }
+        else{
+            programmes=new Object[1];
+            programmes[0]="Aucun programme disponible";
+        }
+
+
+        choixProgramme=new JList(programmes);
+        DefaultListCellRenderer renderer = (DefaultListCellRenderer) choixProgramme.getCellRenderer();
+        renderer.setHorizontalAlignment(SwingConstants.CENTER);
+        choixProgramme.setVisibleRowCount(1);
+        return new JScrollPane(choixProgramme);
     }
 }

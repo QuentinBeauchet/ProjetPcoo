@@ -102,42 +102,15 @@ public class Boutons implements ActionListener{
             case "Ajout Etudiant":
                 home=(Home)obj;
                 new AjoutEtudiant(home,args);
-                /*
-                JTextField nom= (JTextField) args[1];
-                JTextField prenom = (JTextField) args[2];
-                JTextField id = (JTextField) args[3];
-                JList liste= (JList) args[4];
-                Programme programme=(Programme)liste.getModel().getElementAt(liste.getFirstVisibleIndex());
-                try {
-                    Etudiant etudiant = new Etudiant(id.getText(), nom.getText(), prenom.getText());
-                    if(!(programme.getNom().equals("Aucun"))){
-                        etudiant.inscris(programme);
-                    }
-                    home.getXml().getStudentList().add(etudiant);
-                    DefaultTableModel model= (DefaultTableModel) home.getTab().getTableau().getModel();
-                    Object[] row=new Object[model.getColumnCount()];
-                    row[0]=etudiant.getId();
-                    row[1]=etudiant.getNom();
-                    row[2]=etudiant.getPrenom();
-                    row[3]=programme;
-                    row[4]=Float.NaN;
-                    model.addRow(row);
-                }
-                catch (IdEtudiantInvalidException exception){
-                    nom.setBorder(prenom.getBorder());
-                    prenom.setBorder(nom.getBorder());
-                    id.setBorder(BorderFactory.createLineBorder(Color.red));
-                }
-                catch (NameEtudiantInvalidException exception){
-                    id.setBorder(prenom.getBorder());
-                    prenom.setBorder(id.getBorder());
-                    nom.setBorder(BorderFactory.createLineBorder(Color.red));
-                }
-                catch (SurnameEtudiantInvalidException exception){
-                    nom.setBorder(id.getBorder());
-                    prenom.setBorder(BorderFactory.createLineBorder(Color.red));
-                }
-                */
+                break;
+            case "Ajout Cours":
+                home=(Home)obj;
+                new AjoutCours(home,args);
+                break;
+            case "Switch RadioBoutons":
+                PopUp popUp= (PopUp) obj;
+                ButtonGroup group= (ButtonGroup) args[0];
+                popUp.setBlocVisible(Integer.valueOf(group.getSelection().getActionCommand()));
                 break;
             case "Annuler":
                 dialog=(JDialog)obj;
