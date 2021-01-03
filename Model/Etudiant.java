@@ -108,7 +108,7 @@ public class Etudiant {
                 .append("        <identifier>").append(this.getId()).append("</identifier>\n")
                 .append("        <name>").append(this.getNom()).append("</name>\n")
                 .append("        <surname>").append(this.getPrenom()).append("</surname>\n")
-                .append("        <program>").append(this.getP().getNom()).append("</program>\n");
+                .append("        <program>").append(this.getP().getId()).append("</program>\n");
         for(Map.Entry<Cours, Note> entry : this.getNotes().entrySet()) {
             Cours key = entry.getKey();
             Note value = entry.getValue();
