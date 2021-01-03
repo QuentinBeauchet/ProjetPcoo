@@ -224,15 +224,6 @@ public class Tableau {
 
     public void setSorter(String filter){
         sorter.setSorter(filter);
-        //TODO faire l'affichage façon moche
-    }
-
-    public void setPART2(){
-        System.out.println("ici");
-        PART2.remove(calculs);
-        PART2.removeAll();
-        PART2.add(new JButton("salut"));
-        PART2.revalidate();
     }
 
     /**

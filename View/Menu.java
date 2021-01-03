@@ -2,7 +2,6 @@ package View;
 
 import Controller.Boutons;
 import Controller.HierarchieBouton;
-import Controller.ProgrammeBouton;
 import Controller.RechercheField;
 
 import javax.swing.*;
