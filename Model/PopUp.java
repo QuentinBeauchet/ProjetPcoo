@@ -2,11 +2,14 @@ package Model;
 
 import Controller.Boutons;
 import Exceptions.LookAndFeelException;
+import Exceptions.SurnameEtudiantInvalidException;
 import View.Home;
 
 import javax.management.ObjectName;
 import javax.swing.*;
 import java.awt.*;
+import java.awt.event.AdjustmentEvent;
+import java.awt.event.AdjustmentListener;
 import java.security.spec.ECField;
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -22,6 +25,7 @@ public class PopUp {
     private JPanel multiplePanel;
     private JList listeBlocs=new JList();
     private JList choixProgramme;
+    private ButtonGroup buttonGroup;
 
     /**
      * Classe du JDialog qui permet de confirmer quand on quitte le programme.
@@ -60,8 +64,14 @@ public class PopUp {
                 dialog.setTitle("Ajouter un Cours");
                 setPanelCours();
                 break;
+            case "Ajouter un programme":
+                dialog.setSize(new Dimension(500,460));
+                dialog.setUndecorated(false);
+                dialog.setBackground(new Color(0,0,0,255));
+                dialog.setTitle("Ajouter un Programme");
+                setPanelProgramme();
+                break;
             default:
-                System.out.println("rien");
         }
         dialog.setLocationRelativeTo(null);
     }
@@ -135,15 +145,15 @@ public class PopUp {
         JPanel progPanel=new JPanel(new GridBagLayout());
 
         JLabel programme=new JLabel("PROGRAMME:");
-        progPanel.add(programme,new GridBagConstraints(0,0,1,1,0,1,GridBagConstraints.CENTER,GridBagConstraints.BOTH,new Insets(0,0,0,0),0,0));
+        progPanel.add(programme,new GridBagConstraints(0,0,1,1,0,0,GridBagConstraints.CENTER,GridBagConstraints.HORIZONTAL,new Insets(0,0,0,0),0,0));
 
 
-        progPanel.add(setProgrammeList(),new GridBagConstraints(1,0,1,1,1,1,GridBagConstraints.CENTER,GridBagConstraints.BOTH,new Insets(0,26,0,20),0,0));
+        progPanel.add(setProgrammeList(),new GridBagConstraints(1,0,1,1,1,1,GridBagConstraints.CENTER,GridBagConstraints.HORIZONTAL,new Insets(0,26,0,20),0,0));
 
         panel.add(progPanel,new GridBagConstraints(0,3,3,1,1,0,GridBagConstraints.CENTER,GridBagConstraints.BOTH,new Insets(5,20,0,0),0,0));
 
         //BOUTONS BLOC
-        ButtonGroup buttonGroup=new ButtonGroup();
+        buttonGroup=new ButtonGroup();
 
         JRadioButton simple=new JRadioButton("Bloc Simple");
         buttonGroup.add(simple);
@@ -192,7 +202,7 @@ public class PopUp {
         multiplePanel.add(nouveauBloc,new GridBagConstraints(0,0,2,1,1,0,GridBagConstraints.CENTER,GridBagConstraints.HORIZONTAL,new Insets(5,0,0,0),0,0));
 
         JRadioButton ancienBloc = new JRadioButton("Bloc deja existant");
-        nouveauBloc.setActionCommand("ancien");
+        ancienBloc.setActionCommand("ancien");
         multipleButtonGroup.add(ancienBloc);
         multiplePanel.add(ancienBloc,new GridBagConstraints(0,3,2,1,1,0,GridBagConstraints.CENTER,GridBagConstraints.HORIZONTAL,new Insets(5,0,0,0),0,0));
 
@@ -215,6 +225,12 @@ public class PopUp {
         panel.add(confirmation,new GridBagConstraints(0,6,3,1,1,1,GridBagConstraints.SOUTH,GridBagConstraints.HORIZONTAL,new Insets(-10,150,15,150),0,0));
 
         dialog.add(panel);
+    }
+
+    private void setPanelProgramme(){
+        JPanel panel=new JPanel(new GridBagLayout());
+
+
     }
 
 
@@ -291,8 +307,9 @@ public class PopUp {
         ArrayList<Programme> programmes=home.getXml().getProgramList();
         blocOptionsArrayList=new ArrayList<>();
         blocCompositeArrayList=new ArrayList<>();
-        for (int i = 0; i < programmes.size(); i++) {
-            ArrayList<Bloc> blocsArrayList=programmes.get(i).getBlocs();
+        if(!(choixProgramme.getModel().getElementAt(0).equals("Aucun programme disponible"))){
+            Integer index=Integer.valueOf(choixProgramme.getLastVisibleIndex());
+            ArrayList<Bloc> blocsArrayList=programmes.get(index).getBlocs();
             for(Bloc b:blocsArrayList){
                 if (BlocComposite.class.equals(b.getClass())) {
                     blocCompositeArrayList.add(b);
@@ -306,9 +323,9 @@ public class PopUp {
 
     public boolean setBlocVisible(int index){
         boolean isVisible=false;
-
         for (int i = 0; i < blocs.length; i++) {
             JPanel panel=blocs[i];
+            panel.setVisible(false);
             if(i==index){
                 panel.setVisible(true);
                 isVisible=true;
@@ -359,11 +376,21 @@ public class PopUp {
             programmes[0]="Aucun programme disponible";
         }
 
-
         choixProgramme=new JList(programmes);
         DefaultListCellRenderer renderer = (DefaultListCellRenderer) choixProgramme.getCellRenderer();
         renderer.setHorizontalAlignment(SwingConstants.CENTER);
         choixProgramme.setVisibleRowCount(1);
-        return new JScrollPane(choixProgramme);
+        JScrollPane jScrollPane = new JScrollPane(choixProgramme);
+        JScrollBar bar=jScrollPane.getVerticalScrollBar();
+        //TODO deplacer le listener
+        bar.addAdjustmentListener(new AdjustmentListener() {
+            @Override
+            public void adjustmentValueChanged(AdjustmentEvent e) {
+                if(buttonGroup.getSelection()!=null){
+                    setBlocVisible(Integer.parseInt(buttonGroup.getSelection().getActionCommand()));
+                }
+            }
+        });
+        return jScrollPane;
     }
 }

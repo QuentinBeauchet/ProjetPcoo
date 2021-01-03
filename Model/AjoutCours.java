@@ -36,7 +36,7 @@ public class AjoutCours {
                     home.setTab(new Tableau(tabCreation));
                 }
                 else{
-                    isBlocMultipleValid(selection.getActionCommand(),(ButtonGroup)args[5],(JTextField)args[2],(JTextField)args[6],(JTextField)args[7],(JList)args[8]);
+                    isBlocMultipleValid(selection.getActionCommand(),(ButtonGroup)args[5],(JTextField)args[2],(JTextField)args[6],(JTextField)args[7],(JList)args[8],(JList)args[9]);
                 }
             }
         }
@@ -50,6 +50,10 @@ public class AjoutCours {
         boolean isValid=false;
         try {
             cours = new Cours(id.getText(),Integer.valueOf(coeff.getText()),nom.getText());
+            //TODO changer static
+            if(XMLReader.isIdCourseAlreadyExist(home.getXml().getCourseList(),cours.getId())){
+                throw new IdUeDuplicationException(cours);
+            }
             isValid=true;
             nom.setBorder(border);
             id.setBorder(border);
@@ -66,6 +70,10 @@ public class AjoutCours {
             id.setBorder(border);
             nom.setBorder(BorderFactory.createLineBorder(Color.red));
         }
+        catch (IdUeDuplicationException exception){
+            nom.setBorder(border);
+            id.setBorder(BorderFactory.createLineBorder(Color.red));
+        }
         return isValid;
     }
 
@@ -73,24 +81,57 @@ public class AjoutCours {
         return new BlocSimple(cours);
     }
 
-    private boolean isBlocMultipleValid(String selection,ButtonGroup nouveau, JTextField coeff, JTextField nom, JTextField id, JList blocs) {
+    private boolean isBlocMultipleValid(String selection,ButtonGroup nouveau, JTextField coeff, JTextField nom, JTextField id, JList blocs,JList programme) {
         boolean isValid=false;
         if(nouveau.getSelection()==null){
             return false;
         }
-        if(selection.equals("1")){
-            if(nouveau.getSelection().getActionCommand().equals("nouveau")){
-                new BlocOptions(id.getText(),cours.getCoef(),nom.getText());
+        //TODO tout refaire plus tard flemme c'est trop chiant
+        else{
+            ArrayList<Bloc> blocsArrayList=home.getXml().getProgramList().get(programme.getLastVisibleIndex()).getBlocs();
+            if(selection.equals("1")){
+                if(nouveau.getSelection().getActionCommand().equals("nouveau")){
+                    try{
+                        BlocOptions blocOptions = new BlocOptions(id.getText(), cours.getCoef(), nom.getText());
+                        blocOptions.add(cours);
+                        for(Bloc b:blocsArrayList){
+                            if(b.getId().equals(blocOptions.getId())){
+                                throw new IdUeDuplicationException(blocOptions);
+                            }
+                        }
+                        id.setBorder(border);
+                        nom.setBorder(border);
+                        System.out.println(home.getXml().getProgramList().get(0).getBlocs().size());
+                        blocsArrayList.add(blocOptions);
+                        System.out.println(home.getXml().getProgramList().get(0).getBlocs().size());
+
+                    }
+                    catch (IdUeInvalidException exception){
+                        id.setBorder(BorderFactory.createLineBorder(Color.red));
+                    }
+                    catch (IdUeDuplicationException exception){
+                        id.setBorder(border);
+                        id.setBorder(BorderFactory.createLineBorder(Color.red));
+                    }
+                    catch (NameUeInvalidException exception){
+                        id.setBorder(border);
+                        nom.setBorder(BorderFactory.createLineBorder(Color.red));
+                    }
+                }
+                else{
+                    for (int i = 0; i < blocsArrayList.size(); i++) {
+                        if(blocs.getSelectedValue()!=null){
+
+                        }
+                    }
+                }
+
             }
             else{
-                //BlocOptions currentBloc=blocs.getLastVisibleIndex();
+
             }
-
+            return isValid;
         }
-        else{
-
-        }
-        return isValid;
     }
 
 

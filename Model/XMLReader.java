@@ -267,8 +267,7 @@ public class XMLReader {
      * @param id l'id à tester
      * @return boolean vrai si trouvé
      */
-    public boolean isIdCourseAlreadyExist(ArrayList<Cours> cours, String id){
-
+    public static boolean isIdCourseAlreadyExist(ArrayList<Cours> cours, String id){
         for (Cours c: cours
              ) {
             if(c.getId().equals(id))return true;
