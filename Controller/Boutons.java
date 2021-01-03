@@ -86,7 +86,10 @@ public class Boutons implements ActionListener{
                 new XMLMaker(xml);
                 new WriteCsv(xml);
                 System.out.println("Sauvegarde effectué");
-                //TODO popup de confirmation ?
+                break;
+            case "Enregistrer Sous":
+                home=(Home)obj;
+                //TODO enregister sous ici
                 break;
             case "Shortcut":
                 home=(Home)obj;

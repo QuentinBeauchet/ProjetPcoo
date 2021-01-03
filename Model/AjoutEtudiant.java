@@ -31,6 +31,7 @@ public class AjoutEtudiant {
         boolean isValid=false;
         try {
             etudiant = new Etudiant(id.getText(), nom.getText(), prenom.getText());
+            //TODO test si id existe deja
             isValid=true;
             nom.setBorder(border);
             id.setBorder(border);
