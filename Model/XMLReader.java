@@ -19,6 +19,8 @@ import java.util.List;
  * Lecture d'un fichier XML
  */
 public class XMLReader {
+    private String directory ="";
+    private String filename ="";
     private Element file ;
     private final ArrayList<Cours> courseList;
     private final ArrayList<Programme> programList;
@@ -30,6 +32,14 @@ public class XMLReader {
      */
     public ArrayList<Cours> getCourseList() {
         return courseList;
+    }
+
+    /**
+     * Getter du nom du fichier
+     * @return string
+     */
+    public String getFilename() {
+        return filename;
     }
 
     /**
@@ -54,6 +64,7 @@ public class XMLReader {
     }
 
     public XMLReader(String fileName) {
+        defineDirectoryAndFileName(fileName);
         this.file = readFile(fileName);
         this.courseList = fillCourses();
         this.programList = fillPrograms();
@@ -169,8 +180,10 @@ public class XMLReader {
             );
 
             if(etudiants.size()>1 && isIdEtudiantAlreadyExist(etudiants,etu.getId()))throw new IdEtudiantDuplicationException(etu);
-            etu.inscris(findProgramById(e.getElementsByTagName("program").item(0).getTextContent()));
-            fillNotesToStudent(e,etu);
+            if(!e.getElementsByTagName("program").item(0).getTextContent().equals("0")){
+                etu.inscris(findProgramById(e.getElementsByTagName("program").item(0).getTextContent()));
+                fillNotesToStudent(e,etu);
+            }
             etudiants.add(etu);
         }
 
@@ -326,5 +339,28 @@ public class XMLReader {
             if(id.equals(e.getId()))return true;
         }
         return false;
+    }
+
+    /**
+     * Getteur de directory
+     * @return string
+     */
+    public String getDirectory() {
+        return directory;
+    }
+
+    /**
+     * défini le string directory et filename
+     * @param filename chemin complet
+     */
+    public void defineDirectoryAndFileName(String filename){
+
+        for (int i = filename.length()-1 ; i > 0 ; i--) {
+            if(filename.charAt(i) == '\\'){
+                this.directory = filename.substring(0,i);
+                this.filename = filename.substring(i+1);
+                break;
+            }
+        }
     }
 }

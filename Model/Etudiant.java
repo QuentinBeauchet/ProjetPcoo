@@ -11,7 +11,7 @@ public class Etudiant {
     private String id;
     private String nom;
     private String prenom;
-    private Programme p;
+    private Programme p = null;
     private final HashMap<Cours, Note> notes = new HashMap<>();
 
     public Etudiant(String id, String nom, String prenom) {

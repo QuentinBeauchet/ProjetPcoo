@@ -64,10 +64,12 @@ public class TabCreation {
             lignes[i][0]=Integer.parseInt(studentList.get(i).getId());
             lignes[i][1]=studentList.get(i).getNom();
             lignes[i][2]=studentList.get(i).getPrenom();
-            lignes[i][3]=studentList.get(i).getP().getNom();
-            lignes[i][4]=studentList.get(i).getP().getNoteProgramme(studentList.get(i));
-            for (int j = 0; j < courseList.size(); j++) {
-                lignes[i][j + NBR_COMPOSANTS_ETUDIANTS] = courseList.get(j).calcNote(studentList.get(i)).getThisNote();
+            if(studentList.get(i).getP()!=null){
+                lignes[i][3]=studentList.get(i).getP().getNom();
+                lignes[i][4]=studentList.get(i).getP().getNoteProgramme(studentList.get(i));
+                for (int j = 0; j < courseList.size(); j++) {
+                    lignes[i][j + NBR_COMPOSANTS_ETUDIANTS] = courseList.get(j).calcNote(studentList.get(i)).getThisNote();
+                }
             }
         }
     }

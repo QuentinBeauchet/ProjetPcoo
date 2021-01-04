@@ -21,6 +21,7 @@ public class MyTools {
         float somme=0;
         int nbrEtudiant=0;
         for (Etudiant e: studentlist) {
+            if (e.getP()==null)continue;
             float noteEtudiant;
             if(ue.length!=0){
                 if(!(ue[0].calcNote(e).toString().equals("") || ue[0].calcNote(e).toString().equals("ABI"))){
@@ -47,6 +48,7 @@ public class MyTools {
         float moy = somme/nbrEtudiant;
         float sommeE=0;
         for (Etudiant e: studentlist) {
+            if (e.getP()==null)continue;
             float noteEtudiant;
             if(ue.length!=0){
                 if(!(ue[0].calcNote(e).toString().equals("") || ue[0].calcNote(e).toString().equals("ABI"))) {
