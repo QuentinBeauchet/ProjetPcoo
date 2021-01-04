@@ -1,5 +1,8 @@
 package Model;
 
+import Exceptions.IdUeDuplicationException;
+import Exceptions.ProgramException;
+
 import java.util.ArrayList;
 
 /**
@@ -11,6 +14,18 @@ public abstract class BlocMultiple  extends Bloc {
 
     public BlocMultiple(String id, String nom) {
         super(id, nom);
+    }
+
+    /**
+     * créer un bloc et l'ajoute à la liste des blocs d'un programme
+     * @param id  du bloc
+     * @param nom du bloc
+     * @param p programme
+     */
+    public BlocMultiple(String id, String nom, Programme p){
+        super(id, nom);
+        if(XMLReader.isIdBlocAlreadyExist(p.getBlocs(),id))throw new IdUeDuplicationException(this);
+        p.add(this);
     }
 
     /**

@@ -262,6 +262,19 @@ public class XMLReader {
     }
 
     /**
+     * Teste si un id existe déjà parmi les blocs existants
+     * @param blocs la liste des blocs
+     * @param id l'id à tester
+     * @return boolean vrai si trouvé
+     */
+    public static boolean isIdBlocAlreadyExist(ArrayList<Bloc> blocs, String id){
+        for (Bloc b : blocs){
+            if(b.getId().equals(id))return true;
+        }
+        return false;
+    }
+
+    /**
      * Teste si un id existe déjà parmi les cours existants
      * @param cours la liste des cours
      * @param id l'id à tester

@@ -12,6 +12,11 @@ public class BlocOptions extends BlocMultiple {
         this.coef = coef;
     }
 
+    public BlocOptions(String id, int coef, String nom , Programme p ){
+        super(id,nom,p);
+        this.coef= coef;
+    }
+
     @Override
     public void add(UE ue){
         if(ue.getCoef() == this.getCoef()){
