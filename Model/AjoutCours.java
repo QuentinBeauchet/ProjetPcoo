@@ -14,6 +14,8 @@ public class AjoutCours {
     private Cours cours;
     private static final Border border=(new JTextField(20)).getBorder();
 
+    //TODO les notes marchent pas dans les nouveaux cours
+
 
     public AjoutCours(Home home, Object[] args){
         this.home=home;
