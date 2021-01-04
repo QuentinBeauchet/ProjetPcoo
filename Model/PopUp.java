@@ -10,6 +10,7 @@ import javax.swing.*;
 import java.awt.*;
 import java.awt.event.AdjustmentEvent;
 import java.awt.event.AdjustmentListener;
+import java.lang.reflect.Field;
 import java.security.spec.ECField;
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -65,7 +66,7 @@ public class PopUp {
                 setPanelCours();
                 break;
             case "Ajouter un programme":
-                dialog.setSize(new Dimension(500,460));
+                dialog.setSize(new Dimension(200,150));
                 dialog.setUndecorated(false);
                 dialog.setBackground(new Color(0,0,0,255));
                 dialog.setTitle("Ajouter un Programme");
@@ -230,6 +231,23 @@ public class PopUp {
     private void setPanelProgramme(){
         JPanel panel=new JPanel(new GridBagLayout());
 
+        JLabel nom=new JLabel("NOM:");
+        panel.add(nom,new GridBagConstraints(0,0,1,1,0,0,GridBagConstraints.CENTER,GridBagConstraints.HORIZONTAL,new Insets(10,20,0,5),0,0));
+
+        JTextField fieldNom=new JTextField(20);
+        panel.add(fieldNom,new GridBagConstraints(1,0,1,1,0,0,GridBagConstraints.CENTER,GridBagConstraints.HORIZONTAL,new Insets(10,0,0,20),0,0));
+
+        JLabel id=new JLabel("ID:");
+        panel.add(id,new GridBagConstraints(0,1,1,1,0,0,GridBagConstraints.CENTER,GridBagConstraints.HORIZONTAL,new Insets(5,20,0,5),0,0));
+
+        JTextField fieldID=new JTextField(20);
+        panel.add(fieldID,new GridBagConstraints(1,1,1,1,0,0,GridBagConstraints.CENTER,GridBagConstraints.HORIZONTAL,new Insets(5,0,0,20),0,0));
+
+        JButton confirmation=new JButton("Confirmer");
+        confirmation.addActionListener(new Boutons("Ajout Programme",home,dialog,fieldNom,fieldID));
+        panel.add(confirmation,new GridBagConstraints(0,2,2,1,1,1,GridBagConstraints.SOUTH,GridBagConstraints.HORIZONTAL,new Insets(0,50,15,50),0,0));
+
+        dialog.add(panel);
 
     }
 

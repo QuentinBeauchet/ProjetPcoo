@@ -110,6 +110,10 @@ public class Boutons implements ActionListener{
                 home=(Home)obj;
                 new AjoutCours(home,args);
                 break;
+            case "Ajout Programme":
+                home=(Home)obj;
+                new AjoutProgramme(home,args);
+                break;
             case "Switch RadioBoutons":
                 PopUp popUp= (PopUp) obj;
                 ButtonGroup group= (ButtonGroup) args[0];
