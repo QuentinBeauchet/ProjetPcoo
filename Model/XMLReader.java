@@ -262,6 +262,18 @@ public class XMLReader {
     }
 
     /**
+     * Teste si un id existe déjà parmi les ues existants
+     * @param ues la liste des ue
+     * @param id l'id à tester
+     * @return boolean vrai si trouvé
+     */
+    public static boolean isIdUEAlreadyExist(ArrayList<UE> ues, String id){
+        for (UE ue: ues){
+            if(ue.getId().equals(id))return true;
+        }
+        return false;
+    }
+    /**
      * Teste si un id existe déjà parmi les blocs existants
      * @param blocs la liste des blocs
      * @param id l'id à tester

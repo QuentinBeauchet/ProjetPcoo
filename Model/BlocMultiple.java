@@ -33,6 +33,7 @@ public abstract class BlocMultiple  extends Bloc {
      * @param ue à ajouter
      */
     public void add(UE ue){
+        if(XMLReader.isIdUEAlreadyExist(getUE(),ue.getId()))throw new IdUeDuplicationException(ue);
         this.listUe.add(ue);
     }
 
