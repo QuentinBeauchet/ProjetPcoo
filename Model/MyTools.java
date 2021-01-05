@@ -21,7 +21,6 @@ public class MyTools {
         float somme=0;
         int nbrEtudiant=0;
         for (Etudiant e: studentlist) {
-            if (e.getP()==null)continue;
             float noteEtudiant;
             if(ue.length!=0){
                 if(!(ue[0].calcNote(e).toString().equals("") || ue[0].calcNote(e).toString().equals("ABI"))){
@@ -41,7 +40,7 @@ public class MyTools {
             if(max<noteEtudiant){
                 max=noteEtudiant;
             }
-            else if(noteEtudiant!=0 && noteEtudiant<min){
+            if(noteEtudiant!=0 && noteEtudiant<min){
                 min=noteEtudiant;
             }
         }
