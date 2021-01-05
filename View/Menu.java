@@ -124,17 +124,21 @@ public class Menu {
 
     private void setEdit(){
         JMenu edit=new JMenu("Edit");
-        edit.setMnemonic(KeyEvent.VK_M);
+        edit.setMnemonic(KeyEvent.VK_E);
 
         JMenuItem ajoutEtudiant=new JMenuItem("Ajouter un etudiant");
         ajoutEtudiant.addActionListener(new Boutons(ajoutEtudiant.getText(),home));
         ajoutEtudiant.setAccelerator(KeyStroke.getKeyStroke('E', CTRL_DOWN_MASK));
         edit.add(ajoutEtudiant);
 
+        JMenuItem supprimerEtudiant=new JMenuItem("Supprimer l'etudiant selectioné");
+        supprimerEtudiant.addActionListener(new Boutons(supprimerEtudiant.getText(),home));
+        supprimerEtudiant.setAccelerator(KeyStroke.getKeyStroke('D', CTRL_DOWN_MASK));
+        edit.add(supprimerEtudiant);
 
         JMenuItem ajoutCours=new JMenuItem("Ajouter un cours");
         ajoutCours.addActionListener(new Boutons(ajoutCours.getText(),home));
-        ajoutCours.setAccelerator(KeyStroke.getKeyStroke('C', CTRL_DOWN_MASK));
+        ajoutCours.setAccelerator(KeyStroke.getKeyStroke('U', CTRL_DOWN_MASK));
         edit.add(ajoutCours);
 
         JMenuItem ajoutProgramme=new JMenuItem("Ajouter un programme");

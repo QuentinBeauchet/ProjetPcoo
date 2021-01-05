@@ -21,7 +21,7 @@ public class CustomRenderer extends DefaultTableCellRenderer implements TableCel
     @Override
     public Component getTableCellRendererComponent(JTable table, Object value, boolean isSelected, boolean hasFocus, int row, int column) {
         super.getTableCellRendererComponent(table,value,isSelected,hasFocus,row,column);
-        setStyle(table,row,column,value);
+        setStyle(table,row,column,value,isSelected);
         update(table,row,column);
 
         return this;
@@ -35,7 +35,7 @@ public class CustomRenderer extends DefaultTableCellRenderer implements TableCel
      * @param value Object
      */
 
-    private void setStyle(JTable table, int row, int col,Object value){
+    private void setStyle(JTable table, int row, int col,Object value,boolean isSelected){
         Class<?> currentClass=value.getClass();
         super.setBackground((row % 2 == 0 ? new Color(238,238,238) : Color.white));
         if(currentClass==String.class || currentClass==Integer.class){
@@ -69,6 +69,11 @@ public class CustomRenderer extends DefaultTableCellRenderer implements TableCel
         table.setIntercellSpacing(new Dimension(0, 0));
         if(!((table.getName().equals("calculs") && (col>=1 && col<INDEX_RESULTATS-1)))){
             super.setBorder(BorderFactory.createMatteBorder(0, 0, 0, 1, Color.darkGray));
+        }
+
+        if (isSelected) {
+            setBackground(table.getSelectionBackground());
+            setForeground(table.getSelectionForeground());
         }
 
     }

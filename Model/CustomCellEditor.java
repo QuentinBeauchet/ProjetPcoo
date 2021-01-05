@@ -3,6 +3,7 @@ package Model;
 import javax.swing.*;
 import javax.swing.border.LineBorder;
 import java.awt.*;
+import java.util.EventObject;
 
 public class CustomCellEditor extends DefaultCellEditor {
     private final JTextField textField;
@@ -76,4 +77,5 @@ public class CustomCellEditor extends DefaultCellEditor {
         textField.setBorder(new LineBorder(Color.black));
         return super.getTableCellEditorComponent(table, value, isSelected, row, column);
     }
+
 }

@@ -131,7 +131,6 @@ public class Tableau {
         header.setReorderingAllowed(false);
         header.setForeground(new Color(153, 31, 0));
         header.setFont(header.getFont().deriveFont(Font.BOLD));
-
         header.addMouseListener(new HeaderListener(tableau));
     }
 

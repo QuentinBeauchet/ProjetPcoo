@@ -102,6 +102,10 @@ public class Boutons implements ActionListener{
                 home=(Home)obj;
                 new PopUp(action,home);
                 break;
+            case "Supprimer l'etudiant selectioné":
+                home=(Home)obj;
+                new SuppressionEtudiant(home);
+                break;
             case "Ajout Etudiant":
                 home=(Home)obj;
                 new AjoutEtudiant(home,args);
