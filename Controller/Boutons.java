@@ -62,6 +62,7 @@ public class Boutons implements ActionListener{
                 if(chooser.getOption()==JFileChooser.APPROVE_OPTION){
                     //TODO c'est pas ouf comme façon de faire
                     xml=new XMLReader(chooser.getChooser().getSelectedFile().toString());
+                    new PathSaver(chooser.getChooser().getSelectedFile().toString());
                     home=(Home)obj;
                     home.getFrame().dispose();
                     new Home(xml);
@@ -95,7 +96,9 @@ public class Boutons implements ActionListener{
                 FileChooser fileChooser = new FileChooser("Enregistrer-sous le XML","Enregistrer");
                 if (fileChooser.getOption() == JFileChooser.APPROVE_OPTION) {
                     File fileToSave = fileChooser.getSelectedFile();
-                    new XMLMaker(home.getXml(),fileToSave.getAbsolutePath());
+                    String path = fileToSave.getAbsolutePath();
+                    new XMLMaker(home.getXml(),path);
+                    new PathSaver(path);
                 }
                 break;
             case "Shortcut":

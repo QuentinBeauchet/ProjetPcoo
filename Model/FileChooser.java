@@ -38,7 +38,8 @@ public class FileChooser {
         LookAndFeel previousLF=UIManager.getLookAndFeel();
         try {
             UIManager.setLookAndFeel("javax.swing.plaf.metal.MetalLookAndFeel");
-            chooser = new JFileChooser();
+            this.setCurrentDirectory();
+            chooser = new JFileChooser(setCurrentDirectory());
         }
         catch (Exception exception){/*Ne rien faire*/}
         try {
@@ -71,5 +72,10 @@ public class FileChooser {
 
     public File getSelectedFile() {
         return chooser.getSelectedFile();
+    }
+
+    public File setCurrentDirectory(){
+        String originPath = PathSaver.readPath();
+        return new File(originPath);
     }
 }
