@@ -67,14 +67,13 @@ public class AjoutCours {
         ArrayList<Programme> programmeArrayList = xml.getProgramList();
 
         Programme currentProgramme = programmeArrayList.get(programmes.getLastVisibleIndex());
-        if (selection.equals("simple")) {
-            coursArrayList.add(cours);
+        if (selection.equals("0")) {
             BlocSimple blocSimple = new BlocSimple(cours);
             currentProgramme.add(blocSimple);
         }
         else{
             if (nouveau.getSelection() != null) {
-                if (selection.equals("option")) {
+                if (selection.equals("1")) {
                     if(nouveau.getSelection().getActionCommand().equals("nouveau")){
                         try{
                             BlocOptions blocOptions=new BlocOptions(id.getText(), Integer.valueOf(coeff.getText()), nom.getText(), currentProgramme);
@@ -148,6 +147,7 @@ public class AjoutCours {
                 }
             }
         }
+        coursArrayList.add(cours);
         System.out.println("Actualisation...");
         TabCreation tabCreation=new TabCreation(home,coursArrayList, xml.getStudentList());
         Tableau tab=new Tableau(tabCreation);

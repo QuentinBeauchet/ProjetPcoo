@@ -156,19 +156,19 @@ public class PopUp {
 
         JRadioButton simple=new JRadioButton("Bloc Simple");
         buttonGroup.add(simple);
-        simple.setActionCommand("simple");
+        simple.setActionCommand("0");
         simple.addActionListener(new Boutons("Switch RadioBoutons",this,buttonGroup));
         panel.add(simple,new GridBagConstraints(0,4,1,1,1,0,GridBagConstraints.CENTER,GridBagConstraints.HORIZONTAL,new Insets(15,50,0,0),0,0));
 
         JRadioButton option=new JRadioButton("Bloc a Options");
         buttonGroup.add(option);
-        option.setActionCommand("option");
+        option.setActionCommand("1");
         option.addActionListener(new Boutons("Switch RadioBoutons",this,buttonGroup));
         panel.add(option,new GridBagConstraints(1,4,1,1,1,0,GridBagConstraints.CENTER,GridBagConstraints.HORIZONTAL,new Insets(15,0,0,0),0,0));
 
         JRadioButton composite=new JRadioButton("Bloc Composite");
         buttonGroup.add(composite);
-        composite.setActionCommand("composite");
+        composite.setActionCommand("2");
         composite.addActionListener(new Boutons("Switch RadioBoutons",this,buttonGroup));
         panel.add(composite,new GridBagConstraints(2,4,1,1,1,0,GridBagConstraints.CENTER,GridBagConstraints.HORIZONTAL,new Insets(15,0,0,20),0,0));
 

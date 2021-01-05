@@ -121,16 +121,7 @@ public class Boutons implements ActionListener{
             case "Switch RadioBoutons":
                 PopUp popUp= (PopUp) obj;
                 ButtonGroup group= (ButtonGroup) args[0];
-                switch (group.getSelection().getActionCommand()){
-                    case "simple":
-                        popUp.setBlocVisible(0);
-                        break;
-                    case "option":
-                        popUp.setBlocVisible(1);
-                        break;
-                    default:
-                        popUp.setBlocVisible(2);
-                }
+                popUp.setBlocVisible(Integer.parseInt(group.getSelection().getActionCommand()));
                 break;
             case "Annuler":
                 dialog=(JDialog)obj;
