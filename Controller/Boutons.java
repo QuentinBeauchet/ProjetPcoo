@@ -12,11 +12,14 @@ import javax.swing.*;
 import javax.swing.border.Border;
 import javax.swing.border.CompoundBorder;
 import javax.swing.border.LineBorder;
+import javax.swing.filechooser.FileNameExtensionFilter;
 import javax.swing.plaf.metal.MetalBorders;
 import javax.swing.table.DefaultTableModel;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.io.File;
+import java.io.FileFilter;
 import java.util.ArrayList;
 import java.util.Arrays;
 
@@ -89,8 +92,11 @@ public class Boutons implements ActionListener{
                 break;
             case "Enregistrer Sous":
                 home=(Home)obj;
-                System.out.println("coucou");
-                //TODO enregister sous ici
+                FileChooser fileChooser = new FileChooser("Enregistrer-sous le XML","Enregistrer");
+                if (fileChooser.getOption() == JFileChooser.APPROVE_OPTION) {
+                    File fileToSave = fileChooser.getSelectedFile();
+                    new XMLMaker(home.getXml(),fileToSave.getAbsolutePath());
+                }
                 break;
             case "Shortcut":
                 home=(Home)obj;

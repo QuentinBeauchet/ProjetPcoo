@@ -25,6 +25,18 @@ public class XMLMaker {
         }
     }
 
+    public XMLMaker(XMLReader xml, String filepath){
+        programList = xml.getProgramList();
+        studentList = xml.getStudentList();
+        courseList = xml.getCourseList();
+        this.filename =filepath+".xml";
+        try {
+            writer();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+
     /**
      * Ecriture du fichier
      * @throws IOException echec d'ecriture

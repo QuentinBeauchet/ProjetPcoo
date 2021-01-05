@@ -4,6 +4,7 @@ import Exceptions.LookAndFeelException;
 
 import javax.swing.*;
 import javax.swing.filechooser.FileNameExtensionFilter;
+import java.io.File;
 
 public class FileChooser {
     private JFileChooser chooser;
@@ -18,6 +19,15 @@ public class FileChooser {
         FileNameExtensionFilter filter = new FileNameExtensionFilter("Fichiers .xml", "xml");
         chooser.setFileFilter(filter);
         option = chooser.showOpenDialog(null);
+    }
+
+
+    public FileChooser(String dialog,String buttonName){
+        setLF();
+        FileNameExtensionFilter filter = new FileNameExtensionFilter("Fichiers .xml", "xml");
+        chooser.setFileFilter(filter);
+        option = chooser.showDialog(null,buttonName);
+        chooser.setDialogTitle(dialog);
     }
 
     /**
@@ -57,5 +67,9 @@ public class FileChooser {
 
     public int getOption(){
         return option;
+    }
+
+    public File getSelectedFile() {
+        return chooser.getSelectedFile();
     }
 }
