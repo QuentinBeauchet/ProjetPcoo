@@ -56,7 +56,7 @@ public class AjoutEtudiant {
         row[0]=Integer.parseInt(etudiant.getId());
         row[1]=etudiant.getNom();
         row[2]=etudiant.getPrenom();
-        row[3]=etudiant.getP();
+        row[3]=etudiant.getP().getNom();
         row[4]=etudiant.getP().getNoteProgramme(etudiant);
         for (int i = NBR_COMPOSANTS_ETUDIANTS; i < nbrCol; i++) {
             row[i]=new Note("");

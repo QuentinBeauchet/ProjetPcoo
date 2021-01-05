@@ -5,136 +5,152 @@ import View.Home;
 import View.Tableau;
 
 import javax.swing.*;
-import javax.swing.border.Border;
+import javax.swing.table.TableColumn;
 import java.awt.*;
 import java.util.ArrayList;
 
 public class AjoutCours {
     private Home home;
     private Cours cours;
-    private static final Border border=(new JTextField(20)).getBorder();
 
-    //TODO les notes marchent pas dans les nouveaux cours
-
-
-    public AjoutCours(Home home, Object[] args){
-        this.home=home;
-        //"Ajout Cours",home,dialog,fieldNom,fieldCoeff,fieldId,buttonGroup,multipleButtonGroup,compositeNomField,compositeIDField,listeBlocs));
+    public AjoutCours(Home home, Object[] args) {
+        this.home = home;
         JDialog dialog = (JDialog) args[0];
-        JList listeProgramme=(JList)args[9];
-        if(isCoursValid((JTextField)args[3],(JTextField)args[2],(JTextField)args[1],listeProgramme)){
+        JList listeProgramme = (JList) args[9];
+        if (isCoursValid((JTextField) args[3], (JTextField) args[2], (JTextField) args[1], listeProgramme)) {
             ButtonModel selection = ((ButtonGroup) args[4]).getSelection();
-            if(selection !=null){
-                if(selection.getActionCommand().equals("0")){
-                    XMLReader xml= home.getXml();
-                    ArrayList<Cours> coursArrayList=xml.getCourseList();
-                    ArrayList<Programme> programmeArrayList=xml.getProgramList();
-                    ArrayList<Etudiant> etudiantArrayList=xml.getStudentList();
-
-                    coursArrayList.add(cours);
-                    programmeArrayList.get(listeProgramme.getLastVisibleIndex()).getBlocs().add(isBlocSimpleValid());
-
-                    TabCreation tabCreation = new TabCreation(home, coursArrayList, etudiantArrayList);
-                    home.setTab(new Tableau(tabCreation));
-                }
-                else{
-                    isBlocMultipleValid(selection.getActionCommand(),(ButtonGroup)args[5],(JTextField)args[2],(JTextField)args[6],(JTextField)args[7],(JList)args[8],(JList)args[9]);
-                }
+            if (selection != null) {
+                setBloc(selection.getActionCommand(),(ButtonGroup)args[5],(JTextField)args[2],(JTextField)args[7],(JTextField)args[6],(JList)args[8],(JList)args[9],(JTextField)args[3]);
+                dialog.dispose();
+                ProgramSwitch programSwitch = new ProgramSwitch(home);
+                programSwitch.Switch(-1);
             }
         }
     }
 
-    private boolean isCoursValid(JTextField id,JTextField coeff,JTextField nom,JList listeProgramme){
-        if(home.getXml().getProgramList().size()==0){
+    private boolean isCoursValid(JTextField id, JTextField coeff, JTextField nom, JList listeProgramme) {
+        if (home.getXml().getProgramList().size() == 0) {
             listeProgramme.setForeground(Color.red);
             return false;
         }
-        boolean isValid=false;
+        boolean isValid = false;
         try {
-            cours = new Cours(id.getText(),Integer.valueOf(coeff.getText()),nom.getText());
-            //TODO changer static
-            if(XMLReader.isIdCourseAlreadyExist(home.getXml().getCourseList(),cours.getId())){
+            cours = new Cours(id.getText(), Integer.valueOf(coeff.getText()), nom.getText());
+            if (XMLReader.isIdCourseAlreadyExist(home.getXml().getCourseList(), cours.getId())) {
                 throw new IdUeDuplicationException(cours);
             }
-            isValid=true;
-            nom.setBorder(border);
-            id.setBorder(border);
-            coeff.setBorder(border);
+            isValid = true;
+            nom.setBorder(PopUp.normalBorder);
+            id.setBorder(PopUp.normalBorder);
+            coeff.setBorder(PopUp.normalBorder);
+        } catch (NumberFormatException exception) {
+            coeff.setBorder(PopUp.erreurBorder);
+        } catch (IdUeInvalidException exception) {
+            coeff.setBorder(PopUp.normalBorder);
+            id.setBorder(PopUp.erreurBorder);
+        } catch (NameUeInvalidException exception) {
+            id.setBorder(PopUp.normalBorder);
+            nom.setBorder(PopUp.erreurBorder);
+        } catch (IdUeDuplicationException exception) {
+            nom.setBorder(PopUp.normalBorder);
+            id.setBorder(PopUp.erreurBorder);
         }
-        catch (NumberFormatException exception){
-            coeff.setBorder(BorderFactory.createLineBorder(Color.red));
-        }
-        catch (IdUeInvalidException exception){
-            coeff.setBorder(border);
-            id.setBorder(BorderFactory.createLineBorder(Color.red));
-        }
-        catch (NameUeInvalidException exception){
-            id.setBorder(border);
-            nom.setBorder(BorderFactory.createLineBorder(Color.red));
-        }
-        catch (IdUeDuplicationException exception){
-            nom.setBorder(border);
-            id.setBorder(BorderFactory.createLineBorder(Color.red));
+        for(Etudiant e:home.getXml().getStudentList()){
+            e.getNotes().put(cours,new Note(""));
         }
         return isValid;
     }
 
-    private Bloc isBlocSimpleValid(){
-        return new BlocSimple(cours);
-    }
+    private void setBloc(String selection, ButtonGroup nouveau, JTextField coeff, JTextField id, JTextField nom, JList blocs, JList programmes, JTextField idcours) {
+        XMLReader xml = home.getXml();
+        ArrayList<Cours> coursArrayList = xml.getCourseList();
+        ArrayList<Programme> programmeArrayList = xml.getProgramList();
 
-    private boolean isBlocMultipleValid(String selection,ButtonGroup nouveau, JTextField coeff, JTextField nom, JTextField id, JList blocs,JList programme) {
-        boolean isValid=false;
-        if(nouveau.getSelection()==null){
-            return false;
+        Programme currentProgramme = programmeArrayList.get(programmes.getLastVisibleIndex());
+        if (selection.equals("simple")) {
+            coursArrayList.add(cours);
+            BlocSimple blocSimple = new BlocSimple(cours);
+            currentProgramme.add(blocSimple);
         }
-        //TODO tout refaire plus tard flemme c'est trop chiant
         else{
-            ArrayList<Bloc> blocsArrayList=home.getXml().getProgramList().get(programme.getLastVisibleIndex()).getBlocs();
-            if(selection.equals("1")){
-                if(nouveau.getSelection().getActionCommand().equals("nouveau")){
-                    try{
-                        BlocOptions blocOptions = new BlocOptions(id.getText(), cours.getCoef(), nom.getText());
-                        blocOptions.add(cours);
-                        for(Bloc b:blocsArrayList){
-                            if(b.getId().equals(blocOptions.getId())){
-                                throw new IdUeDuplicationException(blocOptions);
+            if (nouveau.getSelection() != null) {
+                if (selection.equals("option")) {
+                    if(nouveau.getSelection().getActionCommand().equals("nouveau")){
+                        try{
+                            BlocOptions blocOptions=new BlocOptions(id.getText(), Integer.valueOf(coeff.getText()), nom.getText(), currentProgramme);
+                            blocOptions.add(cours);
+                            coeff.setBorder(PopUp.normalBorder);
+                            id.setBorder(PopUp.normalBorder);
+                        }
+                        catch (NumberFormatException exception){
+                            coeff.setBorder(PopUp.erreurBorder);
+                        }
+                        catch (IdUeDuplicationException exception){
+                            coeff.setBorder(PopUp.normalBorder);
+                            id.setBorder(PopUp.erreurBorder);
+                        }
+                    }
+                    else{
+                        BlocOptions blocOptions = (BlocOptions) blocs.getModel().getElementAt(blocs.getLastVisibleIndex());
+                        try{
+                            blocOptions.add(cours);
+                            id.setBorder(PopUp.normalBorder);
+                            coeff.setBorder(PopUp.normalBorder);
+                        }
+                        catch (IdUeDuplicationException exception){
+                            if(exception.getUe().getId().equals(cours.getId())){
+                                idcours.setBorder(PopUp.erreurBorder);
+                            }
+                            else{
+                                idcours.setBorder(PopUp.normalBorder);
+                                id.setBorder(PopUp.erreurBorder);
                             }
                         }
-                        id.setBorder(border);
-                        nom.setBorder(border);
-                        System.out.println(home.getXml().getProgramList().get(0).getBlocs().size());
-                        blocsArrayList.add(blocOptions);
-                        System.out.println(home.getXml().getProgramList().get(0).getBlocs().size());
-
+                        catch (CoefUeInvalidException exception){
+                            id.setBorder(PopUp.normalBorder);
+                            idcours.setBorder(PopUp.normalBorder);
+                            coeff.setBorder(PopUp.erreurBorder);
+                        }
                     }
-                    catch (IdUeInvalidException exception){
-                        id.setBorder(BorderFactory.createLineBorder(Color.red));
+                } else {
+                    if(nouveau.getSelection().getActionCommand().equals("nouveau")){
+                        try{
+                            BlocComposite blocComposite = new BlocComposite(id.getText(), nom.getText(), currentProgramme);
+                            blocComposite.add(cours);
+                            coeff.setBorder(PopUp.normalBorder);
+                            id.setBorder(PopUp.normalBorder);
+                        }
+                        catch (NumberFormatException exception){
+                            coeff.setBorder(PopUp.erreurBorder);
+                        }
+                        catch (IdUeDuplicationException exception){
+                            coeff.setBorder(PopUp.normalBorder);
+                            id.setBorder(PopUp.erreurBorder);
+                        }
                     }
-                    catch (IdUeDuplicationException exception){
-                        id.setBorder(border);
-                        id.setBorder(BorderFactory.createLineBorder(Color.red));
-                    }
-                    catch (NameUeInvalidException exception){
-                        id.setBorder(border);
-                        nom.setBorder(BorderFactory.createLineBorder(Color.red));
-                    }
-                }
-                else{
-                    for (int i = 0; i < blocsArrayList.size(); i++) {
-                        if(blocs.getSelectedValue()!=null){
-
+                    else{
+                        BlocComposite blocComposite = (BlocComposite) blocs.getModel().getElementAt(blocs.getLastVisibleIndex());
+                        try{
+                            blocComposite.add(cours);
+                            id.setBorder(PopUp.normalBorder);
+                            coeff.setBorder(PopUp.normalBorder);
+                        }
+                        catch (IdUeDuplicationException exception){
+                            if(exception.getUe().getId().equals(cours.getId())){
+                                idcours.setBorder(PopUp.erreurBorder);
+                            }
+                            else{
+                                idcours.setBorder(PopUp.normalBorder);
+                                id.setBorder(PopUp.erreurBorder);
+                            }
                         }
                     }
                 }
-
             }
-            else{
-
-            }
-            return isValid;
         }
+        System.out.println("Actualisation...");
+        TabCreation tabCreation=new TabCreation(home,coursArrayList, xml.getStudentList());
+        Tableau tab=new Tableau(tabCreation);
+        home.setTab(tab);
     }
-
-
 }

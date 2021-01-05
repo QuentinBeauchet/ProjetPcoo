@@ -1,5 +1,6 @@
 package Model;
 
+import Exceptions.IdProgramDuplicationException;
 import Exceptions.IdProgramInvalidException;
 import Exceptions.NameProgramInvalidException;
 import Exceptions.ProgramException;
@@ -8,6 +9,7 @@ import View.Home;
 import javax.swing.*;
 import javax.swing.border.Border;
 import java.awt.*;
+import java.util.ArrayList;
 
 public class AjoutProgramme {
     private Home home;
@@ -20,9 +22,11 @@ public class AjoutProgramme {
         JTextField id=((JTextField)args[2]);
         try{
             Programme programme=new Programme(nom.getText(),id.getText());
-            programme.add(new BlocSimple(new Cours("123",6,"algebre")));
-            //TODO check if duplicate
-            home.getXml().getProgramList().add(programme);
+            ArrayList<Programme> programmeArrayList=home.getXml().getProgramList();
+            if(XMLReader.isIdProgramAlreadyExist(programmeArrayList,programme.getId())){
+                throw new IdProgramDuplicationException(programme);
+            }
+            programmeArrayList.add(programme);
             nom.setBorder(border);
             id.setBorder(border);
             dialog.dispose();

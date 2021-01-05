@@ -9,6 +9,7 @@ import static java.lang.Math.max;
 
 public class Arbre implements TreeExpansionListener {
     private final static int ROW_HEIGHT=24;
+    private final static int MIN_WIDTH=100;
     private final static int MAX_WIDTH=600;
     private final JDialog dialog;
     private final JTree arbre;
@@ -23,7 +24,7 @@ public class Arbre implements TreeExpansionListener {
     public Arbre(JDialog dialog, JTree arbre){
         this.dialog=dialog;
         this.arbre=arbre;
-        dialog.setSize(MAX_WIDTH, arbre.getRowCount()*ROW_HEIGHT);
+        dialog.setSize(MAX_WIDTH, arbre.getRowCount()*ROW_HEIGHT+50);
         dialog.setMinimumSize(new Dimension(MAX_WIDTH,max((arbre.getRowCount()+1)*ROW_HEIGHT,ROW_HEIGHT)));
     }
 
@@ -56,7 +57,7 @@ public class Arbre implements TreeExpansionListener {
      */
 
     private void update(){
-        dialog.setSize(MAX_WIDTH, arbre.getRowCount()*ROW_HEIGHT);
+        dialog.setSize(MAX_WIDTH, max(arbre.getRowCount()*ROW_HEIGHT,MIN_WIDTH));
         dialog.setLocationRelativeTo(null);
     }
 }

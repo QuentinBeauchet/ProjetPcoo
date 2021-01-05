@@ -2,18 +2,14 @@ package Model;
 
 import Controller.Boutons;
 import Exceptions.LookAndFeelException;
-import Exceptions.SurnameEtudiantInvalidException;
 import View.Home;
 
-import javax.management.ObjectName;
 import javax.swing.*;
+import javax.swing.border.Border;
 import java.awt.*;
 import java.awt.event.AdjustmentEvent;
 import java.awt.event.AdjustmentListener;
-import java.lang.reflect.Field;
-import java.security.spec.ECField;
 import java.util.ArrayList;
-import java.util.Arrays;
 
 public class PopUp {
     private final JDialog dialog;
@@ -27,6 +23,8 @@ public class PopUp {
     private JList listeBlocs=new JList();
     private JList choixProgramme;
     private ButtonGroup buttonGroup;
+    public static final Border normalBorder = (new JTextField(20)).getBorder();
+    public static final Border erreurBorder = BorderFactory.createLineBorder(Color.red);
 
     /**
      * Classe du JDialog qui permet de confirmer quand on quitte le programme.
@@ -158,19 +156,19 @@ public class PopUp {
 
         JRadioButton simple=new JRadioButton("Bloc Simple");
         buttonGroup.add(simple);
-        simple.setActionCommand("0");
+        simple.setActionCommand("simple");
         simple.addActionListener(new Boutons("Switch RadioBoutons",this,buttonGroup));
         panel.add(simple,new GridBagConstraints(0,4,1,1,1,0,GridBagConstraints.CENTER,GridBagConstraints.HORIZONTAL,new Insets(15,50,0,0),0,0));
 
         JRadioButton option=new JRadioButton("Bloc a Options");
         buttonGroup.add(option);
-        option.setActionCommand("1");
+        option.setActionCommand("option");
         option.addActionListener(new Boutons("Switch RadioBoutons",this,buttonGroup));
         panel.add(option,new GridBagConstraints(1,4,1,1,1,0,GridBagConstraints.CENTER,GridBagConstraints.HORIZONTAL,new Insets(15,0,0,0),0,0));
 
         JRadioButton composite=new JRadioButton("Bloc Composite");
         buttonGroup.add(composite);
-        composite.setActionCommand("2");
+        composite.setActionCommand("composite");
         composite.addActionListener(new Boutons("Switch RadioBoutons",this,buttonGroup));
         panel.add(composite,new GridBagConstraints(2,4,1,1,1,0,GridBagConstraints.CENTER,GridBagConstraints.HORIZONTAL,new Insets(15,0,0,20),0,0));
 
@@ -245,7 +243,7 @@ public class PopUp {
 
         JButton confirmation=new JButton("Confirmer");
         confirmation.addActionListener(new Boutons("Ajout Programme",home,dialog,fieldNom,fieldID));
-        panel.add(confirmation,new GridBagConstraints(0,2,2,1,1,1,GridBagConstraints.SOUTH,GridBagConstraints.HORIZONTAL,new Insets(0,50,15,50),0,0));
+        panel.add(confirmation,new GridBagConstraints(0,2,2,1,1,1,GridBagConstraints.SOUTH,GridBagConstraints.HORIZONTAL,new Insets(0,40,15,40),0,0));
 
         dialog.add(panel);
 
@@ -326,7 +324,7 @@ public class PopUp {
         blocOptionsArrayList=new ArrayList<>();
         blocCompositeArrayList=new ArrayList<>();
         if(!(choixProgramme.getModel().getElementAt(0).equals("Aucun programme disponible"))){
-            Integer index=Integer.valueOf(choixProgramme.getLastVisibleIndex());
+            Integer index=choixProgramme.getLastVisibleIndex();
             ArrayList<Bloc> blocsArrayList=programmes.get(index).getBlocs();
             for(Bloc b:blocsArrayList){
                 if (BlocComposite.class.equals(b.getClass())) {

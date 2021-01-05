@@ -1,5 +1,8 @@
 package Model;
 
+import Exceptions.CoefUeInvalidException;
+import Exceptions.IdUeDuplicationException;
+
 /**
  * Un bloc à options est composé de plusieurs cours portant le même nombre de crédits.
  * C'est aussi le nombre de crédits du bloc.
@@ -20,7 +23,15 @@ public class BlocOptions extends BlocMultiple {
     @Override
     public void add(UE ue){
         if(ue.getCoef() == this.getCoef()){
+            for(UE u:listUe){
+                if(u.getId().equals(ue.getId())){
+                    throw new IdUeDuplicationException(ue);
+                }
+            }
             this.listUe.add(ue);
+        }
+        else{
+            throw new CoefUeInvalidException(ue);
         }
     }
 

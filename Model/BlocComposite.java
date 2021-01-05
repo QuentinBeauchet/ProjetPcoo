@@ -10,6 +10,10 @@ public class BlocComposite extends BlocMultiple {
         super(id, nom);
     }
 
+    public BlocComposite(String id, String nom , Programme p ){
+        super(id,nom,p);
+    }
+
     @Override
     public String nature() {
         return "Bloc composite ";

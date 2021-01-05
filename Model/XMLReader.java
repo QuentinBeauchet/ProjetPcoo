@@ -319,7 +319,7 @@ public class XMLReader {
      * @param id l'id à tester
      * @return boolean vrai si trouvé
      */
-    public boolean isIdProgramAlreadyExist(ArrayList<Programme> programs,String id){
+    public static boolean isIdProgramAlreadyExist(ArrayList<Programme> programs,String id){
         for (Programme p: programs
         ) {
             if(p.getId().equals(id))return true;

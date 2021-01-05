@@ -19,6 +19,7 @@ public class CustomTableModel extends DefaultTableModel{
     @Override
     public void setValueAt(Object obj, int row, int col) {
         if(name.equals("tableau")){
+            System.out.println(obj);
             updateXML(obj,row,col);
         }
         if(name.equals("tableau") && getColumnClass(col)==Note.class){

@@ -71,8 +71,8 @@ public class MyTools {
     }
 
     public static float arondit(double f){
-        if(Double.isNaN(f)){
-            return (float) f;
+        if(Double.isNaN(f) || Double.isInfinite(f)){
+            return Float.NaN;
         }
         BigDecimal bigDecimal=new BigDecimal(f);
         MathContext mathContext =new MathContext(4);
