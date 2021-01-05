@@ -2,8 +2,6 @@ package Exceptions;
 
 public class LookAndFeelException extends NullPointerException {
 
-    //TODO pas sur que ce soit la bonne exception a extends
-
     /**
      * Lancé quand il y a un probleme de Look&Feel.
      */

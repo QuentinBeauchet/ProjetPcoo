@@ -6,7 +6,6 @@ import javax.swing.table.DefaultTableModel;
 
 public class SuppressionEtudiant {
     public SuppressionEtudiant(Home home){
-        //TODO faire une popup ?
         int selectedRow = home.getTab().getTableau().getSelectedRow();
         if(selectedRow!=-1){
             DefaultTableModel model= (DefaultTableModel) home.getTab().getTableau().getModel();

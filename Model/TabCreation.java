@@ -46,7 +46,6 @@ public class TabCreation {
         colones[3]="Programme";
         colones[4]="Résultats";
         for (int i = 0; i < courseList.size(); i++) {
-            //TODO afficher l'id aussi mais mieux que colones[i+NBR_COMPOSANTS_ETUDIANTS]=courseList.get(i).getId()+" - "+courseList.get(i).getNom(); et aussi dans la hierarchie
             colones[i+NBR_COMPOSANTS_ETUDIANTS]=courseList.get(i).getNom();
         }
     }
@@ -82,7 +81,6 @@ public class TabCreation {
 
     private void setCalculs(int nbrColones) {
         calculs=new Object[NBR_LIGNES_CALCULS][nbrColones];
-        //TODO reduire la taille code ici
 
         calculs[0][0]="Note max";
         calculs[1][0]="Note min";

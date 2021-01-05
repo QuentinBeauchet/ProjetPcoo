@@ -398,7 +398,6 @@ public class PopUp {
         choixProgramme.setVisibleRowCount(1);
         JScrollPane jScrollPane = new JScrollPane(choixProgramme);
         JScrollBar bar=jScrollPane.getVerticalScrollBar();
-        //TODO deplacer le listener
         bar.addAdjustmentListener(new AdjustmentListener() {
             @Override
             public void adjustmentValueChanged(AdjustmentEvent e) {

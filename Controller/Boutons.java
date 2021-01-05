@@ -1,24 +1,12 @@
 package Controller;
 
-import Exceptions.IdEtudiantInvalidException;
-import Exceptions.NameEtudiantInvalidException;
-import Exceptions.SurnameEtudiantInvalidException;
 import Model.*;
 import View.Home;
 import View.StartView;
-import View.Tableau;
 
 import javax.swing.*;
-import javax.swing.border.Border;
-import javax.swing.border.CompoundBorder;
-import javax.swing.border.LineBorder;
-import javax.swing.plaf.metal.MetalBorders;
-import javax.swing.table.DefaultTableModel;
-import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.util.ArrayList;
-import java.util.Arrays;
 
 public class Boutons implements ActionListener{
     private final String action;
@@ -57,7 +45,6 @@ public class Boutons implements ActionListener{
             case "Ouvrir":
                 chooser=new FileChooser();
                 if(chooser.getOption()==JFileChooser.APPROVE_OPTION){
-                    //TODO c'est pas ouf comme façon de faire
                     xml=new XMLReader(chooser.getChooser().getSelectedFile().toString());
                     home=(Home)obj;
                     home.getFrame().dispose();

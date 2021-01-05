@@ -94,7 +94,6 @@ public class XMLReader {
             return doc.getDocumentElement();
         }
         else{
-            //TODO excpetion si XML null
             throw new NullPointerException();
         }
     }
@@ -333,7 +332,7 @@ public class XMLReader {
      * @param id l'id à tester
      * @return boolean vrai si trouvé
      */
-    public boolean isIdEtudiantAlreadyExist(ArrayList<Etudiant> students ,String id){
+    public static boolean isIdEtudiantAlreadyExist(ArrayList<Etudiant> students ,String id){
         for (Etudiant e: students
         ) {
             if(id.equals(e.getId()))return true;

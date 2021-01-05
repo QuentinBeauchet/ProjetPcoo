@@ -13,9 +13,11 @@ import java.awt.*;
 public class AjoutEtudiant {
     private static final int NBR_COMPOSANTS_ETUDIANTS=5;
     private Etudiant etudiant;
+    private Home home;
     private static final Border border=(new JTextField(20)).getBorder();
 
     public AjoutEtudiant(Home home,Object[] args){
+        this.home=home;
         JDialog dialog = (JDialog) args[0];
         if(isEtudiantValid((JTextField) args[3],(JTextField) args[1],(JTextField) args[2])){
             Programme programme=(Programme)((JList)args[4]).getModel().getElementAt(((JList)args[4]).getFirstVisibleIndex());
@@ -31,7 +33,7 @@ public class AjoutEtudiant {
         boolean isValid=false;
         try {
             etudiant = new Etudiant(id.getText(), nom.getText(), prenom.getText());
-            //TODO test si id existe deja
+            XMLReader.isIdEtudiantAlreadyExist(home.getXml().getStudentList(),etudiant.getId());
             isValid=true;
             nom.setBorder(border);
             id.setBorder(border);

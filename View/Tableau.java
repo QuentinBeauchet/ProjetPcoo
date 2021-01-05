@@ -39,8 +39,6 @@ public class Tableau {
         setStyle();
         setEdition();
         setSorter();
-
-        //TODO colones program validé + note (genre vert validé,rouge sinon)
     }
 
     /**
