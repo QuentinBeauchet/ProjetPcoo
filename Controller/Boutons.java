@@ -1,24 +1,13 @@
 package Controller;
 
-import Exceptions.IdEtudiantInvalidException;
-import Exceptions.NameEtudiantInvalidException;
-import Exceptions.SurnameEtudiantInvalidException;
 import Model.*;
 import View.Home;
 import View.StartView;
-import View.Tableau;
 
 import javax.swing.*;
-import javax.swing.border.Border;
-import javax.swing.border.CompoundBorder;
-import javax.swing.border.LineBorder;
-import javax.swing.plaf.metal.MetalBorders;
-import javax.swing.table.DefaultTableModel;
-import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.util.ArrayList;
-import java.util.Arrays;
+import java.io.File;
 
 public class Boutons implements ActionListener{
     private final String action;
@@ -88,9 +77,18 @@ public class Boutons implements ActionListener{
                 System.out.println("Sauvegarde effectué");
                 break;
             case "Enregistrer Sous":
+                System.out.println("test");
                 home=(Home)obj;
-                //TODO enregister sous ici
-                break;
+                JFileChooser fileChooser = new JFileChooser();
+                fileChooser.setDialogTitle("Specify a file to save");
+
+                int userSelection = fileChooser.showSaveDialog(home.getFrame());
+
+                if (userSelection == JFileChooser.APPROVE_OPTION) {
+                    File fileToSave = fileChooser.getSelectedFile();
+                    System.out.println("Save as file: " + fileToSave.getAbsolutePath());
+                }
+                    break;
             case "Shortcut":
                 home=(Home)obj;
                 new HierarchieCreation(home);
