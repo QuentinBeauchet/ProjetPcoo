@@ -66,8 +66,8 @@ public class Menu {
         Fichier.add(Save);
 
         JMenuItem newSave=new JMenuItem("Enregistrer Sous");
-        Save.addActionListener(new Boutons(newSave.getText(),home));
-        Save.setAccelerator(KeyStroke.getKeyStroke('N', CTRL_DOWN_MASK));
+        newSave.addActionListener(new Boutons(newSave.getText(),home));
+        newSave.setAccelerator(KeyStroke.getKeyStroke('L', CTRL_DOWN_MASK));
         Fichier.add(newSave);
 
         JMenuItem Close=new JMenuItem("Quitter");

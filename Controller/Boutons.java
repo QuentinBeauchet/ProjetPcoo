@@ -89,6 +89,7 @@ public class Boutons implements ActionListener{
                 break;
             case "Enregistrer Sous":
                 home=(Home)obj;
+                System.out.println("coucou");
                 //TODO enregister sous ici
                 break;
             case "Shortcut":
