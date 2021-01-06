@@ -21,7 +21,6 @@ public class FileChooser {
         option = chooser.showOpenDialog(null);
     }
 
-
     public FileChooser(String dialog,String buttonName){
         setLF();
         FileNameExtensionFilter filter = new FileNameExtensionFilter("Fichiers .xml", "xml");

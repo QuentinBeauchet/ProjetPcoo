@@ -7,7 +7,6 @@ import javax.swing.table.TableColumnModel;
 import java.awt.*;
 
 public class CustomRenderer extends DefaultTableCellRenderer implements TableCellRenderer {
-    private final static int NBR_COMPOSANTS_ETUDIANTS=5;
     private final static int INDEX_RESULTATS=4;
 
     /**
@@ -80,7 +79,6 @@ public class CustomRenderer extends DefaultTableCellRenderer implements TableCel
      * @param table Jtable
      * @param row int
      */
-
     private void update(JTable table,int row,int col){
         if(row==table.getRowCount()-1){
             if((table.getName().equals("calculs") && (col>=1 && col<INDEX_RESULTATS-1))){
@@ -92,7 +90,7 @@ public class CustomRenderer extends DefaultTableCellRenderer implements TableCel
             TableColumnModel columnModel = table.getColumnModel();
             if(table.getRowCount()==1){
                 int lastRow=table.convertRowIndexToModel(row);
-                for (int i = NBR_COMPOSANTS_ETUDIANTS+1; i < table.getModel().getColumnCount(); i++) {
+                for (int i = TabCreation.NBR_COMPOSANTS_ETUDIANTS+1; i < table.getModel().getColumnCount(); i++) {
                     if(table.getModel().getValueAt(lastRow,i).toString().equals("")){
                         columnModel.getColumn(i).setMinWidth(0);
                         columnModel.getColumn(i).setMaxWidth(0);
@@ -102,7 +100,7 @@ public class CustomRenderer extends DefaultTableCellRenderer implements TableCel
             }
             else{
                 int preferredWidth=columnModel.getColumn(0).getPreferredWidth();
-                for (int i = NBR_COMPOSANTS_ETUDIANTS+1; i < table.getModel().getColumnCount(); i++) {
+                for (int i = TabCreation.NBR_COMPOSANTS_ETUDIANTS+1; i < table.getModel().getColumnCount(); i++) {
                     columnModel.getColumn(i).setMinWidth(preferredWidth);
                     columnModel.getColumn(i).setMaxWidth(preferredWidth);
                     columnModel.getColumn(i).setWidth(preferredWidth);

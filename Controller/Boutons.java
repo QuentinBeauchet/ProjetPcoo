@@ -60,7 +60,12 @@ public class Boutons implements ActionListener{
             }
             case "Start" -> {
                 chooser = new FileChooser();
-                setConfirmation(chooser);
+                if(chooser.getOption()==JFileChooser.APPROVE_OPTION){
+                    view=(StartView)obj;
+                    view.showConfirmation(true);
+                    view.setText("<html>Vous avez choisit "+chooser.getChooser().getSelectedFile().getName()+", voulez vous confirmer ?</html>");
+                    view.setPath(chooser.getChooser().getSelectedFile());
+                }
             }
             case "StartNew" -> {
                 view = (StartView) obj;
@@ -129,16 +134,4 @@ public class Boutons implements ActionListener{
         }
     }
 
-    /**
-     * Affiche le JPanel de confirmation dans la StartView si un fichier xml a été choisit.
-     * @param chooser FileChooser
-     */
-    private void setConfirmation(FileChooser chooser){
-        if(chooser.getOption()==JFileChooser.APPROVE_OPTION){
-            StartView view=(StartView)obj;
-            view.showConfirmation(true);
-            view.setText("<html>Vous avez choisit "+chooser.getChooser().getSelectedFile().getName()+", voulez vous confirmer ?</html>");
-            view.setPath(chooser.getChooser().getSelectedFile());
-        }
-    }
 }
