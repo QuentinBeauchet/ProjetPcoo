@@ -3,7 +3,6 @@ package Model;
 import javax.swing.*;
 import javax.swing.border.LineBorder;
 import java.awt.*;
-import java.util.EventObject;
 
 public class CustomCellEditor extends DefaultCellEditor {
     private final JTextField textField;
@@ -11,10 +10,8 @@ public class CustomCellEditor extends DefaultCellEditor {
 
     /**
      * Permet de forcer le typage lors de la saisie de texte dans le tableau.
-     *
      * @param textField JTextField
      */
-
     public CustomCellEditor(JTextField textField) {
         super(textField);
         this.textField = textField;

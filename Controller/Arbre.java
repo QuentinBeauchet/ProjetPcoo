@@ -16,11 +16,9 @@ public class Arbre implements TreeExpansionListener {
 
     /**
      * Classe de l'EventListener du JTree qui permet de changer dynamiquement sa taille.
-     *
      * @param dialog JDialog
      * @param arbre JTree
      */
-
     public Arbre(JDialog dialog, JTree arbre){
         this.dialog=dialog;
         this.arbre=arbre;
@@ -30,10 +28,8 @@ public class Arbre implements TreeExpansionListener {
 
     /**
      * Appele l'update jusqu'a une taille maximum.
-     *
      * @param treeExpansionEvent TreeExpansionEvent
      */
-
     @Override
     public void treeExpanded(TreeExpansionEvent treeExpansionEvent) {
         if(dialog.getHeight()<MAX_WIDTH){
@@ -43,10 +39,8 @@ public class Arbre implements TreeExpansionListener {
 
     /**
      * Appele l'update.
-     *
      * @param treeExpansionEvent TreeExpansionEvent
      */
-
     @Override
     public void treeCollapsed(TreeExpansionEvent treeExpansionEvent) {
         update();
@@ -55,7 +49,6 @@ public class Arbre implements TreeExpansionListener {
     /**
      * Update sa taille selon le nombre d'elements affichés.
      */
-
     private void update(){
         dialog.setSize(MAX_WIDTH, max(arbre.getRowCount()*ROW_HEIGHT,MIN_WIDTH));
         dialog.setLocationRelativeTo(null);

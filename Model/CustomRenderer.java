@@ -13,7 +13,6 @@ public class CustomRenderer extends DefaultTableCellRenderer implements TableCel
     /**
      * Classe qui permet de faire un TableCellRenderer personalisé.
      */
-
     public CustomRenderer(){
         super.setOpaque(true);
     }
@@ -29,12 +28,10 @@ public class CustomRenderer extends DefaultTableCellRenderer implements TableCel
 
     /**
      * Parametre le style pour chaque classe dans le tableau.
-     *
      * @param table JTable
      * @param row int
      * @param value Object
      */
-
     private void setStyle(JTable table, int row, int col,Object value,boolean isSelected){
         Class<?> currentClass=value.getClass();
         super.setBackground((row % 2 == 0 ? new Color(238,238,238) : Color.white));
@@ -80,11 +77,9 @@ public class CustomRenderer extends DefaultTableCellRenderer implements TableCel
 
     /**
      * Actualise l'affiche des cours vide dynamiquement.
-     *
      * @param table Jtable
      * @param row int
      */
-
 
     private void update(JTable table,int row,int col){
         if(row==table.getRowCount()-1){

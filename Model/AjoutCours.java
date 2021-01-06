@@ -5,22 +5,26 @@ import View.Home;
 import View.Tableau;
 
 import javax.swing.*;
-import javax.swing.table.TableColumn;
 import java.awt.*;
 import java.util.ArrayList;
 
 public class AjoutCours {
-    private Home home;
+    private final Home home;
     private Cours cours;
 
+    /**
+     * Ajoute un cours dans un bloc d'un programme de l'xml et du tableau.
+     * @param home Home
+     * @param args Object[]
+     */
     public AjoutCours(Home home, Object[] args) {
         this.home = home;
         JDialog dialog = (JDialog) args[0];
-        JList listeProgramme = (JList) args[9];
+        JList<Programme> listeProgramme = (JList<Programme>) args[9];
         if (isCoursValid((JTextField) args[3], (JTextField) args[2], (JTextField) args[1], listeProgramme)) {
             ButtonModel selection = ((ButtonGroup) args[4]).getSelection();
             if (selection != null) {
-                setBloc(selection.getActionCommand(),(ButtonGroup)args[5],(JTextField)args[2],(JTextField)args[7],(JTextField)args[6],(JList)args[8],(JList)args[9],(JTextField)args[3]);
+                setBloc(selection.getActionCommand(),(ButtonGroup)args[5],(JTextField)args[2],(JTextField)args[7],(JTextField)args[6],(JList<Bloc>)args[8],listeProgramme,(JTextField)args[3]);
                 dialog.dispose();
                 ProgramSwitch programSwitch = new ProgramSwitch(home);
                 programSwitch.Switch(-1);
@@ -28,14 +32,22 @@ public class AjoutCours {
         }
     }
 
-    private boolean isCoursValid(JTextField id, JTextField coeff, JTextField nom, JList listeProgramme) {
+    /**
+     * Verifie si le Cours peut etre instancier avec les champs fournis.
+     * @param id JTextField
+     * @param coeff JTextField
+     * @param nom JTextField
+     * @param listeProgramme JList<Programme>
+     * @return boolean
+     */
+    private boolean isCoursValid(JTextField id, JTextField coeff, JTextField nom, JList<Programme> listeProgramme) {
         if (home.getXml().getProgramList().size() == 0) {
             listeProgramme.setForeground(Color.red);
             return false;
         }
         boolean isValid = false;
         try {
-            cours = new Cours(id.getText(), Integer.valueOf(coeff.getText()), nom.getText());
+            cours = new Cours(id.getText(), Integer.parseInt(coeff.getText()), nom.getText());
             if (XMLReader.isIdCourseAlreadyExist(home.getXml().getCourseList(), cours.getId())) {
                 throw new IdUeDuplicationException(cours);
             }
@@ -61,7 +73,19 @@ public class AjoutCours {
         return isValid;
     }
 
-    private void setBloc(String selection, ButtonGroup nouveau, JTextField coeff, JTextField id, JTextField nom, JList blocs, JList programmes, JTextField idcours) {
+    /**
+     * Ajoute ou modifie le Bloc selon les champs
+     * et ajoute le cours a celui ci.
+     * @param selection String
+     * @param nouveau ButtonGroup
+     * @param coeff JTextField
+     * @param id JTextField
+     * @param nom JTextField
+     * @param blocs JList<Bloc>
+     * @param programmes JList<Programme>
+     * @param idcours JTextField
+     */
+    private void setBloc(String selection, ButtonGroup nouveau, JTextField coeff, JTextField id, JTextField nom, JList<Bloc> blocs, JList<Programme> programmes, JTextField idcours) {
         XMLReader xml = home.getXml();
         ArrayList<Cours> coursArrayList = xml.getCourseList();
         ArrayList<Programme> programmeArrayList = xml.getProgramList();
@@ -76,7 +100,7 @@ public class AjoutCours {
                 if (selection.equals("1")) {
                     if(nouveau.getSelection().getActionCommand().equals("nouveau")){
                         try{
-                            BlocOptions blocOptions=new BlocOptions(id.getText(), Integer.valueOf(coeff.getText()), nom.getText(), currentProgramme);
+                            BlocOptions blocOptions=new BlocOptions(id.getText(), Integer.parseInt(coeff.getText()), nom.getText(), currentProgramme);
                             blocOptions.add(cours);
                             coeff.setBorder(PopUp.normalBorder);
                             id.setBorder(PopUp.normalBorder);
@@ -148,7 +172,6 @@ public class AjoutCours {
             }
         }
         coursArrayList.add(cours);
-        System.out.println("Actualisation...");
         TabCreation tabCreation=new TabCreation(home,coursArrayList, xml.getStudentList());
         Tableau tab=new Tableau(tabCreation);
         home.setTab(tab);

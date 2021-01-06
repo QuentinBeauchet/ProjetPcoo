@@ -69,6 +69,11 @@ public class MyTools {
         return myArray;
     }
 
+    /**
+     * Arrondit les double a 4 chiffres apres la virgule.
+     * @param f double
+     * @return float
+     */
     public static float arondit(double f){
         if(Double.isNaN(f) || Double.isInfinite(f)){
             return Float.NaN;

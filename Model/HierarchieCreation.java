@@ -14,10 +14,8 @@ public class HierarchieCreation {
 
     /**
      * Classe qui affiche le JDialog contenant le JTree de la hierarchie des programmes.
-     *
      * @param home Home
      */
-
     public HierarchieCreation(Home home){
         this.home=home;
         setDialogBox();
@@ -25,11 +23,9 @@ public class HierarchieCreation {
 
     /**
      * Classe qui filtre les cours du tableau.
-     *
      * @param home Home
      * @param filtreUE ArrayList<String>
      */
-
     public HierarchieCreation(Home home,ArrayList<String> filtreUE){
         this.home=home;
         if(filtreUE.size()>0){
@@ -39,10 +35,8 @@ public class HierarchieCreation {
 
     /**
      * Création du JTree des programmes de l'ArrayList<Programme> de l'XMLReader.
-     *
      * @return JTree
      */
-
     private JTree ArbreProgrammesSelectiones(){
         ArrayList<Programme> programList = home.getXml().getProgramList();
         DefaultMutableTreeNode arbre=new DefaultMutableTreeNode("Programmes");
@@ -55,11 +49,9 @@ public class HierarchieCreation {
 
     /**
      * Look&Feel du JTree.
-     *
      * @param arbre DefaultMutableTreeNode
      * @return JTree
      */
-
     private JTree setTreeLF(DefaultMutableTreeNode arbre){
         LookAndFeel previousLF=UIManager.getLookAndFeel();
         try {
@@ -78,7 +70,6 @@ public class HierarchieCreation {
     /**
      * Creation de la JDialog contenant le JTree de la hierarchie des programmes.
      */
-
     private void setDialogBox(){
         JTree arbre=ArbreProgrammesSelectiones();
 
@@ -98,10 +89,8 @@ public class HierarchieCreation {
 
     /**
      * Application du filtre des UE dans la classe ProgramSwitch.
-     *
      * @param filtreUE ArrayList<String>
      */
-
     private void setFiltreUE(ArrayList<String> filtreUE){
         ProgramSwitch programSwitch = new ProgramSwitch(home);
         if(filtreUE.size()>0 && filtreUE.contains("Programmes")){

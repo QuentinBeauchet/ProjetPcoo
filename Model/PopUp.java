@@ -7,8 +7,6 @@ import View.Home;
 import javax.swing.*;
 import javax.swing.border.Border;
 import java.awt.*;
-import java.awt.event.AdjustmentEvent;
-import java.awt.event.AdjustmentListener;
 import java.util.ArrayList;
 
 public class PopUp {
@@ -20,8 +18,8 @@ public class PopUp {
     private JPanel optionPanel;
     private JPanel compositePanel;
     private JPanel multiplePanel;
-    private JList listeBlocs=new JList();
-    private JList choixProgramme;
+    private final JList<Object> listeBlocs=new JList<>();
+    private JList<Programme> choixProgramme;
     private ButtonGroup buttonGroup;
     public static final Border normalBorder = (new JTextField(20)).getBorder();
     public static final Border erreurBorder = BorderFactory.createLineBorder(Color.red);
@@ -29,7 +27,6 @@ public class PopUp {
     /**
      * Classe du JDialog qui permet de confirmer quand on quitte le programme.
      */
-
     public PopUp(String action, Home... home){
         if(home.length!=0){
             this.home=home[0];
@@ -39,6 +36,10 @@ public class PopUp {
         dialog.setVisible(true);
     }
 
+    /**
+     * Change le panel selon l'action.
+     * @param action String
+     */
     private void setPanel(String action){
         dialog.setModalityType(Dialog.ModalityType.APPLICATION_MODAL);
         dialog.setResizable(false);
@@ -75,6 +76,9 @@ public class PopUp {
         dialog.setLocationRelativeTo(null);
     }
 
+    /**
+     * Panel etudiant.
+     */
     private void setPanelEtudiant(){
         JPanel panel=new JPanel();
         panel.setLayout(new GridBagLayout());
@@ -107,7 +111,7 @@ public class PopUp {
             programmes[i]=home.getXml().getProgramList().get(i-1);
         }
 
-        JList choixProgramme=new JList(programmes);
+        JList<?> choixProgramme=new JList<>(programmes);
         choixProgramme.setVisibleRowCount(1);
         panel.add(new JScrollPane(choixProgramme),new GridBagConstraints(1,3,1,1,1,1,GridBagConstraints.CENTER,GridBagConstraints.HORIZONTAL,new Insets(5,-150,0,20),0,0));
 
@@ -118,6 +122,9 @@ public class PopUp {
         dialog.add(panel);
     }
 
+    /**
+     * Panel Cours.
+     */
     private void setPanelCours(){
         JPanel panel=new JPanel(new GridBagLayout());
 
@@ -145,7 +152,6 @@ public class PopUp {
 
         JLabel programme=new JLabel("PROGRAMME:");
         progPanel.add(programme,new GridBagConstraints(0,0,1,1,0,0,GridBagConstraints.CENTER,GridBagConstraints.HORIZONTAL,new Insets(0,0,0,0),0,0));
-
 
         progPanel.add(setProgrammeList(),new GridBagConstraints(1,0,1,1,1,1,GridBagConstraints.CENTER,GridBagConstraints.HORIZONTAL,new Insets(0,26,0,20),0,0));
 
@@ -226,6 +232,9 @@ public class PopUp {
         dialog.add(panel);
     }
 
+    /**
+     * Panel Programme.
+     */
     private void setPanelProgramme(){
         JPanel panel=new JPanel(new GridBagLayout());
 
@@ -251,9 +260,8 @@ public class PopUp {
 
 
     /**
-     * Configure le JPanel contenu dans le JDialog pour l'action Quitter.
+     * Panel Quitter.
      */
-
     private void setPanelQuitter(){
         JPanel panel=new JPanel();
         panel.setLayout(new GridBagLayout());
@@ -285,10 +293,8 @@ public class PopUp {
 
     /**
      * Configure le style des boutons du JPanel.
-     *
      * @param bouton JButton
      */
-
     private void setStyleBouton(JButton bouton){
         bouton.setBackground(new Color(59, 89, 182));
         bouton.setForeground(Color.WHITE);
@@ -298,11 +304,9 @@ public class PopUp {
 
     /**
      * Configure le Look&Feel des boutons du JPanel.
-     *
      * @param s String
      * @return JButton
      */
-
     private JButton setBoutonLF(String s){
         JButton bouton;
         LookAndFeel previousLF = UIManager.getLookAndFeel();
@@ -319,12 +323,15 @@ public class PopUp {
         return bouton;
     }
 
+    /**
+     * Filtre les blocs multiple selon leurs type pour chaque programme.
+     */
     private void filterBlocsType(){
         ArrayList<Programme> programmes=home.getXml().getProgramList();
         blocOptionsArrayList=new ArrayList<>();
         blocCompositeArrayList=new ArrayList<>();
-        if(!(choixProgramme.getModel().getElementAt(0).equals("Aucun programme disponible"))){
-            Integer index=choixProgramme.getLastVisibleIndex();
+        if(!(choixProgramme.getModel().getElementAt(0).getNom().equals("Aucun programme disponible"))){
+            int index=choixProgramme.getLastVisibleIndex();
             ArrayList<Bloc> blocsArrayList=programmes.get(index).getBlocs();
             for(Bloc b:blocsArrayList){
                 if (BlocComposite.class.equals(b.getClass())) {
@@ -337,14 +344,17 @@ public class PopUp {
         }
     }
 
-    public boolean setBlocVisible(int index){
-        boolean isVisible=false;
+    /**
+     * Permet de cacher le contenu selon le type de bloc
+     * lors de l'ajout de cours.
+     * @param index int
+     */
+    public void setBlocVisible(int index){
         for (int i = 0; i < blocs.length; i++) {
             JPanel panel=blocs[i];
             panel.setVisible(false);
             if(i==index){
                 panel.setVisible(true);
-                isVisible=true;
                 filterBlocsType();
                 if(index==1){
                     ArrayToJList(blocOptionsArrayList, optionPanel);
@@ -360,9 +370,13 @@ public class PopUp {
                 panel.setVisible(false);
             }
         }
-        return isVisible;
     }
 
+    /**
+     * Crée une JList selon une ArrayList<Bloc> et l'ajoute au JPanel.
+     * @param blocOptionsArrayList ArrayList<Bloc>
+     * @param Panel JPanel
+     */
     private void ArrayToJList(ArrayList<Bloc> blocOptionsArrayList, JPanel Panel) {
         for(Component c:multiplePanel.getComponents()){
             if(c.getClass().equals(JScrollPane.class)){
@@ -378,18 +392,22 @@ public class PopUp {
         Panel.add(multiplePanel);
     }
 
+    /**
+     * Crée la JList des programmes de l'xml.
+     * @return JScrollPane
+     */
     private JScrollPane setProgrammeList(){
         int len=home.getXml().getProgramList().size();
         Object[] programmes;
         if(len>0){
-            programmes=new Object[len];
+            programmes=new Programme[len];
             for (int i = 0; i < len; i++) {
                 programmes[i]=home.getXml().getProgramList().get(i);
             }
         }
         else{
-            programmes=new Object[1];
-            programmes[0]="Aucun programme disponible";
+            programmes=new Programme[1];
+            programmes[0]=new Programme("Aucun programme disponible","111111111111111111111");
         }
 
         choixProgramme=new JList(programmes);
@@ -398,12 +416,9 @@ public class PopUp {
         choixProgramme.setVisibleRowCount(1);
         JScrollPane jScrollPane = new JScrollPane(choixProgramme);
         JScrollBar bar=jScrollPane.getVerticalScrollBar();
-        bar.addAdjustmentListener(new AdjustmentListener() {
-            @Override
-            public void adjustmentValueChanged(AdjustmentEvent e) {
-                if(buttonGroup.getSelection()!=null){
-                    setBlocVisible(Integer.parseInt(buttonGroup.getSelection().getActionCommand()));
-                }
+        bar.addAdjustmentListener(e -> {
+            if(buttonGroup.getSelection()!=null){
+                setBlocVisible(Integer.parseInt(buttonGroup.getSelection().getActionCommand()));
             }
         });
         return jScrollPane;

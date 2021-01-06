@@ -12,42 +12,30 @@ public class HierarchieBouton implements MouseListener{
     /**
      * Classe qui instancie une nouvelle HierarchieCreation
      * quand click sur le boutton hierarchie.
-     *
      * @param home Home
      */
-
     public HierarchieBouton(Home home) {
         this.home=home;
     }
 
     /**
      * Instanciation de la HierarchieCreation.
-     *
      * @param mouseEvent MouseEvent
      */
-
     @Override
     public void mouseClicked(MouseEvent mouseEvent) {
         new HierarchieCreation(home);
     }
 
     @Override
-    public void mousePressed(MouseEvent mouseEvent) {
-
-    }
+    public void mousePressed(MouseEvent mouseEvent) { }
 
     @Override
-    public void mouseReleased(MouseEvent mouseEvent) {
-
-    }
+    public void mouseReleased(MouseEvent mouseEvent) { }
 
     @Override
-    public void mouseEntered(MouseEvent mouseEvent) {
-
-    }
+    public void mouseEntered(MouseEvent mouseEvent) { }
 
     @Override
-    public void mouseExited(MouseEvent mouseEvent) {
-
-    }
+    public void mouseExited(MouseEvent mouseEvent) { }
 }

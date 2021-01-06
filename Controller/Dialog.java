@@ -15,11 +15,9 @@ public class Dialog implements WindowListener {
 
     /**
      * Classe de l'EventListener du JDialog de l'heritage.
-     *
      * @param home Home
      * @param arbre JTree
      */
-
     public Dialog(Home home, JTree arbre){
         this.arbre=arbre;
         this.home=home;
@@ -27,10 +25,8 @@ public class Dialog implements WindowListener {
 
     /**
      * Applique un filtre au tableau selon les UE selectionés dans le JTree a la fermeture du JDialog.
-     *
      * @param windowEvent WindowEvent
      */
-
     @Override
     public void windowClosing(WindowEvent windowEvent) {
         TreeSelectionModel selectionModel = arbre.getSelectionModel();
@@ -43,32 +39,20 @@ public class Dialog implements WindowListener {
     }
 
     @Override
-    public void windowOpened(WindowEvent windowEvent) {
-
-    }
+    public void windowOpened(WindowEvent windowEvent) { }
 
     @Override
-    public void windowClosed(WindowEvent windowEvent) {
-
-    }
+    public void windowClosed(WindowEvent windowEvent) { }
 
     @Override
-    public void windowIconified(WindowEvent windowEvent) {
-
-    }
+    public void windowIconified(WindowEvent windowEvent) { }
 
     @Override
-    public void windowDeiconified(WindowEvent windowEvent) {
-
-    }
+    public void windowDeiconified(WindowEvent windowEvent) { }
 
     @Override
-    public void windowActivated(WindowEvent windowEvent) {
-
-    }
+    public void windowActivated(WindowEvent windowEvent) { }
 
     @Override
-    public void windowDeactivated(WindowEvent windowEvent) {
-
-    }
+    public void windowDeactivated(WindowEvent windowEvent) { }
 }

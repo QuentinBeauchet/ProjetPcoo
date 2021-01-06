@@ -12,11 +12,9 @@ public class RechercheField implements KeyListener {
 
     /**
      * Classe de L'EventListener de la barre de recherche.
-     *
      * @param texte JTextField
      * @param home Home
      */
-
     public RechercheField(JTextField texte,Home home){
         this.texte=texte;
         this.home=home;
@@ -24,10 +22,8 @@ public class RechercheField implements KeyListener {
 
     /**
      * Actualise le sorter des lignes du tableau lorsque qu'une touche est relaché.
-     *
      * @param keyEvent KeyEvent
      */
-
     @Override
     public void keyReleased(KeyEvent keyEvent) {
         home.getTab().setSorter(texte.getText());

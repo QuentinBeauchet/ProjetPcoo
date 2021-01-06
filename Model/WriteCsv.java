@@ -12,7 +12,9 @@ public class WriteCsv {
 
     public WriteCsv(XMLReader xmlReader) {
         this.xmlReader = xmlReader;
-
+        for(Programme p: xmlReader.getProgramList()){
+            printCSV(p);
+        }
     }
 
     /**
@@ -67,7 +69,6 @@ public class WriteCsv {
 
             writer.write(sb.toString());
 
-            System.out.println("done!");
 
         } catch (FileNotFoundException e) {
             System.out.println(e.getMessage());

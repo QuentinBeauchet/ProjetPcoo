@@ -8,21 +8,17 @@ public class HierarchieSelection {
 
     /**
      * Classe qui crée une DefaultMutableTreeNode a partir d'un Programme.
-     *
      * @param programme Programme
      */
-
     public HierarchieSelection(Programme programme){
         arbre=CreationArbre(programme);
     }
 
     /**
      * Creation de la DefaultMutableTreeNode pour un Programme.
-     *
      * @param CurrentProgramme Programme
      * @return DefaultMutableTreeNode
      */
-
     private DefaultMutableTreeNode CreationArbre(Programme CurrentProgramme){
         ArrayList<Bloc> blocs=CurrentProgramme.getBlocs();
         DefaultMutableTreeNode Racine=new DefaultMutableTreeNode(CurrentProgramme.getNom());
@@ -44,10 +40,8 @@ public class HierarchieSelection {
 
     /**
      * Renvoit la DefaultMutableTreeNode racine de tous les programmes.
-     *
      * @return DefaultMutableTreeNode
      */
-
     public DefaultMutableTreeNode getArbre() {
         return arbre;
     }

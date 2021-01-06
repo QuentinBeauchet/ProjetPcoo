@@ -21,7 +21,6 @@ public class StartView {
      * Classe qui affiche la JFrame qui est presente au lancement du programme,
      * celle ci permet que choisir un fichier xml, ou de commencer sur un nouveau tableau.
      */
-
     public StartView(){
         try {UIManager.setLookAndFeel("com.sun.java.swing.plaf.gtk.GTKLookAndFeel");}catch (Exception exception){/*Ne rien faire*/}
         frame = new JFrame("Projet PCOO");
@@ -38,7 +37,6 @@ public class StartView {
     /**
      * Crée les differents composants de la JFrame, leurs layout et leurs style.
      */
-
     private void setLayout(){
         JPanel panel=new JPanel();
         panel.setLayout(new GridBagLayout());
@@ -88,7 +86,6 @@ public class StartView {
      * nouveau->Boutons("StartNew",StartView)->Ferme la JFrame et instancie la classe Home avec un xml vide
      * quitter->Boutons("Start",StartView)->Ferme le programme
      */
-
     private void setListener(){
         fichier.addActionListener(new Boutons("Start",this));
         oui.addActionListener(new Boutons("Launch",this));
@@ -99,10 +96,8 @@ public class StartView {
 
     /**
      * Rend visible le JPanel de confirmation.
-     *
      * @param bool boolean
      */
-
     public void showConfirmation(boolean bool){
         for(Component c:confirmation.getComponents()){
             c.setVisible(bool);
@@ -111,20 +106,16 @@ public class StartView {
 
     /**
      * Change le fichier du xml.
-     *
      * @param file File
      */
-
     public void setPath(File file){
         this.file=file;
     }
 
     /**
      * Change le message affiché dans le JPanel.
-     *
      * @param s String
      */
-
     public void setText(String s){
         texte.setText(s);
     }
@@ -132,17 +123,14 @@ public class StartView {
     /**
      * Ferme la JFrame.
      */
-
     public void dispose(){
         frame.dispose();
     }
 
     /**
-     * Renvoit le fichier du xml.
-     *
+     * Renvoit le Fichier du xml.
      * @return File
      */
-
     public File getFile(){
         return file;
     }

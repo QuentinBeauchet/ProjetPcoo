@@ -3,20 +3,19 @@ package Model;
 import Exceptions.IdProgramDuplicationException;
 import Exceptions.IdProgramInvalidException;
 import Exceptions.NameProgramInvalidException;
-import Exceptions.ProgramException;
 import View.Home;
 
 import javax.swing.*;
-import javax.swing.border.Border;
-import java.awt.*;
 import java.util.ArrayList;
 
 public class AjoutProgramme {
-    private Home home;
-    private static final Border border=(new JTextField(20)).getBorder();
 
+    /**
+     * Ajoute un Programme a l'xml et au tableau.
+     * @param home Home
+     * @param args Object[]
+     */
     public AjoutProgramme(Home home, Object[] args){
-        this.home=home;
         JDialog dialog=(JDialog)args[0];
         JTextField nom=((JTextField)args[1]);
         JTextField id=((JTextField)args[2]);
@@ -27,17 +26,17 @@ public class AjoutProgramme {
                 throw new IdProgramDuplicationException(programme);
             }
             programmeArrayList.add(programme);
-            nom.setBorder(border);
-            id.setBorder(border);
+            nom.setBorder(PopUp.normalBorder);
+            id.setBorder(PopUp.normalBorder);
             dialog.dispose();
         }
         catch (IdProgramInvalidException exception){
-            nom.setBorder(border);
-            id.setBorder(BorderFactory.createLineBorder(Color.red));
+            nom.setBorder(PopUp.normalBorder);
+            id.setBorder(PopUp.erreurBorder);
         }
         catch (NameProgramInvalidException exception){
-            id.setBorder(border);
-            nom.setBorder(BorderFactory.createLineBorder(Color.red));
+            id.setBorder(PopUp.normalBorder);
+            nom.setBorder(PopUp.erreurBorder);
         }
     }
 }

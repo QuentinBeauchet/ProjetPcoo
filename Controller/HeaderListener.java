@@ -16,20 +16,16 @@ public class HeaderListener implements MouseListener{
     /**
      * Classe de l'EventListener de l'Header du tableau qui permet d'afficher
      * les nom des cours quand on laisse la souris dessus au bout de 0.2s.
-     *
      * @param table JTable
      */
-
     public HeaderListener(JTable table){
         tableau=table;
     }
 
     /**
      * Creation du JDialog avec le nom du cours a la position de la souris.
-     *
      * @param mouseEvent MouseEvent
      */
-
     @Override
     public void mouseEntered(MouseEvent mouseEvent) {
         try {
@@ -50,10 +46,8 @@ public class HeaderListener implements MouseListener{
 
     /**
      * Supression du JDialog quand on sors de l'Header.
-     *
      * @param mouseEvent MouseEvent
      */
-
     @Override
     public void mouseExited(MouseEvent mouseEvent) {
         dialog.dispose();
@@ -61,10 +55,8 @@ public class HeaderListener implements MouseListener{
 
     /**
      * Application du nom du cours dans le JDialog.
-     *
      * @param currentcolumn TableColumn
      */
-
     private void setLabel(TableColumn currentcolumn){
         texte=new JLabel((String) currentcolumn.getHeaderValue());
         texte.setFont(new Font("Verdana", Font.BOLD, 12));
@@ -78,10 +70,8 @@ public class HeaderListener implements MouseListener{
 
     /**
      * Style du dialog.
-     *
      * @param pos Point
      */
-
     private void setDialog(Point pos){
         dialog.setUndecorated(true);
         dialog.setMinimumSize(new Dimension((int)texte.getPreferredSize().getWidth()+10,(int)texte.getPreferredSize().getHeight()));
@@ -91,18 +81,12 @@ public class HeaderListener implements MouseListener{
     }
 
     @Override
-    public void mouseClicked(MouseEvent mouseEvent) {
-
-    }
+    public void mouseClicked(MouseEvent mouseEvent) { }
 
     @Override
-    public void mousePressed(MouseEvent mouseEvent) {
-
-    }
+    public void mousePressed(MouseEvent mouseEvent) { }
 
     @Override
-    public void mouseReleased(MouseEvent mouseEvent) {
-
-    }
+    public void mouseReleased(MouseEvent mouseEvent) { }
 
 }

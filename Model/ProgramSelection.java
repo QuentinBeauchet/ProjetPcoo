@@ -12,10 +12,8 @@ public class ProgramSelection {
     /**
      * Classe qui crée un TabCreation[] de tout les Programmes du XMLreader
      * pour facilement passer de l'affichage d'un programme a un autre.
-     *
-     * @param xml XMLReader
+     * @param home Home
      */
-
     public ProgramSelection(Home home){
         this.home=home;
         XMLReader xml=home.getXml();
@@ -26,11 +24,9 @@ public class ProgramSelection {
     /**
      * Renvoit l'ArrayList des tous les etudiants inscrit dans le programme
      * a l'index i dans l'ArrayList<Programme> de l'XMLReader.
-     *
      * @param index int
      * @return ArrayList<Etudiant>
      */
-
     private ArrayList<Etudiant> ListeEtudiantsIndex(int index){
         ArrayList<Etudiant> etudiants=new ArrayList<>();
         for(Etudiant e:studentList){
@@ -44,11 +40,9 @@ public class ProgramSelection {
     /**
      * Renvoit l'ArrayList de tous les cours presents dans le programme
      * a l'index i dans l'ArrayList<Programme> de l'XMLReader.
-     *
      * @param index int
      * @return ArrayList<Cours>
      */
-
     private ArrayList<Cours> ListeCoursIndex(int index){
         ArrayList<UE> ue=new ArrayList<>();
         ArrayList<Bloc> blocs=programList.get(index).getBlocs();
@@ -65,11 +59,9 @@ public class ProgramSelection {
     /**
      * Renvoit le TabCreation pour les etudiants et les cours du programme
      * a l'index i dans l'ArrayList<Programme> de l'XMLReader.
-     *
      * @param index int
      * @return TabCreation
      */
-
     private TabCreation TabProgrammeIndex(int index){
         return new TabCreation(home,ListeCoursIndex(index),ListeEtudiantsIndex(index));
     }
@@ -77,10 +69,8 @@ public class ProgramSelection {
     /**
      * Renvoit le tableau TabCreation[] qui contient les TabCreation pour chaque
      * programme dans l'ArrayList<Programme> de l'XMLReader.
-     *
      * @return TabCreation[]
      */
-
     public TabCreation[] TabProgrammes(){
         TabCreation[] tab=new TabCreation[programList.size()];
         for (int i = 0; i < programList.size(); i++) {

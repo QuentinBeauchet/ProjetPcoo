@@ -5,7 +5,7 @@ import View.Home;
 import java.util.ArrayList;
 
 public class TabCreation {
-    public final int NBR_COMPOSANTS_ETUDIANTS=5;
+    public static final int NBR_COMPOSANTS_ETUDIANTS=5;
     private static final int NBR_LIGNES_CALCULS=4;
     private Home home;
     private Object[] colones;

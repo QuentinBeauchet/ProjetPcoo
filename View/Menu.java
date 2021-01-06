@@ -20,10 +20,8 @@ public class Menu {
      * Classe qui contient tous les composants de la JMenuBar,
      * c'est aussi elle qui initialise les EventListener pour les boutons du menu
      * et qui defini leurs style.
-     *
      * @param home Home
      */
-
     public Menu(Home home){
         this.home=home;
         MenuBar=new JMenuBar();
@@ -32,13 +30,11 @@ public class Menu {
         setHierarchie();
         setRecherche();
         setStyle();
-
     }
 
     /**
      * Defini le style de la JMenuBar.
      */
-
     private void setStyle(){
         MenuBar.setMargin(new Insets(5,10,5,10));
         MenuBar.setBorder(BorderFactory.createLoweredSoftBevelBorder());
@@ -48,9 +44,9 @@ public class Menu {
      * Crée les composants du JMenu Fichier:
      * Ouvrir->Appele la classe Boutons("Ouvrir",Home)->Ouvre JFileChooser pour changer de xml
      * Enregistrer->Appele la classe Boutons("Enregistrer",Home)->Appele les classes XMlMaker et WriteCSV pour sauvegarder les données dans des nouveaux fichier
+     * Enregistrer Sous->Permet de choisir la destination de la sauvegarde
      * Quitter->Appele la classe Boutons("Quitter",Home)->Fermer le programme
      */
-
     private void setFichier(){
         JMenu Fichier=new JMenu("Fichier");
         Fichier.setMnemonic(KeyEvent.VK_F);
@@ -84,7 +80,6 @@ public class Menu {
      * de la hierarchie des programmes du fichier xml.
      * La selection de ceux ci permet de realiser un filtrage sur le tableau.
      */
-
     private void setHierarchie(){
         JLabel Hierarchie=new JLabel("Hierarchie");
         Hierarchie.addMouseListener(new HierarchieBouton(home));
@@ -107,7 +102,6 @@ public class Menu {
      * Crée le JTextField qui appele L'EventListener RechercheField(JTextField,Home),
      * celui ci permet de realiser un filtrage des Nom/Prenom/Numero Etudiants sur le tableau.
      */
-
     private void setRecherche(){
         JTextField Recherche=new JTextField();
         Recherche.setMaximumSize(new Dimension(200,20));
@@ -121,6 +115,10 @@ public class Menu {
         MenuBar.add(Recherche);
     }
 
+    /**
+     * JMenu qui permet d'editer le xml, ajout/suppression etudiant,
+     * ajout de cours et de programme.
+     */
     private void setEdit(){
         JMenu edit=new JMenu("Edit");
         edit.setMnemonic(KeyEvent.VK_E);
@@ -150,7 +148,6 @@ public class Menu {
 
     /**
      * Renvoit la JMenuBar.
-     *
      * @return JMenuBar
      */
     public JMenuBar getMenuBar() {

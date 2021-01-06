@@ -10,6 +10,14 @@ public class CustomTableModel extends DefaultTableModel{
     private final String name;
     private final Home home;
 
+    /**
+     * TableModel de swing custom pour avoir le tableau aves
+     * des classes specifiques par ca colones.
+     * @param home Home
+     * @param lignes Object[][]
+     * @param colones Object[]
+     * @param name String
+     */
     public CustomTableModel(Home home, Object[][] lignes, Object[] colones, String name) {
         super(lignes,colones);
         this.name=name;
@@ -19,7 +27,6 @@ public class CustomTableModel extends DefaultTableModel{
     @Override
     public void setValueAt(Object obj, int row, int col) {
         if(name.equals("tableau")){
-            System.out.println(obj);
             updateXML(obj,row,col);
         }
         if(name.equals("tableau") && getColumnClass(col)==Note.class){
@@ -59,6 +66,12 @@ public class CustomTableModel extends DefaultTableModel{
         return !(column==3 || column==4 || name.equals("calculs"));
     }
 
+    /**
+     * Actualise l'xml apres chaque modification du tableau.
+     * @param obj Object
+     * @param row int
+     * @param col int
+     */
     private void updateXML(Object obj,int row,int col){
         XMLReader xmlReader=home.getXml();
         ArrayList<Etudiant> students=xmlReader.getStudentList();
@@ -95,6 +108,12 @@ public class CustomTableModel extends DefaultTableModel{
         }
     }
 
+    /**
+     * Actualise le tableau calcul apres chaque modification du tableau.
+     * @param students ArrayList<Etudiant>
+     * @param col int
+     * @param currentcours Cours...
+     */
     private void updateCalculs(ArrayList<Etudiant> students,int col,Cours... currentcours){
         JScrollPane pane = (JScrollPane) home.getTab().getPanel().getComponent(1);
         JViewport viewport = pane.getViewport();

@@ -15,7 +15,6 @@ public class Home {
     /**
      * Classe principale qui gere la JFrame qui contient le tableau et le menu,
      * elle est initialisé une fois que StartView est terminé.
-     *
      * @param xml XMLReader
      */
     public Home(XMLReader xml) {
@@ -35,12 +34,19 @@ public class Home {
         frame.setVisible(true);
     }
 
+    /**
+     * Initialise le tableau selon l'XMLReader.
+     */
     private void setTab() {
         TabCreation tabCreation = new TabCreation(this,xml.getCourseList(),xml.getStudentList());
         tab = new Tableau(tabCreation);
         frame.add(tab.getPanel());
     }
 
+    /**
+     * Change le tableau actuel d'apres un Tableau passé en parametre.
+     * @param t Tableau
+     */
     public void setTab(Tableau t) {
         frame.remove(tab.getPanel());
         tab=t;
@@ -48,6 +54,9 @@ public class Home {
         frame.validate();
     }
 
+    /**
+     * Initialise le Menu.
+     */
     private void setMenu() {
         Menu menu=new Menu(this);
         frame.add(menu.getMenuBar(), BorderLayout.NORTH);
@@ -55,7 +64,6 @@ public class Home {
 
     /**
      * Renvoit l'XMLReader.
-     *
      * @return XMLReader
      */
     public XMLReader getXml() {
@@ -64,7 +72,6 @@ public class Home {
 
     /**
      * Renvoit la JFrame.
-     *
      * @return JFrame
      */
     public JFrame getFrame() {
@@ -73,7 +80,6 @@ public class Home {
 
     /**
      * Renvoit la classe qui contient tout les composants du tableau, Tableau.
-     *
      * @return Tableau
      */
     public Tableau getTab() {

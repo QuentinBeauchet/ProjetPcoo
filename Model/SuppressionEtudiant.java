@@ -5,6 +5,11 @@ import View.Home;
 import javax.swing.table.DefaultTableModel;
 
 public class SuppressionEtudiant {
+
+    /**
+     * Classe qui permet de supprimer un etudiant de l'xml
+     * et du tableau depuis le menu.
+     */
     public SuppressionEtudiant(Home home){
         int selectedRow = home.getTab().getTableau().getSelectedRow();
         if(selectedRow!=-1){

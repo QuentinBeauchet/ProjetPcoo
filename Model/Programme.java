@@ -2,8 +2,6 @@ package Model;
 
 import Exceptions.*;
 
-import java.math.BigDecimal;
-import java.math.MathContext;
 import java.util.ArrayList;
 import java.util.Objects;
 
@@ -55,15 +53,6 @@ public class Programme {
     }
 
     /**
-     * Test si un étudiant a validé un programme
-     * @param e l'étudiant
-     * @return boolean
-     */
-    public boolean isValidated(Etudiant e){
-        return getNoteProgramme(e) >= 10;
-    }
-
-    /**
      * Renvoit la note d'un Etudiant pour ce Programme.
      *
      * @param e Etudiant
@@ -83,10 +72,6 @@ public class Programme {
         return MyTools.arondit(somme/total);
     }
 
-
-
-
-
     /**
      * Retourne une version XML d'un Programme
      * @param sb le StringBuilder auquel ajouter le programme
@@ -101,6 +86,7 @@ public class Programme {
         }
         sb.append("    </program>\n");
     }
+
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
