@@ -29,8 +29,9 @@ public class Boutons implements ActionListener{
      * "Start"->Appel de JFileChooser dans StartView
      * "StartNew"->Passage de la StartView a Home avec un XMLReader()
      * "Launch"->Passage de la StartView a Home avec un XMLReader(fichier)
-     * "Enregistrer"->Sauvegarde les donnés sous le format xml et csv
+     * "Enregistrer"->Sauvegarde les donnés sous le format xml
      * "Enregister Sous"->Choix de l'emplacement de sauvegarde
+     * "CSV"->Sauvegarde les Programmes au format csv
      * "ShortCut"->Appel la classe HierarchieCreation
      * "Quitter"->Appel a la classe PopUpConfirmation
      * "Ajouter un etudiant" | "Ajouter un cours" | "Ajouter un programme"->Appele PopUp avec une action differente chacun
