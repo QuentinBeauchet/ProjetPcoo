@@ -48,7 +48,7 @@ public class AjoutCours {
         boolean isValid = false;
         try {
             cours = new Cours(id.getText(), Integer.parseInt(coeff.getText()), nom.getText());
-            if (XMLReader.isIdCourseAlreadyExist(home.getXml().getCourseList(), cours.getId())) {
+            if (MyTools.isIdCourseAlreadyExist(home.getXml().getCourseList(), cours.getId())) {
                 throw new IdUeDuplicationException(cours);
             }
             isValid = true;

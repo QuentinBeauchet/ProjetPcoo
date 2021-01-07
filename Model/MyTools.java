@@ -82,5 +82,72 @@ public class MyTools {
         MathContext mathContext =new MathContext(4);
         return bigDecimal.round(mathContext).floatValue();
     }
+
+    /**
+     * Teste si un id existe déjà parmi les ues existants
+     * @param ues la liste des ue
+     * @param id l'id à tester
+     * @return boolean vrai si trouvé
+     */
+    public static boolean isIdUEAlreadyExist(ArrayList<UE> ues, String id){
+        for (UE ue: ues){
+            if(ue.getId().equals(id))return true;
+        }
+        return false;
+    }
+    /**
+     * Teste si un id existe déjà parmi les blocs existants
+     * @param blocs la liste des blocs
+     * @param id l'id à tester
+     * @return boolean vrai si trouvé
+     */
+    public static boolean isIdBlocAlreadyExist(ArrayList<Bloc> blocs, String id){
+        for (Bloc b : blocs){
+            if(b.getId().equals(id))return true;
+        }
+        return false;
+    }
+
+    /**
+     * Teste si un id existe déjà parmi les cours existants
+     * @param cours la liste des cours
+     * @param id l'id à tester
+     * @return boolean vrai si trouvé
+     */
+    public static boolean isIdCourseAlreadyExist(ArrayList<Cours> cours, String id){
+        for (Cours c: cours
+        ) {
+            if(c.getId().equals(id))return true;
+        }
+        return false;
+    }
+
+    /**
+     * Teste si un id existe déjà parmi les programmes existants
+     * @param programs la liste des programmes
+     * @param id l'id à tester
+     * @return boolean vrai si trouvé
+     */
+    public static boolean isIdProgramAlreadyExist(ArrayList<Programme> programs,String id){
+        for (Programme p: programs
+        ) {
+            if(p.getId().equals(id))return true;
+        }
+        return false;
+    }
+
+    /**
+     * Teste si un id existe déjà parmi les etudiants existants
+     * @param students la liste des etudiants
+     * @param id l'id à tester
+     * @return boolean vrai si trouvé
+     */
+    public static boolean isIdEtudiantAlreadyExist(ArrayList<Etudiant> students ,String id){
+        for (Etudiant e: students
+        ) {
+            if(id.equals(e.getId()))return true;
+        }
+        return false;
+    }
 }
 
