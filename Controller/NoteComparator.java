@@ -3,15 +3,12 @@ package Controller;
 import Model.Note;
 
 import java.util.Comparator;
-
+/**
+ * Classe qui permet de comparer deux notes du tableau.
+ */
 public class NoteComparator implements Comparator<Note> {
 
-    /**
-     * Classe qui permet de comparer deux notes du tableau.
-     * @param n0 Note
-     * @param n1 Note
-     * @return int
-     */
+
     @Override
     public int compare(Note n0, Note n1) {
         String s0=n0.toString();

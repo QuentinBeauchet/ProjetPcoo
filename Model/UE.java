@@ -1,5 +1,8 @@
 package Model;
 
+/**
+ * Interfact définissant les fonctions de base d'une UE
+ */
 public interface UE {
     /**
      * getteur de l'id d'une UE

@@ -4,16 +4,16 @@ import View.Home;
 
 import java.util.ArrayList;
 
+/**
+ * Classe qui crée un TabCreation[] de tout les Programmes du XMLreader
+ * pour facilement passer de l'affichage d'un programme a un autre.
+ */
 public class ProgramSelection {
     private final Home home;
     private final ArrayList<Programme> programList;
     private final ArrayList<Etudiant> studentList;
 
-    /**
-     * Classe qui crée un TabCreation[] de tout les Programmes du XMLreader
-     * pour facilement passer de l'affichage d'un programme a un autre.
-     * @param home Home
-     */
+
     public ProgramSelection(Home home){
         this.home=home;
         XMLReader xml=home.getXml();

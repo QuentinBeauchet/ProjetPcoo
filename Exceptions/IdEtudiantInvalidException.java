@@ -2,6 +2,9 @@ package Exceptions;
 
 import Model.Etudiant;
 
+/**
+ * Exception sur l'id d'un étudiant incorrect
+ */
 public class IdEtudiantInvalidException extends EtudiantException {
 
     public IdEtudiantInvalidException(Etudiant e) {

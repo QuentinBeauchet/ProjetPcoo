@@ -1,5 +1,8 @@
 package Exceptions;
 
+/**
+ * Exception sur le lookAndFeel
+ */
 public class LookAndFeelException extends NullPointerException {
 
     /**

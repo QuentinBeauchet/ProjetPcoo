@@ -2,6 +2,9 @@ package Exceptions;
 
 import Model.UE;
 
+/**
+ * Exception abstraite d'une UE
+ */
 public abstract class UEException extends RuntimeException {
 
     UE ue;
