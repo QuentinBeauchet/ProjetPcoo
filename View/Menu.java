@@ -66,6 +66,11 @@ public class Menu {
         newSave.setAccelerator(KeyStroke.getKeyStroke('L', CTRL_DOWN_MASK));
         Fichier.add(newSave);
 
+        JMenuItem csv=new JMenuItem("CSV");
+        csv.addActionListener(new Boutons(csv.getText(),home));
+        csv.setAccelerator(KeyStroke.getKeyStroke('J', CTRL_DOWN_MASK));
+        Fichier.add(csv);
+
         JMenuItem Close=new JMenuItem("Quitter");
         Close.addActionListener(new Boutons(Close.getText(),home));
         Close.setAccelerator(KeyStroke.getKeyStroke('Q', CTRL_DOWN_MASK));

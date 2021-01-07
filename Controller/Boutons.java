@@ -83,8 +83,6 @@ public class Boutons implements ActionListener{
                 home = (Home) obj;
                 xml = home.getXml();
                 new XMLMaker(xml);
-                new WriteCsv(xml);
-                System.out.println("Sauvegarde effectué");
             }
             case "Enregistrer Sous" -> {
                 home = (Home) obj;
@@ -95,6 +93,11 @@ public class Boutons implements ActionListener{
                     new XMLMaker(home.getXml(), path);
                     new PathSaver(path);
                 }
+            }
+            case "CSV" -> {
+                home = (Home) obj;
+                xml=home.getXml();
+                new WriteCsv(xml);
             }
             case "Shortcut" -> {
                 home = (Home) obj;

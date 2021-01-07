@@ -15,6 +15,7 @@ public class WriteCsv {
         for(Programme p: xmlReader.getProgramList()){
             printCSV(p);
         }
+        System.out.println("CSV enregistrés.");
     }
 
     /**

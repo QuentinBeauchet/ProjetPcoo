@@ -20,6 +20,7 @@ public class XMLMaker {
         if(!xml.getDirectory().equals(""))this.filename = xml.getDirectory()+ "\\" + xml.getFilename();
         try {
             writer();
+            System.out.println("Sauvegarde effectué.");
         } catch (IOException e) {
             e.printStackTrace();
         }

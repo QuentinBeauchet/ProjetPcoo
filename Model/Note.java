@@ -26,8 +26,4 @@ public class Note {
         return note;
     }
 
-    public Note getThisNote(){
-        return this;
-    }
-
 }

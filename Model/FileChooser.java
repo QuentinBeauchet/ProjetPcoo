@@ -23,10 +23,10 @@ public class FileChooser {
 
     public FileChooser(String dialog,String buttonName){
         setLF();
+        chooser.setDialogTitle(dialog);
         FileNameExtensionFilter filter = new FileNameExtensionFilter("Fichiers .xml", "xml");
         chooser.setFileFilter(filter);
         option = chooser.showDialog(null,buttonName);
-        chooser.setDialogTitle(dialog);
     }
 
     /**
