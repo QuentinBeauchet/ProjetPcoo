@@ -27,6 +27,9 @@ public class MyTools {
                     nbrEtudiant=nbrEtudiant+1;
                     noteEtudiant=ue[0].calcNote(e).getFloatNote();
                     somme = somme+noteEtudiant;
+                    if(noteEtudiant<min){
+                        min=noteEtudiant;
+                    }
                 }
                 else{
                     noteEtudiant=0;
@@ -36,28 +39,28 @@ public class MyTools {
                 nbrEtudiant=nbrEtudiant+1;
                 noteEtudiant=e.getP().getNoteProgramme(e);
                 somme = somme+noteEtudiant;
+                if(noteEtudiant<min) {
+                    min = noteEtudiant;
+                }
             }
             if(max<noteEtudiant){
                 max=noteEtudiant;
             }
-            if(noteEtudiant!=0 && noteEtudiant<min){
-                min=noteEtudiant;
-            }
         }
         float moy = somme/nbrEtudiant;
-        float sommeE=0;
+        double sommeE=0;
         for (Etudiant e: studentlist) {
             if (e.getP()==null)continue;
             float noteEtudiant;
             if(ue.length!=0){
                 if(!(ue[0].calcNote(e).toString().equals("") || ue[0].calcNote(e).toString().equals("ABI"))) {
                     noteEtudiant = ue[0].calcNote(e).getFloatNote();
-                    sommeE = sommeE + (float) Math.pow(noteEtudiant / moy, 2);
+                    sommeE = sommeE + Math.pow(noteEtudiant-moy,2);
                 }
             }
             else{
                 noteEtudiant = e.getP().getNoteProgramme(e);
-                sommeE = sommeE + (float) Math.pow(noteEtudiant / moy, 2);
+                sommeE = sommeE + Math.pow(noteEtudiant-moy,2);
             }
         }
         ArrayList<Float> myArray = new ArrayList<>();
@@ -65,7 +68,10 @@ public class MyTools {
         myArray.add(max);
         myArray.add(min);
         myArray.add(arondit(moy));
-        myArray.add(arondit(Math.sqrt(sommeE / (nbrEtudiant - 1))));
+        if(ue.length!=0){
+            System.out.println(ue[0].toString()+" "+nbrEtudiant);
+        }
+        myArray.add(arondit(Math.sqrt(sommeE / nbrEtudiant)));
         return myArray;
     }
 
