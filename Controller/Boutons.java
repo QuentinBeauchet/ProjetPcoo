@@ -9,6 +9,9 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.io.File;
 
+/**
+ * Classe Affectant les différentes actions aux boutons
+ * */
 public class Boutons implements ActionListener{
     private final String action;
     private final Object obj;

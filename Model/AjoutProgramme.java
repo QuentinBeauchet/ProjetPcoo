@@ -22,7 +22,7 @@ public class AjoutProgramme {
         try{
             Programme programme=new Programme(nom.getText(),id.getText());
             ArrayList<Programme> programmeArrayList=home.getXml().getProgramList();
-            if(XMLReader.isIdProgramAlreadyExist(programmeArrayList,programme.getId())){
+            if(MyTools.isIdProgramAlreadyExist(programmeArrayList,programme.getId())){
                 throw new IdProgramDuplicationException(programme);
             }
             programmeArrayList.add(programme);

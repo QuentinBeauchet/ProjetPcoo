@@ -24,7 +24,7 @@ public abstract class BlocMultiple  extends Bloc {
      */
     public BlocMultiple(String id, String nom, Programme p){
         super(id, nom);
-        if(XMLReader.isIdBlocAlreadyExist(p.getBlocs(),id))throw new IdUeDuplicationException(this);
+        if(MyTools.isIdBlocAlreadyExist(p.getBlocs(),id))throw new IdUeDuplicationException(this);
         p.add(this);
     }
 
@@ -33,7 +33,7 @@ public abstract class BlocMultiple  extends Bloc {
      * @param ue à ajouter
      */
     public void add(UE ue){
-        if(XMLReader.isIdUEAlreadyExist(getUE(),ue.getId()))throw new IdUeDuplicationException(ue);
+        if(MyTools.isIdUEAlreadyExist(getUE(),ue.getId()))throw new IdUeDuplicationException(ue);
         this.listUe.add(ue);
     }
 

@@ -5,6 +5,9 @@ import Model.PopUp;
 import java.awt.event.WindowEvent;
 import java.awt.event.WindowListener;
 
+/**
+ * Classe du popup
+ */
 public class Window implements WindowListener {
 
     /**

@@ -10,6 +10,12 @@ import Exceptions.IdUeDuplicationException;
 public class BlocOptions extends BlocMultiple {
     private final int coef;
 
+    /**
+     * construit l'objet bloc option en fixant la valeur du coef que devrait avoir les sous blocs
+     * @param id du bloc
+     * @param coef fixe du bloc
+     * @param nom du bloc
+     */
     public BlocOptions(String id, int coef, String nom) {
         super(id,nom);
         this.coef = coef;

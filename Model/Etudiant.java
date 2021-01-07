@@ -14,6 +14,12 @@ public class Etudiant {
     private Programme p = null;
     private final HashMap<Cours, Note> notes = new HashMap<>();
 
+    /**
+     * Créer l'objet étudiant avec des paramètres valides
+     * @param id de l'etudiant
+     * @param nom de l'etudiant
+     * @param prenom de l'etudiant
+     */
     public Etudiant(String id, String nom, String prenom) {
         this.id = id;
         this.nom = nom;
@@ -128,14 +134,26 @@ public class Etudiant {
         return this.getId()+" : "+this.getNom()+" "+this.getPrenom()+" -> Programe :"+ program;
     }
 
+    /**
+     * setter de l'id
+     * @param id à affecter
+     */
     public void setId(String id){
         this.id=id;
     }
 
+    /**
+     * setter du nom
+     * @param nom à affecter
+     */
     public void setNom(String nom) {
         this.nom = nom;
     }
 
+    /**
+     * setter du prenom
+     * @param prenom à affecter
+     */
     public void setPrenom(String prenom){
         this.prenom=prenom;
     }

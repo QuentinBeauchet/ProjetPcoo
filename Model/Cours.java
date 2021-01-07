@@ -10,6 +10,12 @@ public class Cours implements UE{
     private final int coef;
     private final String nom;
 
+    /**
+     * créer l'objet cours et test si tous les paramètres sont valides
+     * @param id du cours =! ""
+     * @param coef du cours > 0
+     * @param nom du cours =! ""
+     */
     public Cours(String id, int coef, String nom) {
         this.id = id;
         this.coef = coef;

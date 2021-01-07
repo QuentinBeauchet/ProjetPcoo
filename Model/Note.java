@@ -26,4 +26,12 @@ public class Note {
         return note;
     }
 
+    /**
+     * Getter de l'objet
+     * @return this
+     */
+    public Note getThisNote(){
+        return this;
+    }
+
 }

@@ -42,7 +42,7 @@ public class AjoutEtudiant {
         boolean isValid=false;
         try {
             etudiant = new Etudiant(id.getText(), nom.getText(), prenom.getText());
-            XMLReader.isIdEtudiantAlreadyExist(home.getXml().getStudentList(),etudiant.getId());
+            MyTools.isIdEtudiantAlreadyExist(home.getXml().getStudentList(),etudiant.getId());
             isValid=true;
             nom.setBorder(PopUp.normalBorder);
             id.setBorder(PopUp.normalBorder);

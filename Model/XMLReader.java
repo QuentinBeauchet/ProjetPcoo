@@ -135,7 +135,7 @@ public class XMLReader {
                     e.getElementsByTagName("name").item(0).getTextContent()
             );
 
-            if( cours.size()>0 && isIdCourseAlreadyExist(cours,temp.getId())){
+            if( cours.size()>0 && MyTools.isIdCourseAlreadyExist(cours,temp.getId())){
                 throw new IdUeDuplicationException(temp);
             }
             cours.add(temp);
@@ -157,7 +157,7 @@ public class XMLReader {
                     e.getElementsByTagName("name").item(0).getTextContent(),
                     e.getElementsByTagName("identifier").item(0).getTextContent()
             );
-            if(programs.size()>0 && isIdProgramAlreadyExist(programs,temp.getId()))throw new IdProgramDuplicationException(temp);
+            if(programs.size()>0 && MyTools.isIdProgramAlreadyExist(programs,temp.getId()))throw new IdProgramDuplicationException(temp);
             fillOneProgram(e,temp);
             programs.add(temp);
 
@@ -179,7 +179,7 @@ public class XMLReader {
                     e.getElementsByTagName("surname").item(0).getTextContent()
             );
 
-            if(etudiants.size()>1 && isIdEtudiantAlreadyExist(etudiants,etu.getId()))throw new IdEtudiantDuplicationException(etu);
+            if(etudiants.size()>1 && MyTools.isIdEtudiantAlreadyExist(etudiants,etu.getId()))throw new IdEtudiantDuplicationException(etu);
             if(!e.getElementsByTagName("program").item(0).getTextContent().equals("0")){
                 etu.inscris(findProgramById(e.getElementsByTagName("program").item(0).getTextContent()));
                 fillNotesToStudent(e,etu);
@@ -274,72 +274,6 @@ public class XMLReader {
         throw new IdUnknownException(id);
     }
 
-    /**
-     * Teste si un id existe déjà parmi les ues existants
-     * @param ues la liste des ue
-     * @param id l'id à tester
-     * @return boolean vrai si trouvé
-     */
-    public static boolean isIdUEAlreadyExist(ArrayList<UE> ues, String id){
-        for (UE ue: ues){
-            if(ue.getId().equals(id))return true;
-        }
-        return false;
-    }
-    /**
-     * Teste si un id existe déjà parmi les blocs existants
-     * @param blocs la liste des blocs
-     * @param id l'id à tester
-     * @return boolean vrai si trouvé
-     */
-    public static boolean isIdBlocAlreadyExist(ArrayList<Bloc> blocs, String id){
-        for (Bloc b : blocs){
-            if(b.getId().equals(id))return true;
-        }
-        return false;
-    }
-
-    /**
-     * Teste si un id existe déjà parmi les cours existants
-     * @param cours la liste des cours
-     * @param id l'id à tester
-     * @return boolean vrai si trouvé
-     */
-    public static boolean isIdCourseAlreadyExist(ArrayList<Cours> cours, String id){
-        for (Cours c: cours
-             ) {
-            if(c.getId().equals(id))return true;
-        }
-        return false;
-    }
-
-    /**
-     * Teste si un id existe déjà parmi les programmes existants
-     * @param programs la liste des programmes
-     * @param id l'id à tester
-     * @return boolean vrai si trouvé
-     */
-    public static boolean isIdProgramAlreadyExist(ArrayList<Programme> programs,String id){
-        for (Programme p: programs
-        ) {
-            if(p.getId().equals(id))return true;
-        }
-        return false;
-    }
-
-    /**
-     * Teste si un id existe déjà parmi les etudiants existants
-     * @param students la liste des etudiants
-     * @param id l'id à tester
-     * @return boolean vrai si trouvé
-     */
-    public static boolean isIdEtudiantAlreadyExist(ArrayList<Etudiant> students ,String id){
-        for (Etudiant e: students
-        ) {
-            if(id.equals(e.getId()))return true;
-        }
-        return false;
-    }
 
     /**
      * Getteur de directory
