@@ -37,12 +37,6 @@ public abstract class BlocMultiple  extends Bloc {
         this.listUe.add(ue);
     }
 
-    /**
-     * Retourne une string comportant la nature du bloc multiple (composite ou option)
-     * @return String
-     */
-    public abstract String nature ();
-
     @Override
     public String toString() {
         return getId()+" "+getNom();
