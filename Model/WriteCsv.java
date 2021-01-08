@@ -27,6 +27,7 @@ public class WriteCsv {
         try (PrintWriter writer = new PrintWriter(path)) {
             StringBuilder sb = new StringBuilder();
             sb.append("\"Numero Etudiant\",\"Nom\",\"Prenom\",\"").append(p.getNom()).append("\"");           //entete
+
             for ( Bloc b : p.getBlocs()
                  ) {
                 b.toCSVTtitle(sb);
@@ -39,31 +40,26 @@ public class WriteCsv {
                 }
             }
             sb.append("\n");
-            StringBuilder lineMax = new StringBuilder().append("\"").append("Note max").append("\",\"\",").append("\"\",");
-            StringBuilder lineMin = new StringBuilder().append("\"").append("Note min").append("\",\"\",").append("\"\",");
-            StringBuilder lineMoy = new StringBuilder().append("\"").append("Moyenne").append("\",\"\",").append("\"\",");
-            StringBuilder lineEcart = new StringBuilder().append("\"").append("Ecart-type").append("\",\"\",").append("\"\",");
-            for (int i = 0; i < p.getBlocs().size();++i
+            StringBuilder lineMax = new StringBuilder().append("\"").append("Note max").append("\",\"\",").append("\"\"");
+            StringBuilder lineMin = new StringBuilder().append("\"").append("Note min").append("\",\"\",").append("\"\"");
+            StringBuilder lineMoy = new StringBuilder().append("\"").append("Moyenne").append("\",\"\",").append("\"\"");
+            StringBuilder lineEcart = new StringBuilder().append("\"").append("Ecart-type").append("\",\"\",").append("\"\"");
+            makeStats(lineMax,lineMin,lineMoy,lineEcart,MyTools.getStats(xmlReader.getStudentList(),p));
+            for (Bloc b : p.getBlocs()
                  ) {
-                UE ue = p.getBlocs().get(i);
-                ArrayList<Float> myVars = MyTools.getStats(xmlReader.getStudentList(),ue);
-                lineMax.append("\"").append(myVars.get(0)).append("\"");
-                lineMin.append("\"").append(myVars.get(1)).append("\"");
-                lineMoy.append("\"").append(myVars.get(2)).append("\"");
-                lineEcart.append("\"").append(myVars.get(3)).append("\"");
-                if(i==p.getBlocs().size()-1){
-                    lineMax.append("\n");
-                    lineMin.append("\n");
-                    lineMoy.append("\n");
-                    lineEcart.append("\n");
-                }else{
-                    lineMax.append(",");
-                    lineMin.append(",");
-                    lineMoy.append(",");
-                    lineEcart.append(",");
+                makeStats(lineMax,lineMin,lineMoy,lineEcart,MyTools.getStats(xmlReader.getStudentList(),b));
+                if( b.getUE().size() > 1 ){
+                    for (UE ue: b.getUE()
+                    ) {
+                        makeStats(lineMax,lineMin,lineMoy,lineEcart,MyTools.getStats(xmlReader.getStudentList(),ue));
+                    }
                 }
+
             }
-            sb.append(lineMax.toString()).append(lineMin.toString()).append(lineMoy.toString()).append(lineEcart.toString());
+            sb.append(lineMax.toString()).append("\n")
+                    .append(lineMin.toString()).append("\n")
+                    .append(lineMoy.toString()).append("\n")
+                    .append(lineEcart.toString()).append("\n");
 
             writer.write(sb.toString());
 
@@ -90,6 +86,21 @@ public class WriteCsv {
             b.toCsvMoy(sb,e);
         }
         sb.append("\n");
+    }
+
+    /**
+     *  fais les stats à partir d'un arrayList
+     * @param ligneMax ligne du maximum
+     * @param ligneMin ligne du minimum
+     * @param ligneMoy ligne de la moyenne
+     * @param ligneEcartType ligne de l'écart type
+     */
+    private void makeStats(StringBuilder ligneMax,StringBuilder ligneMin ,StringBuilder ligneMoy,StringBuilder ligneEcartType,ArrayList<Float> myVars){
+        ligneMax.append(",\"").append(myVars.get(0)).append("\"");
+        ligneMin.append(",\"").append(myVars.get(1)).append("\"");
+        ligneMoy.append(",\"").append(myVars.get(2)).append("\"");
+        ligneEcartType.append(",\"").append(myVars.get(3)).append("\"");
+
     }
 
 
