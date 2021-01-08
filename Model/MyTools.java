@@ -50,7 +50,6 @@ public class MyTools {
         float moy = somme/nbrEtudiant;
         double sommeE=0;
         for (Etudiant e: studentlist) {
-            if (e.getP()==null)continue;
             float noteEtudiant;
             if(ue.length!=0){
                 if(!(ue[0].calcNote(e).toString().equals("") || ue[0].calcNote(e).toString().equals("ABI"))) {
@@ -63,15 +62,51 @@ public class MyTools {
                 sommeE = sommeE + Math.pow(noteEtudiant-moy,2);
             }
         }
-        ArrayList<Float> myArray = new ArrayList<>();
+        return toFloatArrayList(max,min,moy,Math.sqrt(sommeE / nbrEtudiant));
+    }
 
+    /**
+     * Calcule les statistiques min,max,moyenne et ecart-type d'un Programme.
+     * @param studentlist ArrayList<Etudiant>
+     * @param programme Programme
+     * @return ArrayList<Float>
+     */
+
+    public static ArrayList<Float> getStats(ArrayList<Etudiant> studentlist,Programme programme) {
+        float max = 0;
+        float min = 20;
+        float somme = 0;
+        int nbrEtudiant = 0;
+        for (Etudiant e : studentlist) {
+            if(e.getP().equals(programme)){
+                float noteEtudiant = e.getP().getNoteProgramme(e);
+                nbrEtudiant = nbrEtudiant + 1;
+                somme = somme + noteEtudiant;
+                if (noteEtudiant < min) {
+                    min = noteEtudiant;
+                }
+                if (max < noteEtudiant) {
+                    max = noteEtudiant;
+                }
+            }
+        }
+        float moy = somme/nbrEtudiant;
+        double sommeE=0;
+        for (Etudiant e: studentlist) {
+            if(e.getP().equals(programme)){
+                float noteEtudiant = e.getP().getNoteProgramme(e);
+                sommeE = sommeE + Math.pow(noteEtudiant-moy,2);
+            }
+        }
+        return toFloatArrayList(max,min,moy,Math.sqrt(sommeE / nbrEtudiant));
+    }
+
+    private static ArrayList<Float> toFloatArrayList(float max, float min, float moy, double variance){
+        ArrayList<Float> myArray = new ArrayList<>();
         myArray.add(max);
         myArray.add(min);
         myArray.add(arondit(moy));
-        if(ue.length!=0){
-            System.out.println(ue[0].toString()+" "+nbrEtudiant);
-        }
-        myArray.add(arondit(Math.sqrt(sommeE / nbrEtudiant)));
+        myArray.add(arondit(variance));
         return myArray;
     }
 

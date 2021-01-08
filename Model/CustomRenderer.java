@@ -90,7 +90,7 @@ public class CustomRenderer extends DefaultTableCellRenderer implements TableCel
             TableColumnModel columnModel = table.getColumnModel();
             if(table.getRowCount()==1){
                 int lastRow=table.convertRowIndexToModel(row);
-                for (int i = TabCreation.NBR_COMPOSANTS_ETUDIANTS+1; i < table.getModel().getColumnCount(); i++) {
+                for (int i = TabCreation.NBR_COMPOSANTS_ETUDIANTS; i < table.getModel().getColumnCount(); i++) {
                     if(table.getModel().getValueAt(lastRow,i).toString().equals("")){
                         columnModel.getColumn(i).setMinWidth(0);
                         columnModel.getColumn(i).setMaxWidth(0);
@@ -100,7 +100,7 @@ public class CustomRenderer extends DefaultTableCellRenderer implements TableCel
             }
             else{
                 int preferredWidth=columnModel.getColumn(0).getPreferredWidth();
-                for (int i = TabCreation.NBR_COMPOSANTS_ETUDIANTS+1; i < table.getModel().getColumnCount(); i++) {
+                for (int i = TabCreation.NBR_COMPOSANTS_ETUDIANTS; i < table.getModel().getColumnCount(); i++) {
                     columnModel.getColumn(i).setMinWidth(preferredWidth);
                     columnModel.getColumn(i).setMaxWidth(preferredWidth);
                     columnModel.getColumn(i).setWidth(preferredWidth);

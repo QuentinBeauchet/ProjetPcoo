@@ -288,7 +288,6 @@ public class XMLReader {
      * @param filename chemin complet
      */
     public void defineDirectoryAndFileName(String filename){
-
         for (int i = filename.length()-1 ; i > 0 ; i--) {
             if(filename.charAt(i) == '\\'){
                 this.directory = filename.substring(0,i);
