@@ -101,17 +101,25 @@ public class MyTools {
         return toFloatArrayList(max,min,moy,Math.sqrt(sommeE / nbrEtudiant));
     }
 
+    /**
+     * Crée l'ArrayList<Float> en arrondissant.
+     * @param max float
+     * @param min float
+     * @param moy float
+     * @param variance double
+     * @return ArrayList<Float>
+     */
     private static ArrayList<Float> toFloatArrayList(float max, float min, float moy, double variance){
         ArrayList<Float> myArray = new ArrayList<>();
-        myArray.add(max);
-        myArray.add(min);
+        myArray.add(arondit(max));
+        myArray.add(arondit(min));
         myArray.add(arondit(moy));
         myArray.add(arondit(variance));
         return myArray;
     }
 
     /**
-     * Arrondit les double a 4 chiffres apres la virgule.
+     * Arrondit les double a 3 chiffres apres la virgule.
      * @param f double
      * @return float
      */
