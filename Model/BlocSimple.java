@@ -29,7 +29,7 @@ public class BlocSimple extends Bloc {
 
     @Override
     public String toString() {
-        return ue.getNom();
+        return this.getId() + " " + this.getNom();
     }
     @Override
     public ArrayList<UE> getUE(){
@@ -37,4 +37,15 @@ public class BlocSimple extends Bloc {
         ue.add(this.ue);
         return ue;
     }
+
+    @Override
+    public void toCSVTtitle(StringBuilder sb) {
+        sb.append(",\"").append(this).append("\"");
+    }
+
+    @Override
+    public void toCsvMoy(StringBuilder sb, Etudiant e) {
+       sb.append(",\"").append(this.calcNote(e)).append("\"");
+    }
+
 }

@@ -43,7 +43,7 @@ public class Cours implements UE{
 
     @Override
     public String toString() {
-        return this.nom+" "+this.id+" ("+this.coef+")";
+        return this.id + " "+ this.nom;
     }
 
     @Override

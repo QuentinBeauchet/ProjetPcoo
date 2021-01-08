@@ -25,23 +25,20 @@ public class WriteCsv {
     public void printCSV(Programme p){
         String path = "data/"+p.getNom().replace(" ","_")+".csv";
         try (PrintWriter writer = new PrintWriter(path)) {
-
             StringBuilder sb = new StringBuilder();
-            sb.append("\"Numero Etudiant\",\"Nom\",\"Prenom\",");           //entete
-            sb.append("\"").append(p.getBlocs().get(0).getNom()).append("\"");
-            for (int i = 1; i < p.getBlocs().size() ; i++) {                //enteteCours
-                sb.append(",").append("\"").append(p.getBlocs().get(i).getNom()).append("\"");
+            sb.append("\"Numero Etudiant\",\"Nom\",\"Prenom\",\"").append(p.getNom()).append("\"");           //entete
+            for ( Bloc b : p.getBlocs()
+                 ) {
+                b.toCSVTtitle(sb);
             }
             sb.append("\n");
-
             for (Etudiant e: xmlReader.getStudentList()                     //Etudiants
                  ) {
                 if(p.equals(e.getP())){
-                    etudiantCol(e,sb);
+                    etudiantCol(e,sb,p);
                 }
             }
             sb.append("\n");
-
             StringBuilder lineMax = new StringBuilder().append("\"").append("Note max").append("\",\"\",").append("\"\",");
             StringBuilder lineMin = new StringBuilder().append("\"").append("Note min").append("\",\"\",").append("\"\",");
             StringBuilder lineMoy = new StringBuilder().append("\"").append("Moyenne").append("\",\"\",").append("\"\",");
@@ -81,16 +78,19 @@ public class WriteCsv {
      * Ecris la ligne dans le StringBuilder
      * @param e l'etudiant
      * @param sb le StringBuilder
+     * @param p le programme de l'élève
      */
-    private void etudiantCol (Etudiant e, StringBuilder sb){
+    private void etudiantCol (Etudiant e, StringBuilder sb,Programme p){
         sb.append("\"").append(e.getId()).append("\",")
                 .append("\"").append(e.getNom()).append("\",")
-                .append("\"").append(e.getPrenom()).append("\",");
-        sb.append("\"").append(e.getP().getBlocs().get(0).calcNote(e).toString()).append("\"");
-        for (int i = 1; i < e.getP().getBlocs().size() ; i++ ) {
-            sb.append(",\"").append(e.getP().getBlocs().get(i).calcNote(e).toString()).append("\"");
+                .append("\"").append(e.getPrenom()).append("\",")
+                .append("\"").append(p.getNoteProgramme(e)).append("\"");
+        for (Bloc b: p.getBlocs()
+             ) {
+            b.toCsvMoy(sb,e);
         }
         sb.append("\n");
     }
+
 
 }

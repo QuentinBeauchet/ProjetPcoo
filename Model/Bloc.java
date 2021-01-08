@@ -41,6 +41,16 @@ public abstract class Bloc implements UE {
      */
     public abstract ArrayList<UE> getUE();
 
+    /**
+     * configure les champs des colonnes d'un csv
+     * @param sb le string builder
+     */
+    public abstract void toCSVTtitle(StringBuilder sb);
 
+    /**
+     * configure les champs correspondant à un étudiant d'un csv
+     * @param sb le string builder
+     */
+    public abstract void toCsvMoy(StringBuilder sb,Etudiant e );
 
 }

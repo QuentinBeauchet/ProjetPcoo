@@ -24,7 +24,7 @@ public interface UE {
 
     /**
      * convertie une UE en String
-     * @return
+     * @return string
      */
     String toString();
 

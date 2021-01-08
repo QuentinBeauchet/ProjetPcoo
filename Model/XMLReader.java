@@ -65,7 +65,7 @@ public class XMLReader {
 
     public XMLReader(String fileName) {
         defineDirectoryAndFileName(fileName);
-        new PathSaver(this.directory);
+        new PathSaver(fileName);
         this.file = readFile(fileName);
         this.courseList = fillCourses();
         this.programList = fillPrograms();

@@ -21,14 +21,16 @@ public class BlocComposite extends BlocMultiple {
 
     @Override
     public Note calcNote(Etudiant e) {
-        int somme=0;
-        int total=0;
-        for (UE ue: this.listUe
-        ) {
+        boolean isABI = true;
+        float somme=0;
+        float total=0;
+        for (UE ue: this.listUe){
+            if(!(ue.calcNote(e).toString().equals("ABI")))isABI=false;
             somme += ue.getCoef()*ue.calcNote(e).getFloatNote();
             total += ue.getCoef();
         }
-        return new Note(String.valueOf(somme/total));
+        return (isABI ? new Note("ABI") : new
+                Note(String.valueOf(somme/total)));
     }
     @Override
     public void toXml(StringBuilder sb) {

@@ -56,12 +56,11 @@ public class BlocOptions extends BlocMultiple {
         Note nMax = new Note("0");
         boolean isBlocABI=true;
         for (UE ue : this.listUe) {
-            Cours cour=(Cours)ue;
-            if(e.getNotes().get(cour) != null){
-                if (nMax.getFloatNote() < e.getNotes().get(cour).getFloatNote()){
-                    nMax = e.getNotes().get(cour);
+            if(e.getNotes().get(ue) != null){
+                if (nMax.getFloatNote() < e.getNotes().get(ue).getFloatNote()){
+                    nMax = e.getNotes().get(ue);
                 }
-                if (!(e.getNotes().get(cour).toString().equals("ABI"))) {
+                if (!(e.getNotes().get(ue).toString().equals("ABI"))) {
                     isBlocABI = false;
                 }
             }
