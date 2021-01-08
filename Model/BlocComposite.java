@@ -15,11 +15,6 @@ public class BlocComposite extends BlocMultiple {
     }
 
     @Override
-    public String nature() {
-        return "Bloc composite ";
-    }
-
-    @Override
     public Note calcNote(Etudiant e) {
         boolean isABI = true;
         float somme=0;

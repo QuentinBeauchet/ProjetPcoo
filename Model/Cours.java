@@ -39,8 +39,6 @@ public class Cours implements UE{
         return this.nom;
     }
 
-
-
     @Override
     public String toString() {
         return this.id + " "+ this.nom;

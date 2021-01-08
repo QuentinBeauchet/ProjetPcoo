@@ -42,11 +42,6 @@ public class BlocOptions extends BlocMultiple {
     }
 
     @Override
-    public String nature() {
-        return "Bloc Option ";
-    }
-
-    @Override
     public int getCoef() {
         return this.coef;
     }
