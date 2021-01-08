@@ -14,21 +14,28 @@ public class FileChooser {
      * Classe qui instancie le JFileChooser pour choisir un nouveau fichier xml.
      */
 
+
+
     public FileChooser(){
-        setLF();
-        FileNameExtensionFilter filter = new FileNameExtensionFilter("Fichiers .xml", "xml");
-        chooser.setFileFilter(filter);
+        initialise();
         option = chooser.showOpenDialog(null);
     }
 
     public FileChooser(String dialog,String buttonName){
-        setLF();
+        initialise();
         chooser.setDialogTitle(dialog);
-        FileNameExtensionFilter filter = new FileNameExtensionFilter("Fichiers .xml", "xml");
-        chooser.setFileFilter(filter);
         option = chooser.showDialog(null,buttonName);
+
     }
 
+    /**
+     * initalise le fileChooser
+     */
+    public void initialise(){
+        setLF();
+        FileNameExtensionFilter filter = new FileNameExtensionFilter("Fichiers .xml", "xml");
+        chooser.setFileFilter(filter);
+    }
     /**
      * Look&Feel du JFileChooser.
      */
